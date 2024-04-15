@@ -8,12 +8,12 @@ const AnalyticsPage = () => {
   if (error) return <p>Some Error</p>;
 
   return (
-    <div className="w-full p-5 grid grid-cols-2 lg:grid-cols-4 gap-5">
+    <div className="w-full p-5 py-10 grid grid-cols-2 lg:grid-cols-4 gap-5">
       {data?.map((user) => (
-        <div key={user.id} className="p-3 bg-gray-200">
+        <div key={user.id} className="p-3 py-6 bg-gray-200">
           <p>{user.name}</p>
           <p>{user.username}</p>
-          <p>{user.email}</p>
+          <p className="text-xs">{user.email}</p>
         </div>
       ))}
     </div>

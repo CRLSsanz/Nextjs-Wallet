@@ -21,7 +21,7 @@ const LoginPage = () => {
             want.
           </p>
 
-          <div className="p-4">
+          <div className="py-10">
             <div className="mb-2 hidden">Login</div>
             <div className="hidden relative">
               <input
