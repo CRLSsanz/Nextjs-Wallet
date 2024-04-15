@@ -9,7 +9,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="w-full md:max-w-[600px] mt-32 mx-4 min-h-[calc(100vh-250px)] bg-gray-50 rounded-2xl rounded-tl-[80px] rounded-br-[40px]">
+      <div className="w-full md:max-w-[600px] mt-20 mx-4 min-h-[calc(100vh-250px)] bg-gray-50 Xbg-black/20 rounded-2xl rounded-tl-[80px] rounded-br-[40px]">
         <div className="text-base px-8 md:px-24">
           <h1 className="h-16 md:h-32"></h1>
           <h1 className="text-4xl text-gray-300 mb-3">

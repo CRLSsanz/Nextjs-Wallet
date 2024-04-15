@@ -11,8 +11,11 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="fixed w-full h-14 left-0 bottom-0 border-b border-gray-300/30 bg-gradient-to-b from-zinc-600  backdrop-blur-2xl lg:px-40 py-3 px-5 flex justify-between items-center text-white">
-        <Link href="/" className="flex flex-col justify-center items-center">
+      <nav className="fixed w-full h-14 left-0 bottom-0 border-b border-gray-300/30 bg-gradient-to-b from-zinc-600/50  backdrop-blur-2xl lg:px-40 py-3 px-5 flex justify-between items-center text-white">
+        <Link
+          href="/"
+          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.35] transition-transform duration-200 active:animate-ping"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -33,7 +36,7 @@ const Navbar = () => {
 
         <Link
           href="/analytics"
-          className="flex flex-col justify-center items-center"
+          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.35] transition-transform duration-200 active:animate-ping"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +62,7 @@ const Navbar = () => {
 
         <Link
           href="/form"
-          className="flex flex-col justify-center items-center"
+          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.35] transition-transform duration-200 active:animate-ping"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +83,7 @@ const Navbar = () => {
 
         <Link
           href="/history"
-          className="flex flex-col justify-center items-center"
+          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.35] transition-transform duration-200 active:animate-ping"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +104,7 @@ const Navbar = () => {
 
         <div
           onClick={() => setNavbar(!navbar)}
-          className="flex flex-col justify-center items-center"
+          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.35] transition-transform duration-200 active:animate-ping cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

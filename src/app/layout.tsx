@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="bg-cover bg-fixed bg-center bg-[url('/images/f-hexagon.jpg')] min-h-screen">
+        <div className="bg-[#A19D92] bg-cover bg-fixed bg-center bg-[url('/images/f-hexagon.jpg')] min-h-screen">
           <Providers>
             <ProvidersAuth>
               <Navbar />
