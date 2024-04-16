@@ -11,10 +11,10 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="fixed w-full h-14 left-0 bottom-0 border-b border-gray-300/30 bg-gradient-to-b from-zinc-600/50  backdrop-blur-2xl lg:px-40 py-3 px-5 flex justify-between items-center text-white">
+      <nav className="fixed w-full h-14 left-0 bottom-0 border-b border-gray-300/30 bg-gradient-to-b from-zinc-600/50  backdrop-blur-2xl lg:px-40 px-6 flex justify-between items-center text-white">
         <Link
           href="/"
-          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.35] transition-transform duration-200 active:animate-ping"
+          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -34,77 +34,84 @@ const Navbar = () => {
           <h1 className="text-sm hidden">Home</h1>
         </Link>
 
-        <Link
-          href="/analytics"
-          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.35] transition-transform duration-200 active:animate-ping"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-7 h-7"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"
-            />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
-            />
-          </svg>
-          <h1 className="text-sm hidden">Analytics</h1>
-        </Link>
+        {session?.user ? (
+          <div className="w-6/12 flex justify-between">
+            <Link
+              href="/analytics"
+              className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
+              hidden={true}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
+                />
+              </svg>
+              <h1 className="text-sm hidden">Analytics</h1>
+            </Link>
 
-        <Link
-          href="/form"
-          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.35] transition-transform duration-200 active:animate-ping"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-7 h-7"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
-            />
-          </svg>
-          <h1 className="text-sm hidden">Add</h1>
-        </Link>
+            <Link
+              href="/form"
+              className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
+                />
+              </svg>
+              <h1 className="text-sm hidden">Add</h1>
+            </Link>
 
-        <Link
-          href="/history"
-          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.35] transition-transform duration-200 active:animate-ping"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-7 h-7"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-            />
-          </svg>
-          <h1 className="text-sm hidden">History</h1>
-        </Link>
+            <Link
+              href="/history"
+              className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+              <h1 className="text-sm hidden">History</h1>
+            </Link>
+          </div>
+        ) : (
+          <></>
+        )}
 
         <div
           onClick={() => setNavbar(!navbar)}
-          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.35] transition-transform duration-200 active:animate-ping cursor-pointer"
+          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -133,14 +140,14 @@ const Navbar = () => {
         }`}
       >
         {/** INFO DEL USUARIO */}
-        <div className="bg-gray-800/80 h-full">
+        <div className="bg-gray-900/90 h-full">
           {session?.user ? (
             <div className="flex flex-col items-center">
-              <div className="hidden bg-gray-900/80 w-full h-28"> </div>
+              <div className="hidden bg-gray-900/20 w-full h-28"> </div>
               <img
                 src={`${session.user.image}`}
                 alt="user image"
-                className="w-20 h-20 rounded-full border-4 border-gray-100 cursor-pointer -mt-10 mb-5"
+                className="w-20 h-20 rounded-full border-4 border-gray-800/80 cursor-pointer -mt-10 mb-5"
               />
               <p className="">{session.user.name}</p>
               <p className="text-xs mb-5">{session.user.email}</p>
@@ -281,8 +288,10 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
-              <p className="text-lg mb-5">No has iniciado sesion</p>
-              <div className="w-full flex justify-center space-x-5 pb-5 border-b border-gray-500/30">
+              <p className="text-lg mb-5">
+                No has <br /> iniciado sesion
+              </p>
+              <div className="w-full flex justify-center space-x-5 pb-5 mb-10 border-b border-gray-500/30 text-gray-400">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -434,7 +443,7 @@ const Navbar = () => {
           </button>
         </div>
         {/** SPACIO EN BLANCO DEL NAVBAR */}
-        <div className="bg-gradient-to-b from-gray-800/80 w-full h-14">
+        <div className="bg-gradient-to-b from-gray-900/90 w-full h-14">
           <h1></h1>
         </div>
       </ul>
