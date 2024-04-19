@@ -34,56 +34,56 @@ const Navbar = () => {
           <h1 className="text-sm hidden">Home</h1>
         </Link>
 
+        <Link
+          href="/analytics"
+          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
+          hidden={true}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-7 h-7"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
+            />
+          </svg>
+          <h1 className="text-sm hidden">Analytics</h1>
+        </Link>
+
+        <Link
+          href="/form"
+          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-7 h-7"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
+            />
+          </svg>
+          <h1 className="text-sm hidden">Add</h1>
+        </Link>
+
         {session?.user ? (
-          <div className="w-6/12 flex justify-between">
-            <Link
-              href="/analytics"
-              className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
-              hidden={true}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-7 h-7"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
-                />
-              </svg>
-              <h1 className="text-sm hidden">Analytics</h1>
-            </Link>
-
-            <Link
-              href="/form"
-              className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-7 h-7"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
-                />
-              </svg>
-              <h1 className="text-sm hidden">Add</h1>
-            </Link>
-
+          <div className="Xw-6/12 flex justify-between">
             <Link
               href="/history"
               className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
@@ -228,7 +228,7 @@ const Navbar = () => {
               <div className="w-full text-white flex flex-row items-center justify-between px-7 py-4 text-center">
                 <div
                   onClick={async () => await signOut({ callbackUrl: "/" })}
-                  className=""
+                  className="cursor-pointer"
                 >
                   <div className="flex flex-row space-x-2">
                     <svg
@@ -344,7 +344,7 @@ const Navbar = () => {
               </div>
               {/** LOGIN Y CERRAR VENTANA */}
               <div className="w-full text-white flex flex-row items-center justify-between px-7 py-4 text-center">
-                <div onClick={() => signIn()}>
+                <div onClick={() => signIn()} className="cursor-pointer">
                   <div className="flex flex-row space-x-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
