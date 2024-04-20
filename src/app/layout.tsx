@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="bg-[#B48969] bg-cover bg-fixed bg-[49.5%] bg-[url('/images/f-hexagon.jpg')] min-h-screen pr-5">
+        <div className="bg-gray-700 bg-cover bg-fixed bg-[49.5%] bg-[url('/images/blur-dark.jpg')] min-h-screen pr-10">
           <Providers>
             <ProvidersAuth>
               <Navbar />

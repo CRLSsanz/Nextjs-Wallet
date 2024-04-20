@@ -4,6 +4,14 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 
+const menuItems = [
+  {
+    title: "History",
+    link: "/history",
+    svg: "history.svg",
+  },
+];
+
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
   const { data: session } = useSession();
@@ -11,31 +19,31 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="fixed w-12 h-80 right-0 bottom-10 border-b border-gray-300/30 bg-gradient-to-t from-zinc-600  backdrop-blur-2xl lg:px-40 py-5 flex flex-col justify-between items-center text-white rounded-l-3xl">
-        <Link
-          href="/"
-          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-7 h-7"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-            />
-          </svg>
-
-          <h1 className="text-sm hidden">Home</h1>
-        </Link>
-
+      <nav className="fixed w-12 h-12 right-2 bottom-2 bg-gradient-to-t from-zinc-600 backdrop-blur-2xl flex flex-col justify-between items-center text-white ">
         {session?.user ? (
-          <div className="h-40 flex flex-col justify-between">
+          <div className="hidden h-40 Xflex flex-col justify-between">
+            <Link
+              href="/"
+              className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                />
+              </svg>
+
+              <h1 className="text-sm hidden">Home</h1>
+            </Link>
+
             <Link
               href="/analytics"
               className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
@@ -109,38 +117,288 @@ const Navbar = () => {
           <></>
         )}
 
-        <div
-          onClick={() => setNavbar(!navbar)}
-          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping cursor-pointer"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-7 h-7"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-            />
-          </svg>
-          <h1 className="text-sm hidden">Profile</h1>
+        <div className="flex flex-col justify-center items-center hover:rotate-6 Xhover:scale-[1.30] transition-transform duration-200 active:animate-ping cursor-pointer">
+          <div onClick={() => setNavbar(!navbar)} className="bg-red-400 p-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 9h16.5m-16.5 6.75h16.5"
+              />
+            </svg>
+          </div>
         </div>
       </nav>
 
       <ul
-        className={`fixed right-0 z-50 text-white Xbg-[#222222]/70 Xw-full w-[calc(100vw-80px)] h-screen transform transition-all duration-1000 flex flex-col rounded-b-md text-center
+        className={`fixed top-0 z-50 text-white Xbg-[#222222]/70 Xw-full w-[280px] Xw-[calc(100vw-160px)] h-[calc(100vh-60px)] Xh-screen transform transition-all duration-1000 flex flex-col rounded-b-md text-center bg-cover bg-fixed bg-[49.5%] bg-[url('/images/f-city.jpg')]
         ${
           navbar
             ? " opacity-100 pointer-events-auto right-0"
-            : "opacity-0 pointer-events-none -right-40"
+            : "Xopacity-0 Xpointer-events-none -right-60"
         }`}
       >
+        {/** MENU */}
+        <div className="bg-gray-800/80 shadow-md shadow-white h-full p-2 flex flex-col">
+          {/** ITEMS */}
+          <div className="flex flex-col space-y-5 transform transition-all duration-5000 ">
+            {!navbar ? (
+              <div
+                onClick={() => setNavbar(!navbar)}
+                className="flex flex-row items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-7 h-7"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                  />
+                </svg>
+                <h1 className="text-sm pl-3 hidden">Profile</h1>
+              </div>
+            ) : (
+              <></>
+            )}
+
+            {session?.user && (
+              <div className="flex flex-col items-center">
+                <div className="hidden bg-gray-900/20 w-full h-32"> </div>
+                <img
+                  src={`${session.user.image}`}
+                  alt="user image"
+                  className="w-32 h-32 rounded-full border-4 border-gray-800/80 cursor-pointer X-mt-14 mb-5"
+                />
+                <p className="">{session.user.name}</p>
+                <p className="text-xs mb-5">{session.user.email}</p>
+                <div className="w-full flex justify-center space-x-5 pb-5 mb-5 border-b border-gray-500/30">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"
+                    />
+                  </svg>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"
+                    />
+                  </svg>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            )}
+            <Link
+              href="/"
+              className="flex flex-row items-center Xhover:rotate-6"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7 active:animate-ping hover:scale-[1.30] transition-transform duration-200"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                />
+              </svg>
+              <h1 className="text-sm pl-3">Home</h1>
+            </Link>
+
+            <Link
+              href="/analytics"
+              className="flex flex-row items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
+                />
+              </svg>
+              <h1 className="text-sm pl-3">Analytics</h1>
+            </Link>
+
+            <Link
+              href="/form"
+              className="flex flex-row items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
+                />
+              </svg>
+              <h1 className="text-sm pl-3">Add</h1>
+            </Link>
+
+            <Link
+              href="/history"
+              className="flex flex-row items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+              <h1 className="text-sm pl-3">History</h1>
+            </Link>
+
+            <div className="w-full flex flex-row">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+              </svg>
+              <h4 className="text-sm pl-3">Configurar</h4>
+            </div>
+
+            {/** LOGOUT Y CERRAR VENTANA */}
+            <div className="w-full text-white flex flex-row items-center justify-between py-4 text-center">
+              <div
+                onClick={async () => await signOut({ callbackUrl: "/" })}
+                className="cursor-pointer"
+              >
+                <div className="flex flex-row space-x-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
+                    />
+                  </svg>
+                  <h4>Cerrar sesion</h4>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setNavbar(!navbar)}
+                className="w-8 h-8 text-gray-200 active:bg-none active:animate-ping focus:outline-none flex justify-center items-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
         {/** INFO DEL USUARIO */}
-        <div className="bg-gradient-to-tl from-gray-900 to-red-900/90 h-full">
+        <div className="hidden bg-gradient-to-tl from-gray-900 to-red-900/90 h-full">
           {session?.user ? (
             <div className="flex flex-col items-center">
               <div className="bg-gray-900/20 w-full h-32"> </div>
@@ -441,10 +699,6 @@ const Navbar = () => {
               />
             </svg>
           </button>
-        </div>
-        {/** SPACIO EN BLANCO DEL NAVBAR */}
-        <div className="Xbg-gradient-to-b Xfrom-gray-900/90 bg-gray-900/90 w-full h-14">
-          <h1></h1>
         </div>
       </ul>
     </div>
