@@ -1,24 +1,77 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
+import { useState } from "react";
 
 const LoginPage = () => {
   const { data: session } = useSession();
   console.log(session);
+
+  type Props = {
+    title: string;
+    icon: string;
+    size: number;
+  };
+
+  const LoginComponentButton = ({ title, icon, size }: Props) => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleLoginProvider = async () => {
+      try {
+        setIsLoading(true);
+        await signIn(icon);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    return (
+      <>
+        <button
+          onClick={handleLoginProvider}
+          className="w-72 flex flex-row items-center justify-center py-2 px-3 border border-gray-200 rounded-md hover:bg-cyan-500/20 cursor-pointer"
+        >
+          <Image
+            src={`/images/${icon}.png`}
+            width={size}
+            height={size}
+            alt={`image ${icon}`}
+          />
+          {isLoading ? (
+            <span className="w-40 animate-pulse">Loading...</span>
+          ) : (
+            <span className="pl-2">Continuar con {title}</span>
+          )}
+        </button>
+      </>
+    );
+  };
 
   return (
     <div className="flex justify-center">
       <div className="w-full md:max-w-[600px] mt-20 mx-4 min-h-[calc(100vh-250px)] bg-gray-50 Xbg-black/20 rounded-2xl rounded-tl-[80px] rounded-br-[40px]">
         <div className="text-base px-8 md:px-24">
           <h1 className="h-16 md:h-32"></h1>
-          <h1 className="text-4xl text-gray-300 mb-3">
+          <h1 className="hidden text-4xl text-gray-300 mb-3">
             Manage your <span className="text-cyan-600">Expenses</span> more
             easily
           </h1>
-          <p className=" text-gray-500 text-sm mb-6">
+          <h1 className="text-4xl text-gray-300 mb-3">
+            Gestiona <span className="text-3xl"> tus </span>{" "}
+            <span className="text-cyan-600">Gastos </span>
+            <span className="text-3xl"> más fácilmente</span>
+          </h1>
+
+          <p className="hidden text-gray-500 text-sm mb-6">
             Get complete control over your expenses and save as mush as you
             want.
+          </p>
+          <p className="text-gray-500 text-sm mb-6">
+            Obtén control total sobre tus gastos y ahorra todo lo que quieras.
           </p>
 
           <div className="py-10">
@@ -73,46 +126,21 @@ const LoginPage = () => {
             {/* LOGIN CON GOOGLE FACCEBOOK Y GITHUB */}
 
             {!session?.user ? (
-              <div className="flex flex-col items-center text-gray-600 space-y-5">
-                <div
-                  onClick={() => signIn("google")}
-                  className="w-72 flex flex-row items-center py-2 px-3 border border-gray-300 rounded-md cursor-pointer"
-                >
-                  <Image
-                    src="/images/Google.png"
-                    width={27}
-                    height={27}
-                    alt="facebook image"
-                  />
-                  <span className="w-full text-center">Acceder con Google</span>
+              <div className="flex flex-col items-center text-gray-700 space-y-5">
+                <div className="w-full flex flex-row items-center ">
+                  <span className="w-full Xborder-b h-1"></span>
+                  <h1 className="text-lg font-semibold Xtext-cyan-600 whitespace-nowrap px-2">
+                    Log in
+                  </h1>
+                  <span className="w-full Xborder-b h-1"></span>
                 </div>
-
-                <div
-                  onClick={() => signIn("facebook")}
-                  className="w-72 flex flex-row items-center py-2 px-3 border border-gray-300 rounded-md cursor-pointer"
-                >
-                  <img
-                    src="/images/facebook.png"
-                    style={{ width: "30px" }}
-                    alt="google image"
-                  />
-                  <span className="w-full text-center">
-                    Acceder con Facebook
-                  </span>
-                </div>
-
-                <div
-                  onClick={() => signIn("github")}
-                  className="w-72 flex flex-row items-center py-2 px-3 border border-gray-300 rounded-md cursor-pointer"
-                >
-                  <Image
-                    src="/images/github.png"
-                    width={30}
-                    height={30}
-                    alt="github image"
-                  />
-                  <span className="w-full text-center">Acceder con Github</span>
-                </div>
+                <LoginComponentButton title="Google" icon="google" size={27} />
+                <LoginComponentButton
+                  title="Facebook"
+                  icon="facebook"
+                  size={30}
+                />
+                <LoginComponentButton title="Github" icon="github" size={30} />
               </div>
             ) : (
               <Link

@@ -1,4 +1,5 @@
 "use client";
+
 import Count from "@/components/Count";
 import UserList from "@/components/UserList";
 import { useGetUsersQuery } from "@/redux/services/userApi";

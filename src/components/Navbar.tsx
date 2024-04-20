@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="fixed w-full h-14 left-0 bottom-0 border-b border-gray-300/30 bg-gradient-to-b from-zinc-600/50  backdrop-blur-2xl lg:px-40 px-6 flex justify-between items-center text-white">
+      <nav className="fixed w-12 h-80 right-0 bottom-10 border-b border-gray-300/30 bg-gradient-to-t from-zinc-600  backdrop-blur-2xl lg:px-40 py-5 flex flex-col justify-between items-center text-white rounded-l-3xl">
         <Link
           href="/"
           className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
@@ -34,56 +34,56 @@ const Navbar = () => {
           <h1 className="text-sm hidden">Home</h1>
         </Link>
 
-        <Link
-          href="/analytics"
-          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
-          hidden={true}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-7 h-7"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"
-            />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
-            />
-          </svg>
-          <h1 className="text-sm hidden">Analytics</h1>
-        </Link>
-
-        <Link
-          href="/form"
-          className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-7 h-7"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
-            />
-          </svg>
-          <h1 className="text-sm hidden">Add</h1>
-        </Link>
-
         {session?.user ? (
-          <div className="Xw-6/12 flex justify-between">
+          <div className="h-40 flex flex-col justify-between">
+            <Link
+              href="/analytics"
+              className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
+              hidden={true}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
+                />
+              </svg>
+              <h1 className="text-sm hidden">Analytics</h1>
+            </Link>
+
+            <Link
+              href="/form"
+              className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
+                />
+              </svg>
+              <h1 className="text-sm hidden">Add</h1>
+            </Link>
+
             <Link
               href="/history"
               className="flex flex-col justify-center items-center Xhover:rotate-6 hover:scale-[1.30] transition-transform duration-200 active:animate-ping"
@@ -132,22 +132,22 @@ const Navbar = () => {
       </nav>
 
       <ul
-        className={`fixed left-0 z-50 text-white Xbg-[#222222]/70 Xw-full w-[calc(100vw-0px)] Xh-[400px] transform transition-all duration-1000 flex flex-col rounded-b-md text-center
+        className={`fixed right-0 z-50 text-white Xbg-[#222222]/70 Xw-full w-[calc(100vw-80px)] h-screen transform transition-all duration-1000 flex flex-col rounded-b-md text-center
         ${
           navbar
-            ? " opacity-100 pointer-events-auto bottom-0"
-            : "opacity-0 pointer-events-none -bottom-40"
+            ? " opacity-100 pointer-events-auto right-0"
+            : "opacity-0 pointer-events-none -right-40"
         }`}
       >
         {/** INFO DEL USUARIO */}
-        <div className="bg-gray-900/90 h-full">
+        <div className="bg-gradient-to-tl from-gray-900 to-red-900/90 h-full">
           {session?.user ? (
             <div className="flex flex-col items-center">
-              <div className="hidden bg-gray-900/20 w-full h-28"> </div>
+              <div className="bg-gray-900/20 w-full h-32"> </div>
               <img
                 src={`${session.user.image}`}
                 alt="user image"
-                className="w-20 h-20 rounded-full border-4 border-gray-800/80 cursor-pointer -mt-10 mb-5"
+                className="w-32 h-32 rounded-full border-4 border-gray-800/80 cursor-pointer -mt-14 mb-5"
               />
               <p className="">{session.user.name}</p>
               <p className="text-xs mb-5">{session.user.email}</p>
@@ -443,7 +443,7 @@ const Navbar = () => {
           </button>
         </div>
         {/** SPACIO EN BLANCO DEL NAVBAR */}
-        <div className="bg-gradient-to-b from-gray-900/90 w-full h-14">
+        <div className="Xbg-gradient-to-b Xfrom-gray-900/90 bg-gray-900/90 w-full h-14">
           <h1></h1>
         </div>
       </ul>
