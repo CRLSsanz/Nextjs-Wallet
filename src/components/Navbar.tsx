@@ -176,17 +176,17 @@ const Navbar = () => {
             ? ` ${
                 maxim
                   ? " right-0 bg-cover bg-fixed bg-[50%] bg-[url('/images/f-city.jpg')] "
-                  : " -right-60 bg-gradient-to-l from-zinc-200 backdrop-blur-sm "
+                  : " -right-60 Xbg-gradient-to-r Xfrom-zinc-200 backdrop-blur-sm "
               } `
             : " -right-[320px] "
         }`}
       >
         {/** MENU */}
-        <div className="bg-gray-800/80 Xshadow-md Xshadow-white h-full py-5 px-7 flex flex-col justify-between">
+        <div className="bg-gray-800/70 Xshadow-md Xshadow-white h-full py-5 px-7 flex flex-col justify-between">
           {/** ITEMS */}
           <div className="flex flex-col space-y-8 transform transition-all duration-1000 ">
-            {/** EXPANDIR */}
-            <div className="flex flex-row justify-between">
+            {/** EXPANDIR * /}
+            <div className="hidden Xflex flex-row justify-between">
               <button
                 onClick={() => setMaxim(!maxim)}
                 className="active:bg-none focus:outline-none flex items-center"
@@ -246,15 +246,21 @@ const Navbar = () => {
                 </svg>
                 <h4 className="hidden text-sm pl-4">Configurar</h4>
               </div>
-            </div>
+            </div> 
+            */}
 
             {session?.user ? (
-              <div className="flex flex-row items-center">
+              <div className="flex flex-row items-center mt-2">
                 <img
+                  onClick={() => setMaxim(!maxim)}
                   src={`${session.user.image}`}
                   alt="User image"
                   className={`rounded-full border-gray-800/80 cursor-pointer 
-                  ${maxim ? " w-20 h-20 " : "-ml-2 w-10 h-10 "}
+                  ${
+                    maxim
+                      ? " w-20 h-20 "
+                      : " w-20 h-20 ml-2 active:animate-ping"
+                  }
                   `}
                 />
                 <div className="pl-5 text-left">
@@ -468,9 +474,10 @@ const Navbar = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
+                  d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                 />
               </svg>
+
               <h1 className="text-sm pl-4" hidden={!maxim}>
                 Add
               </h1>
@@ -497,6 +504,30 @@ const Navbar = () => {
               </svg>
               <h1 className="text-sm pl-4" hidden={!maxim}>
                 History
+              </h1>
+            </Link>
+
+            <Link
+              href={session?.user ? "/category" : "#"}
+              onClick={() => setMaxim(false)}
+              className="flex flex-row items-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7 active:animate-ping hover:scale-125 hover:-ml-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
+                />
+              </svg>
+              <h1 className="text-sm pl-4" hidden={!maxim}>
+                Category
               </h1>
             </Link>
           </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Poppins, Barlow } from "next/font/google";
+import { Barlow, Montserrat } from "next/font/google";
 
-const inter = Barlow({
+const inter = Montserrat({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
 });
@@ -73,6 +73,11 @@ const [form, setForm] = useState(initailForm);
       <div className="text-xl text-center text-white mb-5">
         Nueva transaccion
       </div>
+      <h1 className="hidden text-5xl font-thin -tracking-wider">Septiembre</h1>
+      <h1 className="hidden text-5xl font-thin -tracking-wider">
+        Nueva transaccion
+      </h1>
+
       <div className={inter.className}>
         <form className="w-full text-gray-100 Xborder-2 p-5">
           {/** TYPO */}
