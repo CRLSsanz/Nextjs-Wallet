@@ -259,7 +259,7 @@ const Navbar = () => {
                   ${
                     maxim
                       ? " w-20 h-20 "
-                      : " w-20 h-20 ml-2 active:animate-ping"
+                      : " w-20 h-20 ml-2 Xactive:animate-ping"
                   }
                   `}
                 />

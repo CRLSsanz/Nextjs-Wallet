@@ -606,6 +606,8 @@ const HistoryPage = () => {
           </div>
         </div>
 
+        <h1 className="h-2 bg-gradient-to-r from-pink-600 to-blue-600"> </h1>
+
         <div className="hidden p-5 Xflex flex-row text-gray-300">
           <div className="w-14 h-14 ">
             <h1 className="bg-red-400 rounded-full">IMG</h1>
@@ -620,11 +622,35 @@ const HistoryPage = () => {
           </div>
         </div>
 
-        <div className="text-cyan-400 pt-5 px-5 text-xl">
-          Recent transactions <span className="font-numero">({bd.length})</span>
+        <div className=" flex flex-row justify-between text-white bg-gray-500 cursor-pointer">
+          <div className="p-5 text-xl">
+            Cantidad de Items
+            <span className="font-numero"> ({bd.length})</span>
+          </div>
+
+          <div
+            className={` w-20 flex justify-center items-center border-l border-gray-400 
+                    ${isOpen ? " " : " "}                    
+                    `}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-8 h-8"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+          </div>
         </div>
 
-        <div className="p-5">
+        <div className="px-5">
           {bd.map((item, index) => (
             <div key={index}>
               {/**
@@ -635,32 +661,36 @@ const HistoryPage = () => {
                   onClick={() => setIsOpen((prev) => !prev)}
                   className=" flex flex-row text-gray-400 cursor-pointer"
                 >
-                  <div className="mr-5 py-5 flex flex-col justify-between items-center">
+                  <div className="pr-3 py-6 flex flex-col Xjustify-between items-center">
                     <img
                       src={`./images/category/${item.category}.png`}
-                      className="w-20 bg-gray-500/50 rounded-md p-0.5"
-                      style={{ width: "35px" }}
+                      className="w-20 bg-white/50 Xbrightness-125 rounded-full p-1"
+                      style={{ width: "30px" }}
                       alt={item.category}
                     />
-                    <div> </div>
+                    <div className=" "></div>
                   </div>
-                  <div className="relative w-full mr-3 py-5 flex flex-col border-b border-gray-500">
+
+                  <div className="relative w-full mr-5 py-5 flex flex-col border-b border-gray-500">
+                    <h1 className="text-lg text-gray-300">{item.category}</h1>
                     <h1
-                      className={` ${
+                      className={`text-xl font-light  ${
                         item.type === "Income"
-                          ? " text-cyan-400 "
+                          ? " text-cyan-500 font-medium "
                           : " text-white "
-                      } `}
+                      }`}
                     >
-                      $ {item.total.toFixed(2)}
+                      <span className={` text-sm Xfont-bold`}>
+                        $ {/*item.type === "Income" ? " + " : " - "*/}
+                      </span>
+                      {item.total.toFixed(2)}
                     </h1>
-                    <h1 className="text-xl text-gray-300">{item.category}</h1>
                     <h1 className="text-sm text-justify" hidden={isOpen}>
                       {item.comment}
                     </h1>
                     <div
                       onClick={() => handleDelete(item._id)}
-                      className="absolute text-gray-400 top-12 -right-3.5"
+                      className="absolute text-gray-400 top-6 -right-[22px]"
                       hidden={isOpen}
                     >
                       <svg
