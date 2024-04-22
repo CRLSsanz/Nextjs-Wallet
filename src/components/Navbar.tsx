@@ -29,7 +29,7 @@ const Navbar = () => {
     <div>
       <nav
         className={`fixed z-50 w-12 h-12 right-4 bottom-4 Xbg-gradient-to-tl Xfrom-zinc-600 Xbackdrop-blur-2xl flex flex-col justify-between items-center text-white 
-      ${navbar ? " bg-gray-800/30 " : " bg-gray-900/90 "}      
+      ${navbar ? " bg-gray-800/20 " : " bg-gray-900/90 "}      
       `}
       >
         {session?.user ? (
@@ -170,19 +170,19 @@ const Navbar = () => {
       </nav>
 
       <ul
-        className={`fixed top-0 z-20 text-gray-100 Xbg-[#222222]/70 Xw-full w-[320px] Xw-[calc(100vw-160px)] h-[calc(100vh-0px)] Xh-screen transform transition-all duration-500 flex flex-col rounded-b-md text-center border-l border-gray-500  
+        className={`fixed top-0 z-20 text-gray-100 Xbg-[#222222]/70 Xw-full w-[320px] Xw-[calc(100vw-160px)] h-[calc(100vh-0px)] Xh-screen transform transition-all duration-500 flex flex-col rounded-b-md text-center border-l border-gray-500
         ${
           navbar
             ? ` ${
                 maxim
                   ? " right-0 bg-cover bg-fixed bg-[50%] bg-[url('/images/f-city.jpg')] "
-                  : " -right-60 Xbg-gradient-to-r Xfrom-zinc-200 backdrop-blur-sm "
+                  : " -right-60 Xbg-gradient-to-r Xfrom-zinc-200 backdrop-blur-md "
               } `
             : " -right-[320px] "
         }`}
       >
         {/** MENU */}
-        <div className="bg-gray-800/70 Xshadow-md Xshadow-white h-full py-5 px-7 flex flex-col justify-between">
+        <div className="bg-gray-900/50 Xshadow-md Xshadow-white h-full py-5 px-7 flex flex-col justify-between">
           {/** ITEMS */}
           <div className="flex flex-col space-y-8 transform transition-all duration-1000 ">
             {/** EXPANDIR * /}
@@ -508,7 +508,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              href={session?.user ? "/category" : "#"}
+              href={session?.user ? "/category#list" : "#"}
               onClick={() => setMaxim(false)}
               className="flex flex-row items-center"
             >

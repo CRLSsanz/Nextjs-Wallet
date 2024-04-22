@@ -4,10 +4,11 @@ import UserList from "@/components/UserList";
 import { Montserrat } from "next/font/google";
 import { useState } from "react";
 import HistoryRow from "./row";
+import Link from "next/link";
 
 const inter = Montserrat({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "600", "700"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
 const bd = [
@@ -583,8 +584,8 @@ const HistoryPage = () => {
 
   return (
     <>
-      <section className={inter.className}>
-        <div className="p-5 text-gray-200 border-b border-gray-500">
+      <section className={` xbg-gray-800/30 ${inter.className} `}>
+        <div className="bg-gray-800/30 p-5 text-gray-200 border-b border-gray-500">
           <h1 className="hidden text-5xl font-thin -tracking-wider">
             Septiembre
           </h1>
@@ -592,21 +593,23 @@ const HistoryPage = () => {
           <h1 className="text-5xl font-thin -tracking-wider mb-5">2024</h1>
           <div className="flex flex-row">
             <div className="w-1/2">
-              <h1 className="text-xs uppercase">Expenses</h1>
-              <h1 className="flex text-xl">
-                <span className="text-xs pt-1 mr-1">$ </span>68,982.57
+              <h1 className="text-sm uppercase">Expenses</h1>
+              <h1 className="flex text-xl text-pink-600 font-medium">
+                <span className="text-sm pt-1 mr-1">$ </span>
+                68,982.57
               </h1>
             </div>
             <div className="w-1/2">
-              <h1 className="text-xs uppercase">Income</h1>
-              <h1 className="flex text-xl">
-                <span className="text-xs pt-1 mr-1">$</span>180,000.00
+              <h1 className="text-sm uppercase">Income</h1>
+              <h1 className="flex text-xl text-indigo-600 font-medium">
+                <span className="text-sm pt-1 mr-1">$</span>
+                180,000.00
               </h1>
             </div>
           </div>
         </div>
 
-        <h1 className="h-2 bg-gradient-to-r from-pink-600 to-blue-600"> </h1>
+        <h1 className="h-1 bg-gradient-to-r from-pink-600 to-indigo-600"> </h1>
 
         <div className="hidden p-5 Xflex flex-row text-gray-300">
           <div className="w-14 h-14 ">
@@ -622,14 +625,15 @@ const HistoryPage = () => {
           </div>
         </div>
 
-        <div className=" flex flex-row justify-between text-white bg-gray-500 cursor-pointer">
-          <div className="p-5 text-xl">
+        <div className=" flex flex-row justify-between text-gray-400 bg-gray-800/50 cursor-pointer">
+          <div className="p-5 text-xl font-light">
             Cantidad de Items
             <span className="font-numero"> ({bd.length})</span>
           </div>
 
-          <div
-            className={` w-20 flex justify-center items-center border-l border-gray-400 
+          <Link
+            href="/form"
+            className={` w-20 flex justify-center items-center border-l border-gray-500 cursor-pointer 
                     ${isOpen ? " " : " "}                    
                     `}
           >
@@ -647,10 +651,10 @@ const HistoryPage = () => {
                 d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
               />
             </svg>
-          </div>
+          </Link>
         </div>
 
-        <div className="px-5">
+        <div className="px-5 pb-10">
           {bd.map((item, index) => (
             <div key={index}>
               {/**
@@ -742,7 +746,9 @@ const HistoryPage = () => {
       <div className="hidden">
         <UserList />
       </div>
-      <h1 className="py-10 text-center"> @copyright</h1>
+      <div className="bg-gray-800/50 py-7 mt-5 text-center text-gray-200">
+        @copyright
+      </div>
     </>
   );
 };

@@ -3,7 +3,7 @@ import { Barlow, Montserrat } from "next/font/google";
 
 const inter = Montserrat({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["100", "200", "300", "400", "600", "700"],
 });
 
 const accounts = [
@@ -69,17 +69,17 @@ const [form, setForm] = useState(initailForm);
   };*/
 
   return (
-    <div className="px-5 pt-10 ">
-      <div className="text-xl text-center text-white mb-5">
-        Nueva transaccion
+    <section className={inter.className}>
+      <div className="p-5 text-gray-100 mb-5">
+        <h1 className="text-5xl font-thin -tracking-wider mb-5">
+          Nuevo registro
+        </h1>
+        <p className="text-lg">Completa el formulario</p>
+        <p className="text-gray-400">Todos los campos son obligatorios *</p>
       </div>
-      <h1 className="hidden text-5xl font-thin -tracking-wider">Septiembre</h1>
-      <h1 className="hidden text-5xl font-thin -tracking-wider">
-        Nueva transaccion
-      </h1>
 
-      <div className={inter.className}>
-        <form className="w-full text-gray-100 Xborder-2 p-5">
+      <div>
+        <form className="w-full text-gray-100 Xborder-2 px-5">
           {/** TYPO */}
           <div className="flex flex-row mb-5">
             <div className="bg-gray-800/50 py-3 w-14 flex justify-center">
@@ -99,10 +99,10 @@ const [form, setForm] = useState(initailForm);
               </svg>
             </div>
             <div className="w-full flex flex-row text-center">
-              <span className="w-1/2 p-3 bg-pink-600/50 focus:outline-none">
+              <span className="w-1/2 p-3 bg-pink-600/90 focus:outline-none">
                 Gastos
               </span>
-              <span className="w-1/2 p-3 bg-gray-600/50 focus:outline-none">
+              <span className="w-1/2 p-3 bg-indigo-600/90 cyan-600 /70 focus:outline-none">
                 Ingreso
               </span>
             </div>
@@ -281,7 +281,7 @@ const [form, setForm] = useState(initailForm);
           </div>
           {/** BUTTON SAVE */}
           <div className="flex flex-row mb-5">
-            <div className="bg-red-500/60 py-3 w-14 flex justify-center">
+            <div className="bg-red-600/90 py-3 w-14 flex justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -297,13 +297,13 @@ const [form, setForm] = useState(initailForm);
                 />
               </svg>
             </div>
-            <button className="w-full p-3 bg-gray-400/50 focus:outline-none">
+            <button className="w-full p-3 bg-gray-400/60 focus:outline-none">
               Guardar
             </button>
           </div>
         </form>
       </div>
-    </div>
+    </section>
   );
 };
 
