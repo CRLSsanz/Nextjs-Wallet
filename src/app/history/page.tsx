@@ -390,7 +390,7 @@ const bd = [
     category: "Restaurante",
     comment: "Pizza para mi y Zoé de I'NS",
     date: "2024-01-31T00:00:00.000Z",
-    total: 3,
+    total: 1450,
     type: "Expense",
     account: "Efectivo",
     createdAt: "2024-01-31T15:49:07.492Z",
@@ -402,7 +402,7 @@ const bd = [
     category: "Belleza e higiene",
     comment: "Senzodine y Jabón Dove x2",
     date: "2024-01-31T00:00:00.000Z",
-    total: 7,
+    total: 745.7,
     type: "Expense",
     account: "Efectivo",
     createdAt: "2024-01-31T15:49:38.908Z",
@@ -414,7 +414,7 @@ const bd = [
     category: "Servicios",
     comment: "Desmontar acondicionador en casa de sra Enso 5pm",
     date: "2024-01-29T00:00:00.000Z",
-    total: 10,
+    total: 10500.99,
     type: "Income",
     account: "Efectivo",
     createdAt: "2024-01-30T07:45:13.311Z",
@@ -625,15 +625,10 @@ const HistoryPage = () => {
           </div>
         </div>
 
-        <div className=" flex flex-row justify-between text-gray-400 bg-gray-800/50 cursor-pointer">
-          <div className="p-5 text-xl font-light">
-            Cantidad de Items
-            <span className="font-numero"> ({bd.length})</span>
-          </div>
-
+        <div className=" flex flex-row justify-between text-gray-400 bg-gray-800/50">
           <Link
             href="/form"
-            className={` w-20 flex justify-center items-center border-l border-gray-500 cursor-pointer 
+            className={` w-[85px] flex justify-center items-center border-r border-gray-500 cursor-pointer 
                     ${isOpen ? " " : " "}                    
                     `}
           >
@@ -652,6 +647,11 @@ const HistoryPage = () => {
               />
             </svg>
           </Link>
+
+          <div className="p-5 text-end font-light">
+            Cantidad de Items
+            <span className="font-numero"> ({bd.length})</span>
+          </div>
         </div>
         {/** FILAS OCULTO*/}
         <div className="hidden px-5 pb-10">
