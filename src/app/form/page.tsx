@@ -70,7 +70,7 @@ const [form, setForm] = useState(initailForm);
 
   return (
     <section className={inter.className}>
-      <div className="p-5 text-gray-100 mb-5">
+      <div className="p-5 text-gray-100 Xmb-5">
         <h1 className="text-5xl font-thin -tracking-wider mb-5">
           Nuevo registro
         </h1>
@@ -79,7 +79,7 @@ const [form, setForm] = useState(initailForm);
       </div>
 
       <div>
-        <form className="w-full text-gray-100 Xborder-2 px-5">
+        <form className="w-full text-gray-200 Xborder-2 p-5">
           {/** TYPO */}
           <div className="flex flex-row mb-5">
             <div className="bg-gray-800/50 py-3 w-14 flex justify-center">

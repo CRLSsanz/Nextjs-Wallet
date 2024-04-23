@@ -609,7 +609,7 @@ const HistoryPage = () => {
           </div>
         </div>
 
-        <h1 className="h-1 bg-gradient-to-r from-pink-600 to-indigo-600"> </h1>
+        <h1 className="h-2 bg-gradient-to-r from-pink-600 to-indigo-600"> </h1>
 
         <div className="hidden p-5 Xflex flex-row text-gray-300">
           <div className="w-14 h-14 ">
@@ -643,7 +643,7 @@ const HistoryPage = () => {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="w-8 h-8"
+              className="w-8 h-8 active:animate-ping"
             >
               <path
                 strokeLinecap="round"
@@ -653,35 +653,32 @@ const HistoryPage = () => {
             </svg>
           </Link>
         </div>
-
-        <div className="px-5 pb-10">
+        {/** FILAS OCULTO*/}
+        <div className="hidden px-5 pb-10">
           {bd.map((item, index) => (
             <div key={index}>
-              {/**
-              <HistoryRow item={item} />
-              */}
               <>
                 <div
                   onClick={() => setIsOpen((prev) => !prev)}
-                  className=" flex flex-row text-gray-400 cursor-pointer"
+                  className={`flex flex-row text-gray-400 cursor-pointer`}
                 >
-                  <div className="pr-3 py-6 flex flex-col Xjustify-between items-center">
+                  <div className="w-10 pr-3 py-6 ">
                     <img
                       src={`./images/category/${item.category}.png`}
-                      className="w-20 bg-white/50 Xbrightness-125 rounded-full p-1"
-                      style={{ width: "30px" }}
+                      className={`w-5 transform transition-all duration-500 ${
+                        !isOpen && " mt-1 scale-150 "
+                      } `}
                       alt={item.category}
                     />
-                    <div className=" "></div>
                   </div>
 
                   <div className="relative w-full mr-5 py-5 flex flex-col border-b border-gray-500">
-                    <h1 className="text-lg text-gray-300">{item.category}</h1>
+                    <h1 className="text-base text-gray-300">{item.category}</h1>
                     <h1
-                      className={`text-xl font-light  ${
-                        item.type === "Income"
-                          ? " text-cyan-500 font-medium "
-                          : " text-white "
+                      className={`-mt-1 text-xl font-light  ${
+                        item.type === "Expense"
+                          ? " text-pink-600 font-medium "
+                          : " text-indigo-600 font-medium "
                       }`}
                     >
                       <span className={` text-sm Xfont-bold`}>
@@ -694,33 +691,32 @@ const HistoryPage = () => {
                     </h1>
                     <div
                       onClick={() => handleDelete(item._id)}
-                      className="absolute text-gray-400 top-6 -right-[22px]"
+                      className="absolute text-gray-300 top-10 -right-8 rounded-full bg-gray-600 p-0.5"
                       hidden={isOpen}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        strokeWidth="1.0"
+                        strokeWidth="1.5"
                         stroke="currentColor"
-                        className="w-6 h-6"
+                        className="w-5 h-5"
                       >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          d="M12 9.75 14.25 12m0 0 2.25 2.25M14.25 12l2.25-2.25M14.25 12 12 14.25m-2.58 4.92-6.374-6.375a1.125 1.125 0 0 1 0-1.59L9.42 4.83c.21-.211.497-.33.795-.33H19.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9.284c-.298 0-.585-.119-.795-.33Z"
+                          d="M5 12h14"
                         />
                       </svg>
                     </div>
                   </div>
-
+                  {/* DATE - DIA */}
                   <div
                     className={` w-20 pt-5 pl-4 text-center border-l border-gray-500 
-                    ${isOpen ? " " : " text-yellow-400 "}
-                    
+                    ${!isOpen && " text-yellow-400 "}
                     `}
                   >
-                    {item.date.substr(5, 5) === groupDate ? (
+                    {item.date.substr(5, 5) === "groupDate" ? (
                       <></>
                     ) : (
                       <>
@@ -739,6 +735,12 @@ const HistoryPage = () => {
                 </div>
               </>
             </div>
+          ))}
+        </div>
+        {/** LLAMAR A LAS FILAS*/}
+        <div className="px-5 pb-10">
+          {bd?.map((item, index) => (
+            <HistoryRow key={index} item={item} />
           ))}
         </div>
       </section>
