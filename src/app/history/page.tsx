@@ -586,12 +586,17 @@ const HistoryPage = () => {
     <>
       <section className={` xbg-gray-800/30 ${inter.className} `}>
         <div className="bg-gray-800/30 p-5 text-gray-200 border-b border-gray-500">
-          <h1 className="hidden text-5xl font-thin -tracking-wider">
-            Septiembre
-          </h1>
-          <h1 className="text-5xl font-thin -tracking-wider">Enero</h1>
-          <h1 className="text-5xl font-thin -tracking-wider mb-5">2024</h1>
-          <div className="flex flex-row">
+          <div className="flex flex-row justify-between mb-5">
+            <div>
+              <h1 className="text-3xl font-extralight -tracking-wider">
+                Enero
+              </h1>
+              <h1 className="-mt-1 text-lg font-light -tracking-wider">2024</h1>
+            </div>
+            <h1 className=" text-5xl font-thin -tracking-wider mb-5">$ 1359</h1>
+          </div>
+
+          <div className="hidden xflex flex-row">
             <div className="w-1/2">
               <h1 className="text-sm uppercase">Expenses</h1>
               <h1 className="flex text-xl text-pink-600 font-medium">
@@ -607,9 +612,47 @@ const HistoryPage = () => {
               </h1>
             </div>
           </div>
+
+          <div className="grid grid-cols-2 gap-4 ">
+            <div className=" bg-gray-800/50 px-4 py-8 rounded-lg border border-gray-600">
+              <h1 className="h-1 w-4/5 bg-indigo-600 mb-5"></h1>
+              <h1 className="text-sm ">Income</h1>
+              <h1 className="flex text-xl  font-medium">
+                <span className="text-sm pt-1 mr-1">$</span>
+                5,000.00
+              </h1>
+            </div>
+
+            <div className=" bg-gray-800/50 px-4 py-8 rounded-lg border border-gray-600">
+              <h1 className="h-1 w-2/5 bg-pink-600 mb-5"></h1>
+              <h1 className="text-sm ">Expenses</h1>
+              <h1 className="flex text-xl font-medium">
+                <span className="text-sm pt-1 mr-1">$ </span>
+                3,900.50
+              </h1>
+            </div>
+
+            <div className=" bg-gray-800/50 px-4 py-8 rounded-lg border border-gray-600">
+              <h1 className="h-1 w-3/5 bg-orange-600 mb-5"></h1>
+              <div className="flex flex-row justify-between items-center">
+                <h1 className="text-sm ">Transacciones</h1>
+                <h1 className="flex text-xl font-medium">{bd.length}</h1>
+              </div>
+            </div>
+
+            <div className=" bg-gray-800/50 px-4 py-8 rounded-lg border border-gray-600">
+              <h1 className="h-1 w-1/5 bg-green-600 mb-5"></h1>
+              <div className="flex flex-row justify-between items-center">
+                <h1 className="text-sm ">Categorias</h1>
+                <h1 className="text-xl font-medium">07</h1>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <h1 className="h-2 bg-gradient-to-r from-pink-600 to-indigo-600"> </h1>
+        <h1 className="hidden h-2 bg-gradient-to-r from-indigo-600 to-pink-600">
+          {" "}
+        </h1>
 
         <div className="hidden p-5 Xflex flex-row text-gray-300">
           <div className="w-14 h-14 ">
@@ -625,10 +668,15 @@ const HistoryPage = () => {
           </div>
         </div>
 
-        <div className=" flex flex-row justify-between text-gray-400 bg-gray-800/50">
+        <div className="flex flex-row justify-between text-gray-400 bg-gray-800/50">
+          <div className="p-5 font-light">
+            Lista de Transacciones
+            <span className="font-numero"> </span>
+          </div>
+
           <Link
             href="/form"
-            className={` w-[85px] flex justify-center items-center border-r border-gray-500 cursor-pointer 
+            className={` w-20 flex justify-center items-center border-l border-gray-500 cursor-pointer 
                     ${isOpen ? " " : " "}                    
                     `}
           >
@@ -647,11 +695,6 @@ const HistoryPage = () => {
               />
             </svg>
           </Link>
-
-          <div className="p-5 text-end font-light">
-            Cantidad de Items
-            <span className="font-numero"> ({bd.length})</span>
-          </div>
         </div>
         {/** FILAS OCULTO*/}
         <div className="hidden px-5 pb-10">
@@ -738,7 +781,7 @@ const HistoryPage = () => {
           ))}
         </div>
         {/** LLAMAR A LAS FILAS*/}
-        <div className="px-5 pb-10">
+        <div className="Xpx-5 pb-10">
           {bd?.map((item, index) => (
             <HistoryRow key={index} item={item} />
           ))}

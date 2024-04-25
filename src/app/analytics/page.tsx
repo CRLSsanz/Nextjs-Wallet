@@ -86,7 +86,10 @@ const AnalyticsPage = () => {
           </div>
         </div>
 
-        <div className="Xgrid Xgrid-cols-3 py-5 px-2 gap-2">
+        <h1 className="text-gray-200 text-lg mb-5 p-5">
+          Resumen por categorias
+        </h1>
+        <div className="flex flex-wrap Xgrid Xgrid-cols-3 px-2 gap-2">
           {bd.map((item, index) => (
             <>
               <div
@@ -108,7 +111,7 @@ const AnalyticsPage = () => {
 
               <div
                 key={index}
-                className="relative flex flex-col justify-between p-5 Xbg-white/5 text-gray-300 rounded-3xl Xborder Xborder-gray-600"
+                className="hidden relative Xflex flex-col justify-between p-5 Xbg-white/5 text-gray-300 rounded-3xl Xborder Xborder-gray-600"
               >
                 <img
                   src={`./images/category/${item.category}.png`}
@@ -123,6 +126,19 @@ const AnalyticsPage = () => {
                 </div>
                 <div className="w-full h-2 bg-gray-500">
                   <h1 className="w-60 h-2 bg-red-500"> </h1>
+                </div>
+              </div>
+
+              <div
+                key={index}
+                className="px-3 py-2 bg-pink bg-cyan-600 text-white rounded-lg "
+              >
+                <div className="">
+                  <span className="text-base mr-2">{item.category} </span>
+                  <span className="text-sm">-$</span> {item.total.toFixed(2)}
+                </div>
+                <div className="hidden h-1 bg-gray-500">
+                  <h1 className="h-1 bg-red-500"> </h1>
                 </div>
               </div>
             </>

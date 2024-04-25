@@ -34,73 +34,86 @@ const HistoryRow = ({ item }: any) => {
   return (
     <div
       onClick={() => setIsOpen((prev) => !prev)}
-      className={`flex flex-row text-gray-400 cursor-pointer ${inter.className} `}
+      className={`w-full flex flex-row- text-gray-400 cursor-pointer ${inter.className} `}
     >
-      {/* DATE - DIA */}
-      <div
-        className={` w-20 pt-5 pr-4 text-center border-r border-gray-500 
-                    ${isOpen && " text-yellow-400 "}
-                    `}
-      >
-        {item.date.substr(5, 5) === "groupDate" ? (
-          <></>
-        ) : (
-          <>
-            <h1 className="text-3xl font-extralight">
-              {item.date.substr(8, 2)}
-            </h1>
-            <h1 className="uppercase text-sm">{nameDiaxFecha(item.date)}</h1>
-          </>
-        )}
+      {/* ICONO */}
+      <div className="hidden w-10 pr-3 py-6 ">
+        <img
+          src={`./images/category/${item.category}.png`}
+          className={`w-2.5 rounded-full transform transition-all duration-500 ${
+            isOpen
+              ? " bg-gray-800 mt-3 scale-[3.0] p-[1px] "
+              : ` mt-1 p-1 ${
+                  item.type === "Expense" ? " bg-pink-600 " : " bg-indigo-600 "
+                }`
+          } 
+          `}
+          alt={item.category}
+        />
       </div>
 
-      {/* INFO */}
-      <div className="relative w-full ml-5 py-5 flex flex-col border-b border-gray-500">
-        <div className="flex flex-row">
-          {/* ICONO */}
-          <div className="w-10 pl-3 Xpy-6 ">
-            <img
-              src={`./images/category/${item.category}.png`}
-              className={`w-2.5 rounded-full transform transition-all duration-500 ${
-                isOpen
-                  ? " bg-gray-200 mt-3.5 scale-[3.0] p-[1px] "
-                  : ` mt-2 p-1 ${
-                      item.type === "Expense"
-                        ? " bg-pink-600 "
-                        : " bg-indigo-600 "
-                    }`
-              } 
-          `}
-              alt={item.category}
+      <div className=" px-4 pt-6 ">
+        <div
+          className={` flex items-center justify-center w-6 h-6 rounded-md bg-gray-800/50 
+        ${
+          item.type === "Expense"
+            ? " rotate-[135deg] text-pink-600"
+            : " -rotate-[45deg] text-indigo-600 "
+        }
+        `}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="3.0"
+            stroke="currentColor"
+            className="w-3 h-3"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+              //d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
             />
-          </div>
-
-          <div className="w-full text-end">
-            <h1 className="Xtext-xl text-gray-300">{item.category}</h1>
-            <h1
-              className={`-mt-1 text-xl tracking-wider  ${
-                item.type === "Expense"
-                  ? " text-white "
-                  : " text-indigo-500 font-medium "
-              }`}
-            >
-              <span className={` Xtext-sm Xfont-bold `}>
-                {item.type === "Income" ? "$ " : "-$ "}
-              </span>
-              {item.total.toFixed(2)}
-            </h1>
-          </div>
+          </svg>
         </div>
-        <h1 className={` text-sm Xtext-justify py-1 pr-8`} hidden={!isOpen}>
-          <span className="font-semibold">
+      </div>
+      {/* INFO */}
+      <div className="relative w-full mr-5 py-5 flex flex-col border-b border-gray-500">
+        <div className="w-full Xtext-end">
+          <h1 className="text-xs uppercase text-gray-300">{item.category}</h1>
+          <h1
+            className={`X-mt-1 text-lg tracking-wider  ${
+              item.type === "Expense"
+                ? " text-white "
+                : " text-gray-200 Xfont-medium "
+            }`}
+          >
+            <span className={` Xtext-sm Xfont-bold `}>
+              {item.type === "Income" ? "+ € " : "- € "}
+            </span>
+            {item.total.toFixed(2)}
+          </h1>
+        </div>
+
+        <div
+          className={` Xbg-gradient-to-l Xfrom-pink-700 Xvia-transparent text-sm Xtext-justify py-1 `}
+          hidden={!isOpen}
+        >
+          <span
+            className={` font-semibold ${
+              item.type === "Expense" ? " text-pink-600 " : " text-indigo-600 "
+            }`}
+          >
             Nota: <br />{" "}
           </span>{" "}
-          {item.comment}
-        </h1>
+          <p className="Xpl-5">{item.comment}</p>
+        </div>
 
         <div
           onClick={() => handleDelete(item._id)}
-          className="absolute text-gray-600 bottom-6 right-1"
+          className="absolute text-gray-600 top-6 right-1"
           hidden={!isOpen}
         >
           <svg
@@ -118,6 +131,24 @@ const HistoryRow = ({ item }: any) => {
             />
           </svg>
         </div>
+      </div>
+
+      {/* DATE - DIA */}
+      <div
+        className={` min-w-20 pt-3 px-5 text-center border-l border-gray-500 
+                    ${isOpen && " text-yellow-400 "}
+                    `}
+      >
+        {item.date.substr(5, 5) === "groupDate" ? (
+          <></>
+        ) : (
+          <>
+            <h1 className="text-3xl font-extralight">
+              {item.date.substr(8, 2)}
+            </h1>
+            <h1 className="uppercase text-sm">{nameDiaxFecha(item.date)}</h1>
+          </>
+        )}
       </div>
     </div>
   );
