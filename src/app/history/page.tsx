@@ -559,7 +559,6 @@ const bd = [
 const HistoryPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   let groupDate = ""; //para agrupar las fechas repetidas
-
   const nameDiaxFecha = (fecha: any) =>
     [
       //"Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"
@@ -571,6 +570,21 @@ const HistoryPage = () => {
       "Vie",
       "Sáb",
     ][new Date(fecha).getDay()];
+
+  const cmeses = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
 
   const handleDelete = (id: string) => {
     let isDelete = window.confirm(
@@ -668,15 +682,15 @@ const HistoryPage = () => {
           </div>
         </div>
 
-        <div className="flex flex-row justify-between text-gray-400 bg-gray-800/50">
-          <div className="p-5 font-light">
-            Lista de Transacciones
-            <span className="font-numero"> </span>
+        <div className="pt-5 flex flex-row-reverse justify-between text-gray-200 Xbg-gray-300/50">
+          <div className=" text-xl font-light">
+            Transacciones
+            <span className=""> ({bd.length} items) </span>
           </div>
 
           <Link
             href="/form"
-            className={` w-20 flex justify-center items-center border-l border-gray-500 cursor-pointer 
+            className={` w-12 flex items-center justify-center cursor-pointer 
                     ${isOpen ? " " : " "}                    
                     `}
           >
@@ -696,6 +710,7 @@ const HistoryPage = () => {
             </svg>
           </Link>
         </div>
+
         {/** FILAS OCULTO*/}
         <div className="hidden px-5 pb-10">
           {bd.map((item, index) => (
@@ -781,9 +796,33 @@ const HistoryPage = () => {
           ))}
         </div>
         {/** LLAMAR A LAS FILAS*/}
-        <div className="Xpx-5 pb-10">
+        <div className="w-full Xpx-5 pb-10">
           {bd?.map((item, index) => (
-            <HistoryRow key={index} item={item} />
+            <div key={index}>
+              {item.date.substr(5, 5) === groupDate ? (
+                <p className="hidden">no mostrar</p>
+              ) : (
+                <div className="flex flex-row">
+                  {/* TIME LINE */}
+                  <div className={` relative min-w-12 flex justify-center `}>
+                    <div className="w-0.5 bg-gray-600 h-full "> </div>
+                  </div>
+                  <p className="bg-transparent text-yellow-400 pt-4 py-2 text-sm">
+                    <span className="font-numero">
+                      {item.date.substr(8, 2)}{" "}
+                    </span>
+                    {" de " +
+                      cmeses[Number(3 - 1)] +
+                      " (" +
+                      nameDiaxFecha(item.date) +
+                      ")"}
+                  </p>
+                </div>
+              )}
+              <p className="hidden">{(groupDate = item.date.substr(5, 5))}</p>
+
+              <HistoryRow item={item} />
+            </div>
           ))}
         </div>
       </section>
