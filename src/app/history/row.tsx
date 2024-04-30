@@ -125,22 +125,22 @@ const HistoryRow = ({ item }: any) => {
 
         {/* INFO */}
         <div
-          className={` rounded-xl mr-5
+          className={` Xrounded-b-xl mr-5 transition-all duration-1000
           ${
             item.type === "Expense"
-              ? " bg-gradient-to-tl from-pink-500 /80 via-transparent pb-2 pr-2 Xbg-pink-600/90 "
-              : " bg-gradient-to-tr from-indigo-500 /80 via-transparent pb-2 pl-2 Xbg-indigo-600/90 "
+              ? " bg-gradient-to-tl from-pink-600/70 via-transparent pb-2 pr-2 Xbg-pink-600/90 "
+              : " bg-gradient-to-tr from-indigo-600/70 via-transparent pb-2 pl-2 Xbg-indigo-600/90 "
           }
         `}
         >
           <div
-            className={` w-full relative p-5 rounded-lg flex flex-col  ${
-              isOpen ? "bg-gray-800/50" : "bg-gray-800/80"
+            className={` w-full relative p-5 Xrounded-b-lg flex flex-col  ${
+              isOpen ? "bg-gray-700/50 " : "bg-gray-600/50"
             }
         `}
           >
             <div className="flex flex-row">
-              <div className=" w-8 pt-2 ">
+              <div className=" w-8 pt-1 ">
                 <img
                   src={`./images/category/${item.category}.png`}
                   className={`w-2.5 rounded transform transition-all duration-500 ${
@@ -157,24 +157,32 @@ const HistoryRow = ({ item }: any) => {
                 />
               </div>
               <div>
-                <div className="flex flex-row justify-between">
-                  <h1 className="text-base text-gray-300">{item.category}</h1>
+                <div className={`flex flex-row justify-between`}>
                   <h1
-                    className={`X-mt-1 text-base tracking-wider  ${
+                    className={`   ${
+                      isOpen
+                        ? " text-gray-400 "
+                        : " text-gray-200 Xfont-medium "
+                    } `}
+                  >
+                    {item.category}
+                  </h1>
+                  <h1
+                    className={`flex text-base tracking-wider  ${
                       item.type === "Expense"
-                        ? " text-white "
+                        ? " text-gray-200 "
                         : " text-gray-200 Xfont-medium "
                     }`}
                   >
-                    <span className={` Xtext-sm Xfont-bold `}>
-                      {item.type === "Income" ? "+ € " : "- € "}
+                    <span className={` m-[3px] text-xs Xfont-bold `}>
+                      {item.type === "Income" ? "$ " : "$ "}
                     </span>
                     {item.total.toFixed(2)}
                   </h1>
                 </div>
 
                 <div
-                  className={` w-[calc(100vw-120px)] text-sm  py-1 ${
+                  className={` w-[calc(100vw-120px)] text-sm ${
                     !isOpen && " truncate "
                   } `}
                 >
@@ -183,8 +191,8 @@ const HistoryRow = ({ item }: any) => {
                       isOpen
                         ? " text-white "
                         : item.type === "Expense"
-                        ? " text-pink-600 "
-                        : " text-indigo-600 "
+                        ? " Xborder-b border-pink-600 "
+                        : " Xborder-b border-indigo-600 "
                     }   
               `}
                   >
@@ -197,7 +205,7 @@ const HistoryRow = ({ item }: any) => {
 
                 <div
                   onClick={() => handleDelete(item._id)}
-                  className="Xhidden absolute text-gray-600 bottom-4 right-3"
+                  className="Xhidden absolute text-white bg-red-600/90 bottom-0 right-0 p-0.5"
                   hidden={!isOpen}
                 >
                   <svg
@@ -211,7 +219,7 @@ const HistoryRow = ({ item }: any) => {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                      d="M5 12h14"
                     />
                   </svg>
                 </div>
