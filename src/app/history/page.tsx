@@ -682,148 +682,158 @@ const HistoryPage = () => {
           </div>
         </div>
 
-        <div className="pt-5 flex flex-row-reverse justify-between text-gray-200 Xbg-gray-300/50">
-          <div className=" text-xl font-light">
-            Transacciones
-            <span className=""> ({bd.length} items) </span>
-          </div>
+        <div className="p-2 ">
+          <div className="rounded-2xl bg-black/20 ">
+            <div className="px-3 py-5 flex flex-row justify-between text-gray-500 Xbg-gray-300/50">
+              <div className=" Xtext-lg Xfont-light">
+                Transacciones
+                <span className=""> ({bd.length} items) </span>
+              </div>
 
-          <Link
-            href="/form"
-            className={` w-12 flex items-center justify-center cursor-pointer 
+              <Link
+                href="/form"
+                className={`flex items-center justify-center cursor-pointer 
                     ${isOpen ? " " : " "}                    
                     `}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-8 h-8 active:animate-ping"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-          </Link>
-        </div>
-
-        {/** FILAS OCULTO*/}
-        <div className="hidden px-5 pb-10">
-          {bd.map((item, index) => (
-            <div key={index}>
-              <>
-                <div
-                  onClick={() => setIsOpen((prev) => !prev)}
-                  className={`flex flex-row text-gray-400 cursor-pointer`}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-7 h-7 active:animate-ping"
                 >
-                  <div className="w-10 pr-3 py-6 ">
-                    <img
-                      src={`./images/category/${item.category}.png`}
-                      className={`w-5 transform transition-all duration-500 ${
-                        !isOpen && " mt-1 scale-150 "
-                      } `}
-                      alt={item.category}
-                    />
-                  </div>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+              </Link>
+            </div>
 
-                  <div className="relative w-full mr-5 py-5 flex flex-col border-b border-gray-500">
-                    <h1 className="text-base text-gray-300">{item.category}</h1>
-                    <h1
-                      className={`-mt-1 text-xl font-light  ${
-                        item.type === "Expense"
-                          ? " text-pink-600 font-medium "
-                          : " text-indigo-600 font-medium "
-                      }`}
-                    >
-                      <span className={` text-sm Xfont-bold`}>
-                        $ {/*item.type === "Income" ? " + " : " - "*/}
-                      </span>
-                      {item.total.toFixed(2)}
-                    </h1>
-                    <h1 className="text-sm text-justify" hidden={isOpen}>
-                      {item.comment}
-                    </h1>
+            {/** FILAS OCULTO*/}
+            <div className="hidden px-5 pb-10">
+              {bd.map((item, index) => (
+                <div key={index}>
+                  <>
                     <div
-                      onClick={() => handleDelete(item._id)}
-                      className="absolute text-gray-300 top-10 -right-8 rounded-full bg-gray-600 p-0.5"
-                      hidden={isOpen}
+                      onClick={() => setIsOpen((prev) => !prev)}
+                      className={`flex flex-row text-gray-400 cursor-pointer`}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-5 h-5"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M5 12h14"
+                      <div className="w-10 pr-3 py-6 ">
+                        <img
+                          src={`./images/category/${item.category}.png`}
+                          className={`w-5 transform transition-all duration-500 ${
+                            !isOpen && " mt-1 scale-150 "
+                          } `}
+                          alt={item.category}
                         />
-                      </svg>
-                    </div>
-                  </div>
-                  {/* DATE - DIA */}
-                  <div
-                    className={` w-20 pt-5 pl-4 text-center border-l border-gray-500 
+                      </div>
+
+                      <div className="relative w-full mr-5 py-5 flex flex-col border-b border-gray-500">
+                        <h1 className="text-base text-gray-300">
+                          {item.category}
+                        </h1>
+                        <h1
+                          className={`-mt-1 text-xl font-light  ${
+                            item.type === "Expense"
+                              ? " text-pink-600 font-medium "
+                              : " text-indigo-600 font-medium "
+                          }`}
+                        >
+                          <span className={` text-sm Xfont-bold`}>
+                            $ {/*item.type === "Income" ? " + " : " - "*/}
+                          </span>
+                          {item.total.toFixed(2)}
+                        </h1>
+                        <h1 className="text-sm text-justify" hidden={isOpen}>
+                          {item.comment}
+                        </h1>
+                        <div
+                          onClick={() => handleDelete(item._id)}
+                          className="absolute text-gray-300 top-10 -right-8 rounded-full bg-gray-600 p-0.5"
+                          hidden={isOpen}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            className="w-5 h-5"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M5 12h14"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      {/* DATE - DIA */}
+                      <div
+                        className={` w-20 pt-5 pl-4 text-center border-l border-gray-500 
                     ${!isOpen && " text-yellow-400 "}
                     `}
-                  >
-                    {item.date.substr(5, 5) === "groupDate" ? (
-                      <></>
-                    ) : (
-                      <>
-                        <h1 className="text-3xl font-extralight">
-                          {item.date.substr(8, 2)}
-                        </h1>
-                        <h1 className="uppercase text-sm">
-                          {nameDiaxFecha(item.date)}
-                        </h1>
-                      </>
-                    )}
-                    <p className="hidden">
-                      {(groupDate = item.date.substr(5, 5))}
-                    </p>
-                  </div>
+                      >
+                        {item.date.substr(5, 5) === "groupDate" ? (
+                          <></>
+                        ) : (
+                          <>
+                            <h1 className="text-3xl font-extralight">
+                              {item.date.substr(8, 2)}
+                            </h1>
+                            <h1 className="uppercase text-sm">
+                              {nameDiaxFecha(item.date)}
+                            </h1>
+                          </>
+                        )}
+                        <p className="hidden">
+                          {(groupDate = item.date.substr(5, 5))}
+                        </p>
+                      </div>
+                    </div>
+                  </>
                 </div>
-              </>
+              ))}
             </div>
-          ))}
-        </div>
-        {/** LLAMAR A LAS FILAS*/}
-        <div className="w-full Xpx-5 pb-10">
-          {bd?.map((item, index) => (
-            <div key={index}>
-              {item.date.substr(5, 5) === groupDate ? (
-                <p className="hidden">no mostrar</p>
-              ) : (
-                <div className="flex flex-row">
-                  {/* TIME LINE */}
-                  <div className={` relative min-w-12 flex justify-center `}>
-                    <div className="w-0.5 bg-gray-600 h-full "> </div>
-                  </div>
-                  <p className="bg-transparent text-yellow-400 pt-4 py-2 text-sm">
-                    <span className="font-numero">
-                      {item.date.substr(8, 2)}{" "}
-                    </span>
-                    {" de " +
-                      cmeses[Number(3 - 1)] +
-                      " (" +
-                      nameDiaxFecha(item.date) +
-                      ")"}
+            {/** LLAMAR A LAS FILAS*/}
+            <div className="w-full Xpx-5 pb-10">
+              {bd?.map((item, index) => (
+                <div key={index}>
+                  {item.date.substr(5, 5) === groupDate ? (
+                    <p className="hidden">no mostrar</p>
+                  ) : (
+                    <div className="px-2 flex flex-row">
+                      {/* TIME LINE */}
+                      <div
+                        className={`hidden relative min-w-12 Xflex justify-center `}
+                      >
+                        <div className="w-0.5 bg-gray-600 h-full "> </div>
+                      </div>
+                      <p className="bg-transparent text-gray-400 pt-4 p-2 text-sm">
+                        <span className="font-numero">
+                          {item.date.substr(8, 2)}{" "}
+                        </span>
+                        {" de " +
+                          cmeses[Number(3 - 1)] +
+                          " (" +
+                          nameDiaxFecha(item.date) +
+                          ")"}
+                      </p>
+                    </div>
+                  )}
+                  <p className="hidden">
+                    {(groupDate = item.date.substr(5, 5))}
                   </p>
-                </div>
-              )}
-              <p className="hidden">{(groupDate = item.date.substr(5, 5))}</p>
 
-              <HistoryRow item={item} />
+                  <HistoryRow item={item} />
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </section>
 

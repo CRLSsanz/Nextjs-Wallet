@@ -36,7 +36,194 @@ const HistoryRow = ({ item }: any) => {
     <>
       <div
         onClick={() => setIsOpen((prev) => !prev)}
-        className={`w-full flex flex-row justify-between text-gray-400 cursor-pointer ${inter.className} `}
+        className={`w-full p-2 flex flex-row justify-between text-gray-400 cursor-pointer ${inter.className} `}
+      >
+        {/* TIME LINE */}
+        <div className={`hidden relative min-w-12 Xflex justify-center `}>
+          <div className="w-0.5 bg-gray-600 h-full "> </div>
+          <div
+            className={`absolute top-5 left-4  bg-gray-700 border-2 rounded-full transition-all duration-500
+                ${
+                  !isOpen
+                    ? " border-gray-500 w-4 h-4 "
+                    : ` w-6 h-6 ${
+                        item.type === "Expense"
+                          ? " -ml-1 border-pink-600 "
+                          : " -ml-1 border-indigo-600 "
+                      }`
+                } `}
+          >
+            <span
+              onClick={() => handleDelete(item._id)}
+              className="flex justify-center items-center"
+            >
+              {isOpen && (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2.5"
+                  stroke="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 12h14"
+                  />
+                </svg>
+              )}
+            </span>
+          </div>
+        </div>
+
+        {/* ICONO */}
+        <div className=" hidden w-20 pl-4 py-6 ">
+          <img
+            src={`./images/category/${item.category}.png`}
+            className={`w-2.5 rounded-full transform transition-all duration-500 ${
+              isOpen
+                ? " bg-gray-800 mt-3 scale-[3.0] p-[1px] "
+                : ` mt-1 p-1 ${
+                    item.type === "Expense"
+                      ? " bg-pink-600 "
+                      : " bg-indigo-600 "
+                  }`
+            } 
+          `}
+            alt={item.category}
+          />
+        </div>
+
+        <div className="hidden px-4 pt-6 ">
+          <div
+            className={` flex items-center justify-center w-6 h-6 rounded-md bg-gray-800/50 
+        ${
+          item.type === "Expense"
+            ? " rotate-[45deg] text-pink-600"
+            : " -rotate-[45deg] text-indigo-600 "
+        }
+        `}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="3.0"
+              stroke="currentColor"
+              className="w-3 h-3"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                //d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+              />
+            </svg>
+          </div>
+        </div>
+
+        {/* INFO */}
+        <div
+          className={` rounded-xl mr-5
+          ${
+            item.type === "Expense"
+              ? " bg-gradient-to-tl from-pink-500 /80 via-transparent pb-2 pr-2 Xbg-pink-600/90 "
+              : " bg-gradient-to-tr from-indigo-500 /80 via-transparent pb-2 pl-2 Xbg-indigo-600/90 "
+          }
+        `}
+        >
+          <div
+            className={` w-full relative p-5 rounded-lg flex flex-col  ${
+              isOpen ? "bg-gray-800/50" : "bg-gray-800/80"
+            }
+        `}
+          >
+            <div className="flex flex-row">
+              <div className=" w-8 pt-2 ">
+                <img
+                  src={`./images/category/${item.category}.png`}
+                  className={`w-2.5 rounded transform transition-all duration-500 ${
+                    isOpen
+                      ? " bg-gray-300 mt-3 scale-[3.0] p-[1px] "
+                      : ` mt-1 p-1 ${
+                          item.type === "Expense"
+                            ? " bg-gray-600 "
+                            : " bg-gray-600 "
+                        }`
+                  } 
+          `}
+                  alt={item.category}
+                />
+              </div>
+              <div>
+                <div className="flex flex-row justify-between">
+                  <h1 className="text-base text-gray-300">{item.category}</h1>
+                  <h1
+                    className={`X-mt-1 text-base tracking-wider  ${
+                      item.type === "Expense"
+                        ? " text-white "
+                        : " text-gray-200 Xfont-medium "
+                    }`}
+                  >
+                    <span className={` Xtext-sm Xfont-bold `}>
+                      {item.type === "Income" ? "+ € " : "- € "}
+                    </span>
+                    {item.total.toFixed(2)}
+                  </h1>
+                </div>
+
+                <div
+                  className={` w-[calc(100vw-120px)] text-sm  py-1 ${
+                    !isOpen && " truncate "
+                  } `}
+                >
+                  <span
+                    className={` font-semibold ${
+                      isOpen
+                        ? " text-white "
+                        : item.type === "Expense"
+                        ? " text-pink-600 "
+                        : " text-indigo-600 "
+                    }   
+              `}
+                  >
+                    Nota:{" "}
+                  </span>
+                  <span className={` ${isOpen && " text-gray-200 "} `}>
+                    {item.comment}
+                  </span>
+                </div>
+
+                <div
+                  onClick={() => handleDelete(item._id)}
+                  className="Xhidden absolute text-gray-600 bottom-4 right-3"
+                  hidden={!isOpen}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        onClick={() => setIsOpen((prev) => !prev)}
+        className={`hidden w-full xflex flex-row justify-between text-gray-400 cursor-pointer ${inter.className} `}
       >
         {/* TIME LINE */}
         <div className={` relative min-w-12 flex justify-center `}>
