@@ -28,7 +28,7 @@ const Navbar = () => {
   return (
     <div>
       <nav
-        className={`fixed z-50 w-12 h-12 right-4 bottom-4 Xbg-gradient-to-tl Xfrom-zinc-600 Xbackdrop-blur-2xl flex flex-col justify-between items-center text-white 
+        className={`hidden fixed z-50 w-12 h-12 right-4 bottom-4 Xbg-gradient-to-tl Xfrom-zinc-600 Xbackdrop-blur-2xl flex flex-col justify-between items-center text-white 
       ${navbar ? " bg-gray-800/20 " : " bg-gray-900/90 "}      
       `}
       >
@@ -170,7 +170,141 @@ const Navbar = () => {
       </nav>
 
       <ul
-        className={`fixed top-0 z-20 text-gray-100 Xbg-[#222222]/70 Xw-full w-[320px] Xw-[calc(100vw-160px)] h-[calc(100vh-0px)] Xh-screen transform transition-all duration-500 flex flex-col rounded-b-md text-center border-l border-gray-500
+        className={`fixed bottom-0 z-20 text-gray-100 bg-[#222222]/70 backdrop-blur-md  w-full Xh-[calc(100vh-0px)] h-16 transform transition-all duration-500 border-t border-gray-500
+        `}
+      >
+        {/** ITEMS */}
+        <div className="px-5 h-full flex flex-row justify-between items-center transform transition-all duration-1000 ">
+          <Link
+            href={session?.user ? "/" : "#"}
+            onClick={() => setMaxim(false)}
+            className="flex flex-row items-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-7 h-7 active:animate-ping hover:scale-125 hover:-ml-2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+              />
+            </svg>
+            <h1 className="text-sm pl-4" hidden={!maxim}>
+              Home
+            </h1>
+          </Link>
+
+          <Link
+            href={session?.user ? "/analytics" : "#"}
+            onClick={() => setMaxim(false)}
+            className="flex flex-row items-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-7 h-7 active:animate-ping hover:scale-125 hover:-ml-2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
+              />
+            </svg>
+            <h1 className="text-sm pl-4" hidden={!maxim}>
+              Analytics
+            </h1>
+          </Link>
+
+          <Link
+            href={session?.user ? "/form" : "#"}
+            onClick={() => setMaxim(false)}
+            className="flex flex-row items-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-7 h-7 active:animate-ping hover:scale-125 hover:-ml-2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+
+            <h1 className="text-sm pl-4" hidden={!maxim}>
+              Add
+            </h1>
+          </Link>
+
+          <Link
+            href={session?.user ? "/history" : "#"}
+            onClick={() => setMaxim(false)}
+            className="flex flex-row items-center active:animate-pulse"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-7 h-7 active:animate-ping hover:scale-125 hover:-ml-2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+            <h1 className="text-sm pl-4" hidden={!maxim}>
+              History
+            </h1>
+          </Link>
+
+          <Link
+            href={session?.user ? "/category#list" : "#"}
+            onClick={() => setMaxim(false)}
+            className="flex flex-row items-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-7 h-7 active:animate-ping hover:scale-125 hover:-ml-2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
+              />
+            </svg>
+            <h1 className="text-sm pl-4" hidden={!maxim}>
+              Category
+            </h1>
+          </Link>
+        </div>
+      </ul>
+
+      <ul
+        className={` hidden fixed top-0 z-20 text-gray-100 Xbg-[#222222]/70 Xw-full w-[320px] Xw-[calc(100vw-160px)] h-[calc(100vh-0px)] Xh-screen transform transition-all duration-500 xflex flex-col rounded-b-md text-center border-l border-gray-500
         ${
           navbar
             ? ` ${

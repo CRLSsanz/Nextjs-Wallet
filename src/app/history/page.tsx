@@ -561,14 +561,14 @@ const HistoryPage = () => {
   let groupDate = ""; //para agrupar las fechas repetidas
   const nameDiaxFecha = (fecha: any) =>
     [
-      //"Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"
-      "Dom",
-      "Lun",
-      "Mar",
-      "Mié",
-      "Jue",
-      "Vie",
-      "Sáb",
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+      //"Dom","Lun","Mar","Mié","Jue","Vie","Sáb",
     ][new Date(fecha).getDay()];
 
   const cmeses = [
@@ -609,7 +609,7 @@ const HistoryPage = () => {
 
         <h1 className="px-5"> Presupuesto del mes: $14500 ^ - $1200 v </h1>
 
-        <div className="hidden bg-gray-800/30 p-5 text-gray-200 border-b border-gray-500">
+        <div className="xhidden bg-gray-800/30 p-5 text-gray-200 border-b border-gray-500">
           <div className="flex flex-row justify-between mb-5">
             <div>
               <h1 className="text-3xl font-extralight -tracking-wider">
@@ -674,7 +674,7 @@ const HistoryPage = () => {
           </div>
         </div>
 
-        <h1 className="hidden h-2 bg-gradient-to-r from-indigo-600 to-pink-600">
+        <h1 className="Xhidden h-2 bg-gradient-to-r from-indigo-600 to-pink-600">
           {" "}
         </h1>
 
@@ -693,15 +693,15 @@ const HistoryPage = () => {
         </div>
 
         <div className="">
-          <div className="px-5 py-5 flex flex-row justify-between text-white font-medium Xbg-gray-300/50">
-            <div className=" Xtext-lg Xfont-light">
+          <div className="px-5 flex flex-row justify-between items-center text-white font-medium bg-gray-800/50 border-b border-gray-300/50">
+            <div className=" py-5 Xtext-lg Xfont-light ">
               Transacciones
               <span className=""> ({bd.length} items) </span>
             </div>
 
             <Link
               href="/form"
-              className={`flex items-center justify-center cursor-pointer 
+              className={`w-10 h-10 flex items-center justify-center cursor-pointer active:animate-ping bg-gray-800/50 
                     ${isOpen ? " " : " "}                    
                     `}
             >
@@ -711,12 +711,12 @@ const HistoryPage = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="w-7 h-7 active:animate-ping"
+                className="w-5 h-5 "
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  d="M12 4.5v15m7.5-7.5h-15"
                 />
               </svg>
             </Link>
@@ -822,13 +822,10 @@ const HistoryPage = () => {
                     >
                       <div className="w-0.5 bg-gray-600 h-full "> </div>
                     </div>
-                    <p className="hidden bg-transparent text-gray-300 pt-3 px-3 text-sm">
+                    <p className="Xhidden bg-transparent text-gray-300 pt-3 px-3 text-sm">
+                      {nameDiaxFecha(item.date) + ", "}{" "}
                       <span className="">{item.date.substr(8, 2)} </span>
-                      {" de " +
-                        cmeses[Number(3 - 1)] +
-                        " (" +
-                        nameDiaxFecha(item.date) +
-                        ")"}
+                      {" de " + cmeses[Number(3 - 1)]}
                     </p>
                   </div>
                 )}
