@@ -48,7 +48,24 @@ const AnalyticsPage = () => {
 
   return (
     <section className={inter.className}>
-      <div className="min-h-screen">
+      <div className="min-h-screen text-white">
+        <div className="w-full px-5 py-10 flex flex-row justify-between items-center">
+          <div>
+            <h1 className="text-gray-400">Total Balance</h1>
+            <h1 className="text-white text-xl">$3900.00</h1>
+          </div>
+          <h1 className="text-5xl font-thin -tracking-wider">2024</h1>
+        </div>
+
+        <div className="w-full px-5 flex flex-row justify-between items-center">
+          <h1 className="text-gray-400">Balance ano actual</h1>
+          <h1 className="text-white text-lg">$2300.00</h1>
+        </div>
+        <div className="w-full px-5 flex flex-row justify-between items-center">
+          <h1 className="text-gray-400">Balance mes actual</h1>
+          <h1 className="text-white text-lg">$300.00</h1>
+        </div>
+
         <div className=" p-5 pb-10 text-gray-200 border-b border-gray-500">
           <div className="flex flex-row justify-between mb-10">
             <h1 className="text-5xl font-thin -tracking-wider">Analisis</h1>

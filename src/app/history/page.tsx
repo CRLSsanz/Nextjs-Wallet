@@ -598,8 +598,18 @@ const HistoryPage = () => {
 
   return (
     <>
-      <section className={` xbg-gray-800/30 ${inter.className} `}>
-        <div className="bg-gray-800/30 p-5 text-gray-200 border-b border-gray-500">
+      <section className={` text-white ${inter.className} `}>
+        <div className="w-full px-5 py-10 flex flex-row justify-between items-center">
+          <div>
+            <h1 className="text-gray-400">Presupuesto Mayo</h1>
+            <h1 className="text-white text-xl">$3900.00</h1>
+          </div>
+          <h1 className="text-5xl font-thin -tracking-wider">2024</h1>
+        </div>
+
+        <h1 className="px-5"> Presupuesto del mes: $14500 ^ - $1200 v </h1>
+
+        <div className="hidden bg-gray-800/30 p-5 text-gray-200 border-b border-gray-500">
           <div className="flex flex-row justify-between mb-5">
             <div>
               <h1 className="text-3xl font-extralight -tracking-wider">
@@ -683,7 +693,7 @@ const HistoryPage = () => {
         </div>
 
         <div className="">
-          <div className="px-5 py-5 flex flex-row justify-between text-indigo-600 font-medium Xbg-gray-300/50">
+          <div className="px-5 py-5 flex flex-row justify-between text-white font-medium Xbg-gray-300/50">
             <div className=" Xtext-lg Xfont-light">
               Transacciones
               <span className=""> ({bd.length} items) </span>
@@ -812,7 +822,7 @@ const HistoryPage = () => {
                     >
                       <div className="w-0.5 bg-gray-600 h-full "> </div>
                     </div>
-                    <p className="bg-transparent text-gray-300 pt-3 px-3 text-sm">
+                    <p className="hidden bg-transparent text-gray-300 pt-3 px-3 text-sm">
                       <span className="">{item.date.substr(8, 2)} </span>
                       {" de " +
                         cmeses[Number(3 - 1)] +

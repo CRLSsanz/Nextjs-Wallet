@@ -36,121 +36,36 @@ const HistoryRow = ({ item }: any) => {
     <>
       <div
         onClick={() => setIsOpen((prev) => !prev)}
-        className={`w-full p-2 flex flex-row justify-between text-gray-400 cursor-pointer ${inter.className} `}
+        className={` xhidden w-full px-2 mb-2 flex flex-row justify-between text-gray-400 cursor-pointer ${inter.className} `}
       >
-        {/* TIME LINE */}
-        <div className={`hidden relative min-w-12 Xflex justify-center `}>
-          <div className="w-0.5 bg-gray-600 h-full "> </div>
-          <div
-            className={`absolute top-5 left-4  bg-gray-700 border-2 rounded-full transition-all duration-500
-                ${
-                  !isOpen
-                    ? " border-gray-500 w-4 h-4 "
-                    : ` w-6 h-6 ${
-                        item.type === "Expense"
-                          ? " -ml-1 border-pink-600 "
-                          : " -ml-1 border-indigo-600 "
-                      }`
-                } `}
-          >
-            <span
-              onClick={() => handleDelete(item._id)}
-              className="flex justify-center items-center"
-            >
-              {isOpen && (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="2.5"
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 12h14"
-                  />
-                </svg>
-              )}
-            </span>
-          </div>
-        </div>
-
-        {/* ICONO */}
-        <div className=" hidden w-20 pl-4 py-6 ">
-          <img
-            src={`./images/category/${item.category}.png`}
-            className={`w-2.5 rounded-full transform transition-all duration-500 ${
-              isOpen
-                ? " bg-gray-800 mt-3 scale-[3.0] p-[1px] "
-                : ` mt-1 p-1 ${
-                    item.type === "Expense"
-                      ? " bg-pink-600 "
-                      : " bg-indigo-600 "
-                  }`
-            } 
-          `}
-            alt={item.category}
-          />
-        </div>
-
-        <div className="hidden px-4 pt-6 ">
-          <div
-            className={` flex items-center justify-center w-6 h-6 rounded-md bg-gray-800/50 
-        ${
-          item.type === "Expense"
-            ? " rotate-[45deg] text-pink-600"
-            : " -rotate-[45deg] text-indigo-600 "
-        }
-        `}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="3.0"
-              stroke="currentColor"
-              className="w-3 h-3"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                //d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-              />
-            </svg>
-          </div>
-        </div>
-
         {/* INFO */}
         <div
-          className={` Xrounded-b-xl mr-5 transition-all duration-1000
-          ${
-            item.type === "Expense"
-              ? " bg-gradient-to-tl from-pink-600/70 via-transparent pb-2 pr-2 Xbg-pink-600/90 "
-              : " bg-gradient-to-tr from-indigo-600/70 via-transparent pb-2 pl-2 Xbg-indigo-600/90 "
-          }
-        `}
+          className={` relative ${
+            item.type === "Expense" ? " pr-2 pb-2 " : " pl-2 pb-2 "
+          } `}
         >
           <div
-            className={` w-full relative p-5 Xrounded-b-lg flex flex-col  ${
-              isOpen ? "bg-gray-700/50 " : "bg-gray-600/50"
-            }
-        `}
+            className={` absolute bottom-0 rounded-b-3xl
+          ${
+            item.type === "Expense"
+              ? " right-0 w-40 h-16 bg-gradient-to-tl from-pink-600/80 via-transparent Xbg-pink-600/90 "
+              : " left-0 w-40 h-16 bg-gradient-to-tr from-indigo-600/80 via-transparent  Xbg-indigo-600/90 "
+          }`}
+          ></div>
+
+          <div
+            className={` w-full relative py-5 px-3 rounded-2xl flex flex-col  ${
+              isOpen ? "bg-gray-600/50 " : "bg-gray-800/50"
+            }`}
           >
             <div className="flex flex-row">
-              <div className=" w-8 pt-1 ">
+              <div className=" w-14 pt-1 ">
                 <img
                   src={`./images/category/${item.category}.png`}
-                  className={`w-2.5 rounded transform transition-all duration-500 ${
+                  className={`w-7 rounded-md transform transition-all duration-500 ${
                     isOpen
-                      ? " bg-gray-300 mt-3 scale-[3.0] p-[1px] "
-                      : ` mt-1 p-1 ${
-                          item.type === "Expense"
-                            ? " bg-gray-600 "
-                            : " bg-gray-600 "
-                        }`
+                      ? " bg-gray-300 mt-1 scale-110 p-[1px] "
+                      : ` p-1 bg-slate-600`
                   } 
           `}
                   alt={item.category}
@@ -205,7 +120,7 @@ const HistoryRow = ({ item }: any) => {
 
                 <div
                   onClick={() => handleDelete(item._id)}
-                  className="Xhidden absolute text-white bg-red-600/90 bottom-0 right-0 p-0.5"
+                  className=" absolute text-white bg-red-600/50 Xrounded-2xl bottom-0 right-0 p-0.5"
                   hidden={!isOpen}
                 >
                   <svg
@@ -395,7 +310,7 @@ const HistoryRow = ({ item }: any) => {
 
       <div
         onClick={() => setIsOpen((prev) => !prev)}
-        className={` hidden w-full Xflex flex-row justify-between text-gray-400 cursor-pointer ${inter.className} `}
+        className={` hidden w-full xflex flex-row justify-between text-gray-400 cursor-pointer ${inter.className} `}
       >
         {/* ICONO */}
         <div className=" w-20 pl-4 py-6 ">
