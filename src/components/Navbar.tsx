@@ -4,14 +4,14 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 
-const menuItems = [
+/*const menuItems = [
   {
     title: "History",
     link: "/history",
     svg: "history.svg",
   },
 ];
-
+*/
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
   const [maxim, setMaxim] = useState(false);
@@ -23,12 +23,12 @@ const Navbar = () => {
 
   const { data: session } = useSession();
   //console.log(session);
-  const size = "righ-0";
+  // const size = "righ-0 ";
 
   return (
     <div>
       <nav
-        className={`hidden fixed z-50 w-12 h-12 right-4 bottom-4 Xbg-gradient-to-tl Xfrom-zinc-600 Xbackdrop-blur-2xl flex flex-col justify-between items-center text-white 
+        className={`hidden fixed z-50 w-12 h-12 right-4 bottom-4 Xbg-gradient-to-tl Xfrom-zinc-600 Xbackdrop-blur-2xl xflex flex-col justify-between items-center text-white 
       ${navbar ? " bg-gray-800/20 " : " bg-gray-900/90 "}      
       `}
       >
