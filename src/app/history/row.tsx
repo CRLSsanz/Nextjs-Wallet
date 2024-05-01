@@ -38,41 +38,68 @@ const HistoryRow = ({ item }: any) => {
         onClick={() => setIsOpen((prev) => !prev)}
         className={` xhidden w-full px-2 mb-2 flex flex-row justify-between text-gray-400 cursor-pointer ${inter.className} `}
       >
+        {/* DATE - DIA */}
+        <div
+          className={` Xhidden relative min-w-12 pt-4 Xpx-2 text-center Xborder-r border-gray-500 
+                    ${isOpen && " text-yellow-400 "}
+                    `}
+        >
+          {item.date.substr(5, 5) === "groupDate" ? (
+            <></>
+          ) : (
+            <>
+              <h1 className="text-2xl font-extralight">
+                {item.date.substr(8, 2)}
+              </h1>
+              <h1 className="uppercase text-xs -mt-2">
+                {nameDiaxFecha(item.date)}
+              </h1>
+              <div
+                className={` hidden absolute top-10 -left-1.5 w-3 h-3 bg-gray-700 border-2 border-gray-500 rounded-full ${
+                  isOpen && " border-pink-600 "
+                } `}
+              >
+                {" "}
+              </div>
+            </>
+          )}
+        </div>
+
         {/* INFO */}
         <div
-          className={` relative ${
-            item.type === "Expense" ? " pr-2 pb-2 " : " pl-2 pb-2 "
+          className={` w-full relative ${
+            item.type === "Expense" ? " pr-2 pb-2 " : " pr-2 pb-2 "
           } `}
         >
           <div
             className={` absolute bottom-0 rounded-b-3xl
           ${
             item.type === "Expense"
-              ? " right-0 w-40 h-16 bg-gradient-to-tl from-pink-600/80 via-transparent Xbg-pink-600/90 "
-              : " left-0 w-40 h-16 bg-gradient-to-tr from-indigo-600/80 via-transparent  Xbg-indigo-600/90 "
+              ? " right-0 w-40 h-16 bg-gradient-to-tl from-pink-600/90 via-transparent Xbg-pink-600/90 "
+              : " right-0 w-40 h-16 bg-gradient-to-tl from-indigo-600/90 via-transparent  Xbg-indigo-600/90 "
           }`}
           ></div>
 
           <div
             className={` w-full relative py-5 px-3 rounded-2xl flex flex-col  ${
-              isOpen ? "bg-gray-600/50 " : "bg-gray-800/50"
+              isOpen ? "bg-gray-600/50 " : "bg-gradient-to-tl from-gray-800/70"
             }`}
           >
-            <div className="flex flex-row">
-              <div className=" w-14 pt-1 ">
-                <img
-                  src={`./images/category/${item.category}.png`}
-                  className={`w-7 rounded-md transform transition-all duration-500 ${
-                    isOpen
-                      ? " bg-gray-300 mt-1 scale-110 p-[1px] "
-                      : ` p-1 bg-slate-600`
-                  } 
+            <div className="w-full flex flex-row justify-between items-center">
+              <div className="flex flex-row items-center">
+                <div className="pr-3 ">
+                  <img
+                    src={`./images/category/${item.category}.png`}
+                    className={`w-8 h-8 rounded-md transform transition-all duration-500 ${
+                      isOpen
+                        ? " bg-gray-300 scale-110 p-[2px] "
+                        : ` p-1 bg-slate-600`
+                    } 
           `}
-                  alt={item.category}
-                />
-              </div>
-              <div>
-                <div className={`flex flex-row justify-between`}>
+                    alt={item.category}
+                  />
+                </div>
+                <div>
                   <h1
                     className={`   ${
                       isOpen
@@ -82,63 +109,74 @@ const HistoryRow = ({ item }: any) => {
                   >
                     {item.category}
                   </h1>
-                  <h1
-                    className={`flex text-base tracking-wider  ${
-                      item.type === "Expense"
-                        ? " text-gray-200 "
-                        : " text-gray-200 Xfont-medium "
-                    }`}
-                  >
-                    <span className={` m-[3px] text-xs Xfont-bold `}>
-                      {item.type === "Income" ? "$ " : "$ "}
-                    </span>
-                    {item.total.toFixed(2)}
-                  </h1>
-                </div>
 
-                <div
-                  className={` w-[calc(100vw-120px)] text-sm ${
-                    !isOpen && " truncate "
-                  } `}
-                >
-                  <span
-                    className={` font-semibold ${
-                      isOpen
-                        ? " text-white "
-                        : item.type === "Expense"
-                        ? " Xborder-b border-pink-600 "
-                        : " Xborder-b border-indigo-600 "
-                    }   
-              `}
+                  <div
+                    className={` -mt-1 w-40 text-xs truncate "} `}
+                    hidden={isOpen}
                   >
-                    Nota:{" "}
-                  </span>
-                  <span className={` ${isOpen && " text-gray-200 "} `}>
                     {item.comment}
-                  </span>
-                </div>
-
-                <div
-                  onClick={() => handleDelete(item._id)}
-                  className=" absolute text-white bg-red-600/50 Xrounded-2xl bottom-0 right-0 p-0.5"
-                  hidden={!isOpen}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-4 h-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 12h14"
-                    />
-                  </svg>
+                  </div>
                 </div>
               </div>
+
+              <div>
+                <h1
+                  className={`flex text-base tracking-wider  ${
+                    item.type === "Expense"
+                      ? " text-gray-200 "
+                      : " text-gray-200 Xfont-medium "
+                  }`}
+                >
+                  <span className={` m-[3px] text-xs Xfont-bold `}>
+                    {item.type === "Income" ? "$ " : "$ "}
+                  </span>
+                  {item.total.toFixed(2)}
+                </h1>
+              </div>
+            </div>
+            {/** NOTA */}
+            <div
+              className={` pt-2 w-[calc(100vw-130px)] text-sm ${
+                !isOpen && " truncate "
+              } `}
+              hidden={!isOpen}
+            >
+              <span
+                className={` font-semibold ${
+                  isOpen
+                    ? " text-white "
+                    : item.type === "Expense"
+                    ? " Xborder-b border-pink-600 "
+                    : " Xborder-b border-indigo-600 "
+                }   
+              `}
+              >
+                Nota:{" "}
+              </span>
+              <span className={` ${isOpen && " text-gray-200 "} `}>
+                {item.comment}
+              </span>
+            </div>
+            {/** DELETE */}
+            <div
+              onClick={() => handleDelete(item._id)}
+              className=" hidden absolute text-white bg-red-600/50 Xrounded-2xl top-0 right-0 p-0.5"
+              hidden={!isOpen}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-4 h-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 12h14"
+                />
+              </svg>
             </div>
           </div>
         </div>
