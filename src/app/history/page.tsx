@@ -607,7 +607,7 @@ const HistoryPage = () => {
           <h1 className="text-5xl font-thin -tracking-wider">2024</h1>
         </div>
 
-        <div className="mx-2 py-5 rounded-xl border border-gray-500/30 mb-5">
+        <div className="mx-2 py-5 rounded-xl bg-black/50 border border-gray-500/30 mb-5">
           {/** BALANCE */}
           <div className="py-5 flex flex-row items-center justify-center">
             <div className="mr-10">
@@ -639,7 +639,7 @@ const HistoryPage = () => {
           <div className=" p-5 text-gray-200">
             <div className="flex flex-row">
               <div className="w-1/2 flex flex-row items-center">
-                <div className="w-8 h-8 flex items-center justify-center bg-gray-800/50 text-indigo-600 -rotate-45 rounded-md">
+                <div className="w-8 h-8 flex items-center justify-center bg-gray-900/70 text-indigo-600 -rotate-45 rounded-md">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -665,7 +665,7 @@ const HistoryPage = () => {
               </div>
 
               <div className="w-1/2 flex flex-row items-center">
-                <div className="w-8 h-8 flex items-center justify-center bg-gray-700/50 text-pink-600 rotate-45 rounded-md">
+                <div className="w-8 h-8 flex items-center justify-center bg-gray-900/70 text-pink-600 rotate-45 rounded-md">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -693,34 +693,34 @@ const HistoryPage = () => {
           </div>
         </div>
 
-        <div className="">
-          <div className="rounded-2xl px-3 mx-2 flex flex-row justify-between items-center text-white font-medium bg-gradient-to-r from-indigo-600 to-pink-600 mb-3">
-            <div className=" py-5 Xtext-lg Xfont-light ">
-              Transacciones
-              <span className=""> ({bd.length} items) </span>
-            </div>
-
-            <Link
-              href="/form"
-              className={`w-10 h-10 flex items-center justify-center cursor-pointer active:animate-ping bg-gray-800/50 rounded-lg `}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-5 h-5 "
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 4.5v15m7.5-7.5h-15"
-                />
-              </svg>
-            </Link>
+        <div className="rounded-2xl px-3 mx-2 flex flex-row justify-between items-center text-white font-medium bg-gradient-to-r from-indigo-600/90 to-pink-600/90 mb-5">
+          <div className=" py-5 Xtext-lg Xfont-light ">
+            Transacciones
+            <span className=""> ({bd.length} items) </span>
           </div>
 
+          <Link
+            href="/form"
+            className={`w-10 h-10 flex items-center justify-center cursor-pointer active:animate-ping bg-gray-800/50 rounded-lg `}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-5 h-5 "
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
+            </svg>
+          </Link>
+        </div>
+
+        <div className="bg-black/50 py-3 mx-2 rounded-xl">
           {/** FILAS OCULTO*/}
           <div className="hidden px-5 pb-10">
             {bd.map((item, index) => (
@@ -821,7 +821,7 @@ const HistoryPage = () => {
                     >
                       <div className="w-0.5 bg-gray-600 h-full "> </div>
                     </div>
-                    <p className="Xhidden bg-transparent text-gray-300 pt-3 px-3 text-sm">
+                    <p className="Xhidden bg-transparent text-gray-300 py-2 px-3 text-sm">
                       {nameDiaxFecha(item.date) + ", "}{" "}
                       <span className="">{item.date.substr(8, 2)} </span>
                       {" de " + cmeses[Number(3 - 1)]}

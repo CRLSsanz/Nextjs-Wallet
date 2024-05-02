@@ -170,7 +170,7 @@ const Navbar = () => {
       </nav>
 
       <ul
-        className={`fixed bottom-0 z-20 text-gray-100 bg-[#222222]/70 backdrop-blur-md  w-full Xh-[calc(100vh-0px)] h-16 transform transition-all duration-500 border-t border-gray-500
+        className={`fixed bottom-0 z-20 text-gray-100 bg-black/70 backdrop-blur-md  w-full Xh-[calc(100vh-0px)] h-16 transform transition-all duration-500 border-t border-gray-500/20
         `}
       >
         {/** ITEMS */}

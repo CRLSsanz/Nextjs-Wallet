@@ -82,7 +82,7 @@ const HistoryRow = ({ item }: any) => {
 
           <div
             className={` w-full relative py-5 px-3 rounded-2xl flex flex-col  ${
-              isOpen ? "bg-gray-600/50 " : "bg-gradient-to-tl from-gray-800/70"
+              isOpen ? " bg-gray-600/50 " : " bg-gray-800/50"
             }`}
           >
             <div className="w-full flex flex-row justify-between items-center">
