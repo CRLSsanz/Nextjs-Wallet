@@ -76,7 +76,7 @@ const AnalyticsPage = () => {
           </div>
           {session?.user && (
             <img
-              src={`${session?.user.image}`}
+              src={`${session.user.image}`}
               alt="Avatar"
               className="rounded-full w-12 h-12 shadow-gray-300"
             />
