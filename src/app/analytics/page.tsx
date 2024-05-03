@@ -2,6 +2,7 @@
 import { useGetUsersQuery } from "@/redux/services/userApi";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const inter = Montserrat({
   subsets: ["latin"],
@@ -43,6 +44,7 @@ const bd = [
 
 const AnalyticsPage = () => {
   const { data, error, isLoading, isFetching } = useGetUsersQuery(null);
+  const { data: session } = useSession();
 
   if (isLoading || isFetching) return <p>Cargando...</p>;
   if (error) return <p>Some Error</p>;
@@ -50,22 +52,110 @@ const AnalyticsPage = () => {
   return (
     <section className={inter.className}>
       <div className="min-h-screen text-white">
-        <div className="w-full px-5 py-10 flex flex-row justify-between items-center">
+        <div className="w-full p-5 text-white  flex flex-row justify-between items-center mb-5">
+          <div className="flex flex-row items-center">
+            <Link href={"/analytics"} className="mr-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 active:animate-ping"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                />
+              </svg>
+            </Link>
+            <div>
+              <h1 className="text-gray-300">Analisis</h1>
+            </div>
+          </div>
+          {session?.user && (
+            <img
+              src={`${session?.user.image}`}
+              alt="Avatar"
+              className="rounded-full w-12 h-12 shadow-gray-300"
+            />
+          )}
+        </div>
+
+        <div className="w-full p-5 mb-5 flex flex-row justify-between items-center">
           <div>
             <h1 className="text-gray-400">Balance General</h1>
             <h1 className="text-white text-xl">$ 1950.00</h1>
           </div>
-          <h1 className="text-5xl font-thin -tracking-wider"> {`<2024>`} </h1>
+          <h1 className="text-5xl font-thin -tracking-wider"> {`v 2024`} </h1>
         </div>
 
         <div className="w-full px-5 text-center">
           <h1 className="text-gray-400">Total Balance Anual</h1>
-          <h1 className="text-white text-5xl">$ 164000.00</h1>
-          <h1 className="hidden text-white text-lg"> $850.00 | $691.00 </h1>
+          <h1 className="text-white text-5xl">$ 164,000.00</h1>
+          <h1 className="hidden text-white text-lg"> $855.00 | $691.00 </h1>
         </div>
 
         {/** INCOME EXPENCES */}
-        <div className=" p-5 text-gray-200">
+        <div className="p-5 text-white">
+          <div className="flex flex-row ">
+            <div className=" w-1/2 p-5 flex flex-col items-center justify-center bg-gray-300/10 border border-gray-500/30 rounded-xl mr-3">
+              <h1 className="text-sm text-gray-300 mb-1">Ingresos</h1>
+              <div className=" relative flex flex-row justify-between items-center">
+                <h1 className="mr-1 flex text-lg text-white font-medium">
+                  <span className="text-sm pt-1 mr-1">$ </span>
+                  855.00
+                </h1>
+                <div className="absolute top-1 -right-5 flex items-center justify-center Xbg-gray-600/50 text-indigo-600 rounded-md">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2.5"
+                    stroke="currentColor"
+                    className="w-5 h-5 -rotate-45"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div className=" w-1/2 p-5 flex flex-col items-center justify-center bg-gray-300/10 border border-gray-500/30 rounded-xl mr-3">
+              <h1 className="text-sm text-gray-300 mb-1">Gastos</h1>
+              <div className=" relative flex flex-row justify-between items-center">
+                <h1 className="mr-1 flex text-lg text-white font-medium">
+                  <span className="text-sm pt-1 mr-1">$ </span>
+                  691.00
+                </h1>
+                <div className="absolute top-1 -right-5 flex items-center justify-center Xbg-gray-600/50 text-pink-600 rounded-md">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2.5"
+                    stroke="currentColor"
+                    className="w-5 h-5 rotate-45"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/** INCOME EXPENCES */}
+        <div className=" hidden p-5 text-gray-200">
           <div className="flex flex-row">
             <div className="w-1/2 flex flex-row items-center justify-end border-r border-gray-500/30">
               <div className="w-8 h-8 flex items-center justify-center bg-gray-800/50 text-indigo-600 -rotate-45 rounded-md">
@@ -161,8 +251,8 @@ const AnalyticsPage = () => {
           </div>
         </div>
 
-        <h1 className="text-white text-lg p-5 ">Resumen por categorias</h1>
-        <div className="bg-gray-800/50 mx-2 rounded-lg">
+        <div className="bg-black/50 mx-5 py-5 rounded-3xl">
+          <h1 className="text-teal-500 text-lg p-5 ">Resumen por categorias</h1>
           {bd.map((item, index) => (
             <>
               <div

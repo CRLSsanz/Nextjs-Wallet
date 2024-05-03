@@ -5,6 +5,7 @@ import { Montserrat } from "next/font/google";
 import { useState } from "react";
 import HistoryRow from "./row";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const inter = Montserrat({
   subsets: ["latin"],
@@ -558,6 +559,8 @@ const bd = [
 
 const HistoryPage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session } = useSession();
+
   let groupDate = ""; //para agrupar las fechas repetidas
   const nameDiaxFecha = (fecha: any) =>
     [
@@ -599,15 +602,107 @@ const HistoryPage = () => {
   return (
     <>
       <section className={` text-white ${inter.className} `}>
-        <div className="w-full px-5 py-10 flex flex-row justify-between items-center">
-          <div>
-            <h1 className="text-gray-400">Detalle Mensual</h1>
-            <h1 className="text-white text-xl"> {" < Marzo > "} </h1>
+        <div className="w-full p-5 text-white  flex flex-row justify-between items-center mb-5">
+          <div className="flex flex-row items-center">
+            <Link href={"/analytics"} className="mr-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 active:animate-ping"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                />
+              </svg>
+            </Link>
+            <div>
+              <h1 className="text-gray-300">Transacciones</h1>
+            </div>
           </div>
-          <h1 className="text-5xl font-thin -tracking-wider">2024</h1>
+          {session?.user && (
+            <img
+              src={`${session?.user.image}`}
+              alt="Avatar"
+              className="rounded-full w-12 h-12 shadow-gray-300"
+            />
+          )}
         </div>
 
-        <div className="mx-2 py-5 rounded-xl bg-black/50 border border-gray-500/30 mb-5">
+        <div className="w-full text-gray-300 px-5 flex flex-row justify-between items-center mb-3">
+          <h1 className="">Balance del Mes</h1>
+          <div className="text-lg">
+            <span className=""> Marzo v | </span>
+            <span className=""> 2024 v</span>
+          </div>
+        </div>
+        <div className="w-full px-5 flex flex-row justify-between items-center mb-5">
+          <div className="">
+            <h1 className="text-4xl font-light mb-2 ">$ 1450.00 </h1>
+            <div className="text-gray-300 flex flex-row items-center">
+              <div className="w-5 h-5 flex items-center justify-center bg-gray-800/50 text-indigo-600 rounded-md">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2.5"
+                  stroke="currentColor"
+                  className="w-4 h-4 -rotate-45"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </div>
+              <h1 className="px-2 mr-4">$2300.00 </h1>
+              <div className="w-5 h-5 flex items-center justify-center bg-gray-800/50 text-pink-600 rounded-md">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2.5"
+                  stroke="currentColor"
+                  className="w-4 h-4 rotate-45"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </div>
+
+              <h1 className="px-2">$1230.00</h1>
+            </div>
+          </div>
+          <Link
+            href={"/form"}
+            className="w-14 h-14 flex items-center justify-center rounded-full bg-white/20 mb-2 transform transition-all duration-1000"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-6 h-6 active:animate-ping hover:scale-125 hover:rotate-90 "
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
+            </svg>
+          </Link>
+        </div>
+
+        <div className="hidden mx-5 py-5 rounded-xl bg-black/50 border border-gray-500/30 mb-5">
           {/** BALANCE */}
           <div className="py-5 flex flex-row items-center justify-center">
             <div className="mr-10">
@@ -693,7 +788,7 @@ const HistoryPage = () => {
           </div>
         </div>
 
-        <div className="rounded-2xl px-3 mx-2 flex flex-row justify-between items-center text-white font-medium bg-gradient-to-r from-indigo-600/90 to-pink-600/90 mb-5">
+        <div className="hidden rounded-2xl px-3 mx-2 xflex flex-row justify-between items-center text-white font-medium bg-gradient-to-r from-indigo-600/90 to-pink-600/90 mb-5">
           <div className=" py-5 Xtext-lg Xfont-light ">
             Transacciones
             <span className=""> ({bd.length} items) </span>
@@ -720,95 +815,14 @@ const HistoryPage = () => {
           </Link>
         </div>
 
-        <div className="bg-black/50 py-3 mx-2 rounded-xl">
-          {/** FILAS OCULTO*/}
-          <div className="hidden px-5 pb-10">
-            {bd.map((item, index) => (
-              <div key={index}>
-                <>
-                  <div
-                    onClick={() => setIsOpen((prev) => !prev)}
-                    className={`flex flex-row text-gray-400 cursor-pointer`}
-                  >
-                    <div className="w-10 pr-3 py-6 ">
-                      <img
-                        src={`./images/category/${item.category}.png`}
-                        className={`w-5 transform transition-all duration-500 ${
-                          !isOpen && " mt-1 scale-150 "
-                        } `}
-                        alt={item.category}
-                      />
-                    </div>
-
-                    <div className="relative w-full mr-5 py-5 flex flex-col border-b border-gray-500">
-                      <h1 className="text-base text-gray-300">
-                        {item.category}
-                      </h1>
-                      <h1
-                        className={`-mt-1 text-xl font-light  ${
-                          item.type === "Expense"
-                            ? " text-pink-600 font-medium "
-                            : " text-indigo-600 font-medium "
-                        }`}
-                      >
-                        <span className={` text-sm Xfont-bold`}>
-                          $ {/*item.type === "Income" ? " + " : " - "*/}
-                        </span>
-                        {item.total.toFixed(2)}
-                      </h1>
-                      <h1 className="text-sm text-justify" hidden={isOpen}>
-                        {item.comment}
-                      </h1>
-                      <div
-                        onClick={() => handleDelete(item._id)}
-                        className="absolute text-gray-300 top-10 -right-8 rounded-full bg-gray-600 p-0.5"
-                        hidden={isOpen}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="currentColor"
-                          className="w-5 h-5"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M5 12h14"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    {/* DATE - DIA */}
-                    <div
-                      className={` w-20 pt-5 pl-4 text-center border-l border-gray-500 
-                    ${!isOpen && " text-yellow-400 "}
-                    `}
-                    >
-                      {item.date.substr(5, 5) === "groupDate" ? (
-                        <></>
-                      ) : (
-                        <>
-                          <h1 className="text-3xl font-extralight">
-                            {item.date.substr(8, 2)}
-                          </h1>
-                          <h1 className="uppercase text-sm">
-                            {nameDiaxFecha(item.date)}
-                          </h1>
-                        </>
-                      )}
-                      <p className="hidden">
-                        {(groupDate = item.date.substr(5, 5))}
-                      </p>
-                    </div>
-                  </div>
-                </>
-              </div>
-            ))}
+        {/** LLAMAR A LAS FILAS*/}
+        <div className="bg-black/50 py-3 rounded-xl">
+          <div className="p-5 flex flex-row justify-between">
+            <h1 className="">Lista de transaccion</h1>
+            <h1 className="">({bd.length} items)</h1>
           </div>
           {/** LLAMAR A LAS FILAS*/}
-          <div className="w-full Xpx-5 pb-10">
+          <div className="w-full px-3 pb-10">
             {bd?.map((item, index) => (
               <div key={index}>
                 {item.date.substr(5, 5) === groupDate ? (
