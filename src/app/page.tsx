@@ -62,7 +62,9 @@ export default function Home() {
 
           <div className="px-5 mb-10">
             <h1 className="text-lg text-teal-500">Hola {session.user.name} </h1>
-            <h1 className=" text-4xl">Let's complete your current balance</h1>
+            <h1 className=" text-4xl">
+              Let{`'`}s complete your current balance
+            </h1>
           </div>
 
           <div className=" px-10">
