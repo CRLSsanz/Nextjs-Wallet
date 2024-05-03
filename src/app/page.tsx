@@ -32,6 +32,7 @@ export default function Home() {
         <LoginPage />
       ) : (
         <>
+          {/** BOTON Y FOTO */}
           <div className="w-full p-5 text-white flex flex-row justify-between items-center">
             <div className="flex flex-row">
               <svg
@@ -79,6 +80,7 @@ export default function Home() {
             />
           </div>
 
+          {/** INFO DE USER */}
           <div className="px-5 mb-10">
             <h1 className="text-lg font-medium text-teal-500">
               Hola {session.user.name}{" "}
@@ -88,15 +90,16 @@ export default function Home() {
             </h1>
           </div>
 
+          {/** CARD */}
           <div className=" px-10">
-            <div className="w-full h-40 p-4 rounded-3xl bg-gradient-to-br from-indigo-600/80 to-pink-600 text-gray-50/20">
+            <div className="w-full h-40 p-4 rounded-3xl bg-gradient-to-br from-indigo-600/80 to-pink-600 text-black/50">
               Avalieve Balance
             </div>
           </div>
-          <div className={` p-5 -mt-36 ${number.className} `}>
+          <div className={` p-5 -mt-36 mb-5 ${number.className} `}>
             <div className="w-full p-5 rounded-3xl bg-gray-800/30 backdrop-blur-xl border border-gray-500/30">
               <h1>Saldo Disponible</h1>
-              <h1 className="text-2xl tracking-wider mt-2 mb-8">
+              <h1 className="text-2xl tracking-wider mt-2 mb-12">
                 $ <span className="">20150.00</span>
               </h1>
               <h1 className="tracking-[0.2em]">**** **** **** 7856</h1>
@@ -104,16 +107,20 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="p-5 text-gray-200 flex flex-row justify-between items-center">
+          {/** ITEM ADD - ANALYTICS - HISTORY - CATEGORY */}
+          <div className="p-5 text-gray-200 flex flex-row justify-between items-center mb-5">
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2">
+              <Link
+                href={session?.user ? "/form" : "#"}
+                className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="w-6 h-6"
+                  className="w-7 h-7 active:animate-ping hover:scale-125 Xhover:-ml-2"
                 >
                   <path
                     strokeLinecap="round"
@@ -121,7 +128,7 @@ export default function Home() {
                     d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                   />
                 </svg>
-              </div>
+              </Link>
               <div className=""> Add </div>
             </div>
             <div className="flex flex-col items-center">
@@ -135,7 +142,7 @@ export default function Home() {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="w-6 h-6"
+                  className="w-7 h-7 active:animate-ping hover:scale-125 Xhover:-ml-2"
                 >
                   <path
                     strokeLinecap="round"
@@ -147,33 +154,17 @@ export default function Home() {
               <div className=""> Analisis </div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2">
+              <Link
+                href={session?.user ? "/history" : "#"}
+                className="w-16 h-16 flex items-center justify-center  rounded-full bg-black/20 mb-2"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"
-                  />
-                </svg>
-              </div>
-              <div className=""> Historial </div>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 flex items-center justify-center  rounded-full bg-black/20 mb-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-7 h-7 active:animate-ping hover:scale-125 hover:-ml-2"
+                  className="w-7 h-7 active:animate-ping hover:scale-125 Xhover:-ml-2"
                 >
                   <path
                     strokeLinecap="round"
@@ -186,10 +177,33 @@ export default function Home() {
                     d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
                   />
                 </svg>
-              </div>
+              </Link>
               <div className=""> Balance </div>
             </div>
-            <div className="hidden Xflex flex-col items-center">
+            <div className="flex flex-col items-center">
+              <Link
+                href={session?.user ? "/category" : "#"}
+                className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-7 h-7 active:animate-ping hover:scale-125 Xhover:-ml-2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"
+                  />
+                </svg>
+              </Link>
+              <div className=""> Category </div>
+            </div>
+
+            <div className="hidden xflex flex-col items-center">
               <div className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -210,6 +224,7 @@ export default function Home() {
             </div>
           </div>
 
+          {/** ULTIMAS TRANSACCIONES */}
           <div className=" p-5 ">
             <div className="flex flex-row justify-between mb-5">
               <h1 className="font-semibold">Ultimas Transacciones</h1>

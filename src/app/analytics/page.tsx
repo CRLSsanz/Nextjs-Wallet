@@ -42,6 +42,17 @@ const bd = [
   },
 ];
 
+const barsColor = [
+  "bg-red-700",
+  "bg-orange-700",
+  "bg-pink-700",
+  "bg-purple-700",
+  "bg-indigo-700",
+  "bg-blue-700",
+  "bg-cyan-700",
+  "bg-teal-700",
+];
+
 const AnalyticsPage = () => {
   const { data, error, isLoading, isFetching } = useGetUsersQuery(null);
   const { data: session } = useSession();
@@ -100,7 +111,7 @@ const AnalyticsPage = () => {
                 />
               </svg>
             </Link>
-            <Link href={session?.user ? "/category#list" : "#"}>
+            <Link href={session?.user ? "/category#list" : "#"} hidden>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -290,53 +301,36 @@ const AnalyticsPage = () => {
         <div className="bg-black/50 mx-5 py-5 rounded-3xl">
           <h1 className="text-teal-500 text-lg p-5 ">Resumen por categorias</h1>
           {bd.map((item, index) => (
-            <>
-              <div
-                key={index}
-                className="hidden Xflex flex-col justify-between text-sm p-3 bg-white/5 text-gray-300 rounded-3xl border border-gray-600"
-              >
-                <div className="mb-5">
-                  <h1 className="text-lg text-white">
-                    <span className="text-sm">$</span> {item.total.toFixed(2)}
+            <div
+              key={index}
+              className="flex flex-row items-center justify-between p-5 Xbg-white/5 text-white Xborder-t border-gray-500/20"
+            >
+              <img
+                src={`./images/category/${item.category}.png`}
+                alt="image"
+                className="w-14 h-14 opacity-100 rounded-lg bg-gray-600/50 p-2"
+              />
+              <div className="w-full ml-4">
+                <div className="flex flex-row justify-between">
+                  <div>
+                    <h1 className="font-medium">{item.category}</h1>
+                    <h1 className="text-xs text-gray-400 mb-1">
+                      {item.items} transacciones
+                    </h1>
+                  </div>
+                  <h1 className="">
+                    <span className="">$</span> {item.total.toFixed(2)}
                   </h1>
-                  <h1 className="text-xs">{item.category}</h1>
                 </div>
-                <img
-                  src={`./images/category/${item.category}.png`}
-                  alt="image"
-                  className="-ml-3 w-14 opacity-30"
-                />
-              </div>
-
-              <div
-                key={index}
-                className="flex flex-row items-center justify-between p-5 Xbg-white/5 text-white Xborder-t border-gray-500/20"
-              >
-                <img
-                  src={`./images/category/${item.category}.png`}
-                  alt="image"
-                  className="w-14 h-14 opacity-100 rounded-lg bg-gray-600/50 p-2"
-                />
-                <div className="w-full ml-4">
-                  <div className="flex flex-row justify-between">
-                    <div>
-                      <h1 className="font-medium">{item.category}</h1>
-                      <h1 className="text-xs text-gray-400 mb-1">
-                        5 transacciones
-                      </h1>
-                    </div>
-                    <h1 className="">
-                      <span className="">$</span> {item.total.toFixed(2)}
-                    </h1>
-                  </div>
-                  <div className="w-full h-2.5 bg-gray-500/10 rounded-full">
-                    <h1 className="w-60 h-2.5 bg-gradient-to-r from-pink-700 to-red-500 rounded-full">
-                      {" "}
-                    </h1>
-                  </div>
+                <div className="w-full h-2.5 bg-gray-500/10 rounded-full">
+                  <h1
+                    className={` w-40 h-2.5 ${barsColor[index]}  rounded-full `}
+                  >
+                    {" "}
+                  </h1>
                 </div>
               </div>
-            </>
+            </div>
           ))}
         </div>
       </div>

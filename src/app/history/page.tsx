@@ -602,6 +602,7 @@ const HistoryPage = () => {
   return (
     <>
       <section className={` text-white ${inter.className} `}>
+        {/** VOLVER MES Y ANO */}
         <div className="w-full p-5 text-white  flex flex-row justify-between items-center mb-5">
           <div className="flex flex-row items-center">
             <Link href={"/analytics"} className="mr-3">
@@ -620,29 +621,22 @@ const HistoryPage = () => {
                 />
               </svg>
             </Link>
-            <div>
-              <h1 className="text-gray-300">Transacciones</h1>
-            </div>
           </div>
-          {session?.user && (
-            <img
-              src={`${session?.user.image}`}
-              alt="Avatar"
-              className="rounded-full w-12 h-12 shadow-gray-300"
-            />
-          )}
+          <div>
+            <h1 className="text-gray-300 rounded-full border border-gray-500/30 px-8 py-2">
+              Septiembre
+            </h1>
+          </div>
+          <h1 className="h-12 text-xl font-extralight flex items-center">
+            2024
+          </h1>
         </div>
 
-        <div className="w-full text-gray-300 px-5 flex flex-row justify-between items-center mb-3">
-          <h1 className="">Balance del Mes</h1>
-          <div className="text-lg">
-            <span className=""> Marzo v | </span>
-            <span className=""> 2024 v</span>
-          </div>
-        </div>
-        <div className="w-full px-5 flex flex-row justify-between items-center mb-5">
-          <div className="">
-            <h1 className="text-4xl font-light mb-2 ">$ 1450.00 </h1>
+        {/** SALDO ACTUAL CON INCOME EXPENSES - OCULTO */}
+        <div className="hidden w-full px-5 xflex flex-col justify-between items-center mb-10">
+          <h1 className="">Saldo actual </h1>
+          <h1 className="text-lg font-light mb-2 ">$ 1450.00 </h1>
+          <div className="hidden ">
             <div className="text-gray-300 flex flex-row items-center">
               <div className="w-5 h-5 flex items-center justify-center bg-gray-800/50 text-indigo-600 rounded-md">
                 <svg
@@ -677,13 +671,12 @@ const HistoryPage = () => {
                   />
                 </svg>
               </div>
-
               <h1 className="px-2">$1230.00</h1>
             </div>
           </div>
           <Link
             href={"/form"}
-            className="w-14 h-14 flex items-center justify-center rounded-full bg-white/20 mb-2 transform transition-all duration-1000"
+            className="hidden w-14 h-14 xflex items-center justify-center rounded-full bg-white/20 mb-2 transform transition-all duration-1000"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -702,151 +695,185 @@ const HistoryPage = () => {
           </Link>
         </div>
 
-        <div className="hidden mx-5 py-5 rounded-xl bg-black/50 border border-gray-500/30 mb-5">
-          {/** BALANCE */}
-          <div className="py-5 flex flex-row items-center justify-center">
-            <div className="mr-10">
+        {/** PRESUPUESTO INCOME EXPENSES*/}
+        <div className=" px-5 mb-20">
+          <div className="h-64 bg-gray-500/50 rounded-3xl"> </div>
+          <div className="mx-4 -mt-60 rounded-2xl bg-gray-900 border border-gray-500/30">
+            {/** BALANCE */}
+            <div className="py-10 flex flex-col items-center justify-center">
+              <div className="flex flex-col justify-center">
+                <h1 className="text-center">Balance mensual</h1>
+                <h1 className="text-green-600 flex justify-center tracking-wider mb-2">
+                  <span className="mt-0.5 text-xl"> $ </span>
+                  <span className="text-4xl font-light"> 1359.00 </span>
+                </h1>
+              </div>
+              <div className="text-white/20">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-24 h-24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                </svg>
+              </div>
+            </div>
+            {/** INCOME EXPENCES */}
+            <div className=" px-3 pb-10 text-gray-200">
+              <div className="flex flex-row justify-between">
+                <div className="flex flex-row items-center">
+                  <div className="w-8 h-8 flex items-center justify-center bg-gray-900/70 text-indigo-600 -rotate-90 rounded-md">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                      />
+                    </svg>
+                  </div>
+                  <div className="ml-1">
+                    <h1 className="text-sm ">Ingresos</h1>
+                    <h1 className="flex text-lg text-white">
+                      <span className="text-sm pt-0.5 mr-1">$ </span>
+                      36000.00
+                    </h1>
+                  </div>
+                </div>
+
+                <div className="flex flex-row items-center">
+                  <div className="text-end mr-1">
+                    <h1 className="text-sm ">Gastos</h1>
+                    <h1 className="flex text-lg text-white">
+                      <span className="text-sm pt-0.5 mr-1">$ </span>
+                      12900.00
+                    </h1>
+                  </div>
+                  <div className="w-8 h-8 flex items-center justify-center bg-gray-900/70 text-pink-600 rotate-90 rounded-md">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/** TRANSACCIONES */}
+        <div className="bg-black/30 p-5">
+          <div className="flex flex-row justify-between py-5">
+            <h1 className="font-semibold">Transacciones</h1>
+            <Link
+              href={"#list"}
+              className="text-gray-300 flex flex-row items-center"
+            >
+              <h1>Ver mas</h1>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="w-16 h-16"
+                className="w-4 h-4 ml-1 rotate-90"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
                 />
               </svg>
-            </div>
-
-            <div className="flex flex-col justify-center">
-              <h1 className="text-center">Balance</h1>
-              <h1 className="text-green-600 flex justify-center tracking-wider mb-2">
-                <span className="mt-0.5 text-xl"> $ </span>
-                <span className="text-4xl font-light"> 1359.00 </span>
-              </h1>
-            </div>
+            </Link>
           </div>
-          {/** INCOME EXPENCES */}
-          <div className=" p-5 text-gray-200">
-            <div className="flex flex-row">
-              <div className="w-1/2 flex flex-row items-center">
-                <div className="w-8 h-8 flex items-center justify-center bg-gray-900/70 text-indigo-600 -rotate-45 rounded-md">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-5 h-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                    />
-                  </svg>
-                </div>
-                <div className="ml-3">
-                  <h1 className="text-sm ">Income</h1>
-                  <h1 className="flex text-lg text-white font-medium">
-                    <span className="text-sm pt-1 mr-1">$ </span>
-                    180,000.00
-                  </h1>
-                </div>
-              </div>
 
-              <div className="w-1/2 flex flex-row items-center">
-                <div className="w-8 h-8 flex items-center justify-center bg-gray-900/70 text-pink-600 rotate-45 rounded-md">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-5 h-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                    />
-                  </svg>
-                </div>
-                <div className="ml-3">
-                  <h1 className="text-sm ">Expenses</h1>
-                  <h1 className="flex text-lg text-white font-medium">
-                    <span className="text-sm pt-1 mr-1">$ </span>
-                    68,982.57
-                  </h1>
-                </div>
-              </div>
+          {/** ADD*/}
+          <div className=" grid grid-cols-5 gap-2 mb-5">
+            <div className="flex items-center justify-center rounded-xl text-white bg-gray-500/5 border border-gray-500/30 mb-5">
+              <Link
+                href={session?.user ? "/form" : "#"}
+                className=" flex items-center justify-center mb-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6 active:animate-ping hover:scale-125 Xhover:-ml-2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 4.5v15m7.5-7.5h-15"
+                  />
+                </svg>
+              </Link>
+            </div>
+            <div className="col-span-2 py-5 text-white rounded-xl bg-gray-500/5 border border-gray-500/30 flex flex-col justify-between items-center mb-5">
+              <h1 className="text-gray-400 text-sm mb-2">Cantidad</h1>
+              <h1 className="text-xl"> {bd.length}</h1>
+            </div>
+            <div className="col-span-2 py-5 text-white rounded-xl bg-gray-500/5 border border-gray-500/30 flex flex-col justify-between items-center mb-5">
+              <h1 className="text-gray-400 text-sm mb-2">Categorias</h1>
+              <h1 className="text-xl"> 23 </h1>
             </div>
           </div>
-        </div>
 
-        <div className="hidden rounded-2xl px-3 mx-2 xflex flex-row justify-between items-center text-white font-medium bg-gradient-to-r from-indigo-600/90 to-pink-600/90 mb-5">
-          <div className=" py-5 Xtext-lg Xfont-light ">
-            Transacciones
-            <span className=""> ({bd.length} items) </span>
-          </div>
-
-          <Link
-            href="/form"
-            className={`w-10 h-10 flex items-center justify-center cursor-pointer active:animate-ping bg-gray-800/50 rounded-lg `}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-5 h-5 "
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4.5v15m7.5-7.5h-15"
-              />
-            </svg>
-          </Link>
-        </div>
-
-        {/** LLAMAR A LAS FILAS*/}
-        <div className="bg-black/50 py-3 rounded-xl">
-          <div className="p-5 flex flex-row justify-between">
-            <h1 className="">Lista de transaccion</h1>
-            <h1 className="">({bd.length} items)</h1>
-          </div>
           {/** LLAMAR A LAS FILAS*/}
-          <div className="w-full px-3 pb-10">
-            {bd?.map((item, index) => (
-              <div key={index}>
-                {item.date.substr(5, 5) === groupDate ? (
-                  <p className="hidden">no mostrar</p>
-                ) : (
-                  <div className="px-2 flex flex-row">
-                    {/* TIME LINE */}
-                    <div
-                      className={`hidden relative min-w-12 Xflex justify-center `}
-                    >
-                      <div className="w-0.5 bg-gray-600 h-full "> </div>
+          <div id="list" className="bg-black/50 py-7 -mx-5 rounded-[50px]">
+            {/** LLAMAR A LAS FILAS*/}
+            <div className="w-full px-3 pb-10">
+              {bd?.map((item, index) => (
+                <div key={index}>
+                  {item.date.substr(5, 5) === groupDate ? (
+                    <p className="hidden">no mostrar</p>
+                  ) : (
+                    <div className="px-2 flex flex-row">
+                      {/* TIME LINE */}
+                      <div
+                        className={`hidden relative min-w-12 Xflex justify-center `}
+                      >
+                        <div className="w-0.5 bg-gray-600 h-full "> </div>
+                      </div>
+                      <p className="Xhidden bg-transparent text-gray-300 py-2 px-3 text-sm">
+                        {nameDiaxFecha(item.date) + ", "}{" "}
+                        <span className="">{item.date.substr(8, 2)} </span>
+                        {" de " + cmeses[Number(3 - 1)]}
+                      </p>
                     </div>
-                    <p className="Xhidden bg-transparent text-gray-300 py-2 px-3 text-sm">
-                      {nameDiaxFecha(item.date) + ", "}{" "}
-                      <span className="">{item.date.substr(8, 2)} </span>
-                      {" de " + cmeses[Number(3 - 1)]}
-                    </p>
-                  </div>
-                )}
-                <p className="hidden">{(groupDate = item.date.substr(5, 5))}</p>
+                  )}
+                  <p className="hidden">
+                    {(groupDate = item.date.substr(5, 5))}
+                  </p>
 
-                <HistoryRow item={item} />
-              </div>
-            ))}
+                  <HistoryRow item={item} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

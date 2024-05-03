@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Barlow, Montserrat } from "next/font/google";
+import Link from "next/link";
 
 const inter = Montserrat({
   subsets: ["latin"],
@@ -70,19 +71,42 @@ const [form, setForm] = useState(initailForm);
 
   return (
     <section className={inter.className}>
+      <div className="w-full p-5 text-white  flex flex-row justify-between items-center mb-5">
+        <div className="flex flex-row items-center">
+          <Link href={"/history"} className="mr-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-5 h-5 active:animate-ping"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+              />
+            </svg>
+          </Link>
+        </div>
+        <h1 className="text-gray-300">Nuevo registro</h1>
+        <h1 className="h-12"> </h1>
+      </div>
+
       <div className="p-5 text-gray-100 Xmb-5">
-        <h1 className="text-5xl font-thin -tracking-wider mb-5">
+        <h1 className="hidden text-5xl font-thin -tracking-wider mb-5">
           Nuevo registro
         </h1>
         <p className="text-lg">Completa el formulario</p>
         <p className="text-gray-400">Todos los campos son obligatorios *</p>
       </div>
 
-      <div>
+      <div className="pb-10">
         <form className="w-full text-gray-200 Xborder-2 p-5">
           {/** TYPO */}
-          <div className="flex flex-row mb-5">
-            <div className="bg-gray-800/50 py-3 w-14 flex justify-center">
+          <div className="flex flex-row mb-10">
+            <div className="hidden bg-gray-800/50 py-3 w-14 Xflex justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -216,7 +240,7 @@ const [form, setForm] = useState(initailForm);
             <input
               type="number"
               className="w-full p-3 bg-gray-600/50 focus:outline-none"
-              placeholder="Total"
+              placeholder="Precio, monto, saldo"
             />
           </div>
           {/** DATE */}
@@ -276,27 +300,30 @@ const [form, setForm] = useState(initailForm);
             <textarea
               rows={3}
               className="w-full p-3 bg-gray-600/50 focus:outline-none"
-              placeholder="Descripcion"
+              placeholder="Descripcion, detalle, nota"
             />
           </div>
           {/** BUTTON SAVE */}
           <div className="flex flex-row mb-5">
-            <div className="bg-red-600/90 py-3 w-14 flex justify-center">
+            <Link
+              href={"/"}
+              className="bg-red-600/90 py-3 w-14 flex justify-center"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth="1.5"
+                strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-5 h-5"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M15.75 19.5 8.25 12l7.5-7.5"
+                  d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
                 />
               </svg>
-            </div>
+            </Link>
             <button className="w-full p-3 bg-gray-400/60 focus:outline-none">
               Guardar
             </button>
