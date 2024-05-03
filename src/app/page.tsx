@@ -32,20 +32,39 @@ export default function Home() {
         <LoginPage />
       ) : (
         <>
-          <div className="w-full p-5 text-white  flex flex-row justify-between items-center">
+          <div className="w-full p-5 text-white flex flex-row justify-between items-center">
             <div className="flex flex-row">
               <svg
-                fill="currentColor"
-                viewBox="0 0 64 64"
-                className="w-8 h-8 mr-3"
                 xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7"
               >
-                <title />
-                <path d="M54.82,18.73H42.14a2,2,0,0,1,0-4H54.82a2,2,0,0,1,0,4Z" />
-                <path d="M29.13,18.73H9.18a2,2,0,0,1,0-4h20a2,2,0,0,1,0,4Z" />
-                <path d="M54.82,34H9.18a2,2,0,0,1,0-4H54.82a2,2,0,0,1,0,4Z" />
-                <path d="M33.93,49.27H9.18a2,2,0,0,1,0-4H33.93a2,2,0,0,1,0,4Z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  //d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
+                  d="M12 6.75h8.25M3.75 12h16.5m-16.5 5.25H12"
+                />
               </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="hidden w-7 h-7"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  //d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"
+                  d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"
+                />
+              </svg>
+
               <div className="hidden">
                 <h1 className="text-gray-300">Hola! Bienvenido</h1>
                 <h1 className="-mt-1 text-lg font-medium">
@@ -56,12 +75,14 @@ export default function Home() {
             <img
               src={`${session.user.image}`}
               alt="Avatar"
-              className="rounded-full w-10 h-10 shadow-gray-300"
+              className="rounded-full w-12 h-12 shadow-gray-300"
             />
           </div>
 
           <div className="px-5 mb-10">
-            <h1 className="text-lg text-teal-500">Hola {session.user.name} </h1>
+            <h1 className="text-lg font-medium text-teal-500">
+              Hola {session.user.name}{" "}
+            </h1>
             <h1 className=" text-4xl">
               Let{`'`}s complete your current balance
             </h1>
@@ -104,7 +125,10 @@ export default function Home() {
               <div className=""> Add </div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2">
+              <Link
+                href={session?.user ? "/analytics" : "#"}
+                className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -119,7 +143,7 @@ export default function Home() {
                     d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
                   />
                 </svg>
-              </div>
+              </Link>
               <div className=""> Analisis </div>
             </div>
             <div className="flex flex-col items-center">

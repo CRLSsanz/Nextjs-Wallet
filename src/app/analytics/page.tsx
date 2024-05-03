@@ -52,35 +52,71 @@ const AnalyticsPage = () => {
   return (
     <section className={inter.className}>
       <div className="min-h-screen text-white">
-        <div className="w-full p-5 text-white  flex flex-row justify-between items-center mb-5">
+        <div className="w-full p-5 text-white flex flex-row justify-between items-center mb-5">
           <div className="flex flex-row items-center">
-            <Link href={"/analytics"} className="mr-3">
+            <Link href={"/"} className="mr-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="w-5 h-5 active:animate-ping"
+                className="w-7 h-7"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                  //d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
+                  d="M12 6.75h8.25M3.75 12h16.5m-16.5 5.25H12"
                 />
               </svg>
             </Link>
-            <div>
-              <h1 className="text-gray-300">Analisis</h1>
+            <div className="h-12 flex flex-col justify-end ">
+              <h1 className="text-sm text-gray-400">Welcome back</h1>
+              <h1 className="-mt-1 text-gray-200 font-medium">
+                {session?.user && session.user.name}
+              </h1>
             </div>
           </div>
-          {session?.user && (
-            <img
-              src={`${session.user.image}`}
-              alt="Avatar"
-              className="rounded-full w-12 h-12 shadow-gray-300"
-            />
-          )}
+          <div className="flex flex-row items-center gap-3">
+            <Link href={session?.user ? "/history" : "#"}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7 active:animate-ping hover:scale-110 Xhover:mt-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
+                />
+              </svg>
+            </Link>
+            <Link href={session?.user ? "/category#list" : "#"}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7 active:animate-ping hover:scale-110 Xhover:mt-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"
+                />
+              </svg>
+            </Link>
+          </div>
         </div>
 
         <div className="w-full p-5 mb-5 flex flex-row justify-between items-center">
