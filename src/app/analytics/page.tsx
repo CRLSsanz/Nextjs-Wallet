@@ -88,7 +88,7 @@ const AnalyticsPage = () => {
             <h1 className="text-gray-400">Balance General</h1>
             <h1 className="text-white text-xl">$ 1950.00</h1>
           </div>
-          <h1 className="text-5xl font-thin -tracking-wider"> {`v 2024`} </h1>
+          <h1 className="text-5xl font-thin -tracking-wider"> v 2004 </h1>
         </div>
 
         <div className="w-full px-5 text-center">
