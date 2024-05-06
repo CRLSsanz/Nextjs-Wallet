@@ -182,7 +182,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col items-center">
               <Link
-                href={session?.user ? "/category" : "#"}
+                href={session?.user ? "/category#list" : "#"}
                 className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2"
               >
                 <svg

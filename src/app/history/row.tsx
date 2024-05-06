@@ -81,8 +81,8 @@ const HistoryRow = ({ item }: any) => {
           ></div>
 
           <div
-            className={` w-full relative py-5 px-3 rounded-2xl flex flex-col  ${
-              isOpen ? " bg-gray-700/50 " : " bg-gray-900/50"
+            className={` w-full relative py-5 px-3 rounded-2xl bg-gray-900/50 flex flex-col  ${
+              isOpen ? " border border-gray-500/50 " : " "
             }`}
           >
             <div className="w-full flex flex-row justify-between items-center">
@@ -155,12 +155,19 @@ const HistoryRow = ({ item }: any) => {
               </span>
               <span className={` ${isOpen && " text-gray-200 "} `}>
                 {item.comment}
+                {" - "}
+                <span
+                  onClick={() => handleDelete(item._id)}
+                  className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
+                >
+                  Borrar
+                </span>
               </span>
             </div>
             {/** DELETE */}
             <div
               onClick={() => handleDelete(item._id)}
-              className=" hidden absolute text-white bg-red-600/50 Xrounded-2xl top-0 right-0 p-0.5"
+              className=" hidden absolute text-white bg-red-500/50 xrounded-xl bottom-0 left-14 px-1"
               hidden={!isOpen}
             >
               <svg

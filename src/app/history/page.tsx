@@ -859,7 +859,7 @@ const HistoryPage = () => {
                       >
                         <div className="w-0.5 bg-gray-600 h-full "> </div>
                       </div>
-                      <p className="Xhidden bg-transparent text-gray-300 py-2 px-3 text-sm">
+                      <p className="Xhidden bg-transparent text-teal-600 py-2 px-3 text-sm">
                         {nameDiaxFecha(item.date) + ", "}{" "}
                         <span className="">{item.date.substr(8, 2)} </span>
                         {" de " + cmeses[Number(3 - 1)]}

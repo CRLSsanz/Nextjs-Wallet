@@ -130,138 +130,102 @@ const AnalyticsPage = () => {
           </div>
         </div>
 
-        <div className="w-full p-5 mb-5 flex flex-row justify-between items-center">
-          <div>
-            <h1 className="text-gray-400">Balance General</h1>
-            <h1 className="text-white text-xl">$ 1950.00</h1>
+        {/** PRESUPUESTO INCOME EXPENSES*/}
+        <div className=" px-5 mb-5">
+          {/** RESUMEN*/}
+          <div className="Xh-64 px-5 py-10 pb-20 bg-gray-500/50 rounded-3xl">
+            <div className="w-full flex flex-row justify-between items-center mb-2">
+              <h1 className="text-gray-200">Balance General</h1>
+              <h1 className="text-white text-lg">$ 5950.00</h1>
+            </div>
+            <div className="w-full flex flex-row justify-between items-center mb-2">
+              <h1 className="text-gray-400">Balance anual 2024</h1>
+              <h1 className="text-white text-lg">$ 3950.00</h1>
+            </div>
+            <div className="w-full flex flex-row justify-between items-center">
+              <h1 className="text-gray-400">Balance anual 2023</h1>
+              <h1 className="text-white text-lg">$ 1950.00</h1>
+            </div>
           </div>
-          <h1 className="text-5xl font-thin -tracking-wider"> v 2004 </h1>
-        </div>
 
-        <div className="w-full px-5 text-center">
-          <h1 className="text-gray-400">Total Balance Anual</h1>
-          <h1 className="text-white text-5xl">$ 164,000.00</h1>
-          <h1 className="hidden text-white text-lg"> $855.00 | $691.00 </h1>
-        </div>
-
-        {/** INCOME EXPENCES */}
-        <div className="p-5 text-white">
-          <div className="flex flex-row ">
-            <div className=" w-1/2 p-5 flex flex-col items-center justify-center bg-gray-300/10 border border-gray-500/30 rounded-xl mr-3">
-              <h1 className="text-sm text-gray-300 mb-1">Ingresos</h1>
-              <div className=" relative flex flex-row justify-between items-center">
-                <h1 className="mr-1 flex text-lg text-white font-medium">
-                  <span className="text-sm pt-1 mr-1">$ </span>
-                  855.00
+          <div className="mx-4 -mt-16 rounded-2xl bg-gray-900 border border-gray-500/30">
+            {/** BALANCE */}
+            <div className="py-10 flex flex-col items-center justify-center">
+              <h1 className="text-5xl font-thin -tracking-wider mb-5">
+                {" 2004 "}
+              </h1>
+              <div className="flex flex-col justify-center">
+                <h1 className="text-center">Total Balance Anual</h1>
+                <h1 className="text-green-600 flex justify-center tracking-wider mb-2">
+                  <span className="mt-0.5 text-xl"> $ </span>
+                  <span className="text-4xl font-light"> 55,590.00 </span>
                 </h1>
-                <div className="absolute top-1 -right-5 flex items-center justify-center Xbg-gray-600/50 text-indigo-600 rounded-md">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2.5"
-                    stroke="currentColor"
-                    className="w-5 h-5 -rotate-45"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                    />
-                  </svg>
+              </div>
+            </div>
+            {/** INCOME EXPENCES */}
+            <div className=" px-3 pb-10 text-gray-200">
+              <div className="flex flex-row justify-between">
+                <div className="flex flex-row items-center">
+                  <div className="w-8 h-8 flex items-center justify-center bg-gray-900/70 text-indigo-600 -rotate-90 rounded-md">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                      />
+                    </svg>
+                  </div>
+                  <div className="ml-1">
+                    <h1 className="text-sm ">Ingresos</h1>
+                    <h1 className="flex text-lg text-white">
+                      <span className="text-sm pt-0.5 mr-1">$ </span>
+                      36000.00
+                    </h1>
+                  </div>
+                </div>
+
+                <div className="flex flex-row items-center">
+                  <div className="text-end mr-1">
+                    <h1 className="text-sm ">Gastos</h1>
+                    <h1 className="flex text-lg text-white">
+                      <span className="text-sm pt-0.5 mr-1">$ </span>
+                      12900.00
+                    </h1>
+                  </div>
+                  <div className="w-8 h-8 flex items-center justify-center bg-gray-900/70 text-pink-600 rotate-90 rounded-md">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div className=" w-1/2 p-5 flex flex-col items-center justify-center bg-gray-300/10 border border-gray-500/30 rounded-xl mr-3">
-              <h1 className="text-sm text-gray-300 mb-1">Gastos</h1>
-              <div className=" relative flex flex-row justify-between items-center">
-                <h1 className="mr-1 flex text-lg text-white font-medium">
-                  <span className="text-sm pt-1 mr-1">$ </span>
-                  691.00
-                </h1>
-                <div className="absolute top-1 -right-5 flex items-center justify-center Xbg-gray-600/50 text-pink-600 rounded-md">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2.5"
-                    stroke="currentColor"
-                    className="w-5 h-5 rotate-45"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
-
-        {/** INCOME EXPENCES */}
-        <div className=" hidden p-5 text-gray-200">
-          <div className="flex flex-row">
-            <div className="w-1/2 flex flex-row items-center justify-end border-r border-gray-500/30">
-              <div className="w-8 h-8 flex items-center justify-center bg-gray-800/50 text-indigo-600 -rotate-45 rounded-md">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                  />
-                </svg>
-              </div>
-              <div className="px-3">
-                <h1 className="text-sm text-end">Income</h1>
-                <h1 className="flex text-lg text-white font-medium">
-                  <span className="text-sm pt-1 mr-1">$ </span>
-                  850.000.00
-                </h1>
-              </div>
-            </div>
-
-            <div className="w-1/2 flex flex-row items-center">
-              <div className="px-3">
-                <h1 className="text-sm ">Expenses</h1>
-                <h1 className="flex text-lg text-white font-medium">
-                  <span className="text-sm pt-1 mr-1">$ </span>
-                  691.000.00
-                </h1>
-              </div>
-              <div className="w-8 h-8 flex items-center justify-center bg-gray-700/50 text-pink-600 rotate-45 rounded-md">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
+        {/** GRAFICA */}
+        <div className="p-5 mb-5">
+          <div className="h-60 border border-gray-500/50 rounded-3xl"> </div>
         </div>
-
-        <div className="flex h-60 border border-gray-500/30 mx-2 mb-10"> </div>
-
         {/** GRID de 4 */}
-        <div className="hidden mx-auto w-[336px] xgrid grid-cols-2 gap-4 items-center ">
+        <div className="hidden mx-auto w-[336px] xgrid grid-cols-2 gap-4 items-center py-10">
           <div className="hidden bg-gray-800/50 px-4 py-8 rounded-lg border border-gray-600">
             <h1 className="h-1 w-4/5 bg-indigo-600 mb-5"></h1>
             <h1 className="text-sm ">Income</h1>
@@ -298,12 +262,20 @@ const AnalyticsPage = () => {
           </div>
         </div>
 
-        <div className="bg-black/50 mx-5 py-5 rounded-3xl">
-          <h1 className="text-teal-500 text-lg p-5 ">Resumen por categorias</h1>
+        {/** LIST FOR CATEGORY */}
+        <div className="bg-black/50 xmx-5 Xrounded-3xl">
+          <div className="px-5 py-7 flex flex-row items-center justify-between Xborder-b Xborder-gray-500/30 ">
+            <h1 className="h-12 text-teal-500 font-medium flex place-items-center">
+              Resumen por categorias
+            </h1>
+            <h1 className="bg-teal-500 text-white whitespace-nowrap rounded-full px-5 py-2 ">
+              septiembre
+            </h1>
+          </div>
           {bd.map((item, index) => (
             <div
               key={index}
-              className="flex flex-row items-center justify-between p-5 Xbg-white/5 text-white Xborder-t border-gray-500/20"
+              className="flex flex-row items-center justify-between px-5 py-2 Xbg-white/5 text-white Xborder-t border-gray-500/20"
             >
               <img
                 src={`./images/category/${item.category}.png`}
@@ -322,9 +294,9 @@ const AnalyticsPage = () => {
                     <span className="">$</span> {item.total.toFixed(2)}
                   </h1>
                 </div>
-                <div className="w-full h-2.5 bg-gray-500/10 rounded-full">
+                <div className="w-full h-1 bg-gray-500/10 rounded-full">
                   <h1
-                    className={` w-40 h-2.5 ${barsColor[index]}  rounded-full `}
+                    className={` w-40 h-1 ${barsColor[index]}  rounded-full `}
                   >
                     {" "}
                   </h1>
