@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/query";
 import counterReducer from "@/redux/features/counterSlice";
 import { userApi } from "./services/userApi";
-import { setupListeners } from "@reduxjs/toolkit/query";
+import walletSlice from "./features/walletSlice";
 
 export const store = configureStore({
   reducer: {
     counterReducer,
     [userApi.reducerPath]: userApi.reducer,
+    wallet: walletSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([userApi.middleware]),
