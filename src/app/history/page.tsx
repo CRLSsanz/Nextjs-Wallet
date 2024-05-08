@@ -6,6 +6,7 @@ import { useState } from "react";
 import HistoryRow from "./row";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 
 const inter = Montserrat({
   subsets: ["latin"],
@@ -560,6 +561,7 @@ const bd = [
 const HistoryPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session } = useSession();
+  const wallet = useAppSelector((state) => state.wallet);
 
   let groupDate = ""; //para agrupar las fechas repetidas
   const nameDiaxFecha = (fecha: any) =>
@@ -588,6 +590,53 @@ const HistoryPage = () => {
     "Noviembre",
     "Diciembre",
   ];
+
+  const totalExpense = () => {
+    let total = 0;
+    wallet.forEach(function (value) {
+      if (value.type === "Expense") total += value.total;
+    });
+    return total;
+  };
+
+  const totalIncome = () => {
+    let total = 0;
+    wallet.forEach(function (value) {
+      if (value.type === "Income") total += value.total;
+    });
+    return total;
+  };
+
+  const totalBalance = () => {
+    //const balance;
+    if (totalIncome() <= totalExpense()) return 0;
+    const balance = ((totalIncome() - totalExpense()) * 100) / totalIncome();
+    //console.log(balance.toFixed(0));
+    return balance.toFixed(0);
+  };
+
+  /**
+  const transformData = () => {
+    let data = datos;
+
+    if (byYear) {
+      data = data.filter(
+        (item) =>
+          item.date >= `${byYear}-01-01` && item.date <= `${byYear}-12-32`
+      );
+    }
+
+    if (byMonth) {
+      data = data.filter(
+        (item) =>
+          item.date >= `${byYear}-${byMonth}-01` &&
+          item.date < `${byYear}-${byMonth}-32`
+      );
+    }
+
+    return data;
+  };
+ */
 
   const handleDelete = (id: string) => {
     let isDelete = window.confirm(
@@ -705,7 +754,9 @@ const HistoryPage = () => {
                 <h1 className="text-center">Balance mensual</h1>
                 <h1 className="text-green-600 flex justify-center tracking-wider mb-2">
                   <span className="mt-0.5 text-xl"> $ </span>
-                  <span className="text-4xl font-light"> 1359.00 </span>
+                  <span className="text-4xl font-light">
+                    {(totalIncome() - totalExpense()).toFixed(2)}
+                  </span>
                 </h1>
               </div>
               <div className="text-white/20">
@@ -749,7 +800,7 @@ const HistoryPage = () => {
                     <h1 className="text-sm ">Ingresos</h1>
                     <h1 className="flex text-lg text-white">
                       <span className="text-sm pt-0.5 mr-1">$ </span>
-                      36000.00
+                      {totalIncome().toFixed(2)}
                     </h1>
                   </div>
                 </div>
@@ -759,7 +810,7 @@ const HistoryPage = () => {
                     <h1 className="text-sm ">Gastos</h1>
                     <h1 className="flex text-lg text-white">
                       <span className="text-sm pt-0.5 mr-1">$ </span>
-                      12900.00
+                      {totalExpense().toFixed(2)}
                     </h1>
                   </div>
                   <div className="w-8 h-8 flex items-center justify-center bg-gray-900/70 text-pink-600 rotate-90 rounded-md">
@@ -835,7 +886,7 @@ const HistoryPage = () => {
             </div>
             <div className="col-span-2 py-5 text-white rounded-xl bg-gray-500/5 border border-gray-500/30 flex flex-col justify-between items-center mb-5">
               <h1 className="text-gray-400 text-sm mb-2">Cantidad</h1>
-              <h1 className="text-xl"> {bd.length}</h1>
+              <h1 className="text-xl"> {wallet.length}</h1>
             </div>
             <div className="col-span-2 py-5 text-white rounded-xl bg-gray-500/5 border border-gray-500/30 flex flex-col justify-between items-center mb-5">
               <h1 className="text-gray-400 text-sm mb-2">Categorias</h1>
@@ -847,7 +898,7 @@ const HistoryPage = () => {
           <div id="list" className="bg-black/50 py-7 -mx-5 rounded-[50px]">
             {/** LLAMAR A LAS FILAS*/}
             <div className="w-full px-3 pb-10">
-              {bd?.map((item, index) => (
+              {wallet?.map((item, index) => (
                 <div key={index}>
                   {item.date.substr(5, 5) === groupDate ? (
                     <p className="hidden">no mostrar</p>
