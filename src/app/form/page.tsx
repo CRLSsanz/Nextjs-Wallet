@@ -1,6 +1,9 @@
+"use client";
 import React, { useState } from "react";
 import { Barlow, Montserrat } from "next/font/google";
 import Link from "next/link";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { addWallet } from "@/redux/features/walletSlice";
 
 const inter = Montserrat({
   subsets: ["latin"],
@@ -44,30 +47,67 @@ const expensesCategory = [
 
 const hoy = new Date().toISOString();
 //console.log(hoy);
-/*
+
+interface Registro {
+  //name: String;
+  //age: number;
+  //gender?: "Male" | "Female"; // interrogante es para opcional
+  date: String;
+  account: String;
+  total: number;
+  category: String;
+  comment: String;
+  type: String;
+}
+
 const initailForm = {
   //_id: null,
   //date: new Date(),
   date: hoy.substr(0, 10),
-  account: "",
-  total: "",
+  account: "Efectivo" || "Ahorro",
+  total: 34,
   category: "",
   comment: "",
   type: "Expense" || "Income",
   //status: "",
-}; 
-*/
+};
 
 const FormPage = () => {
-  /*
-const [form, setForm] = useState(initailForm);
+  const [form, setForm] = useState(initailForm);
+  const dispatch = useAppDispatch();
 
   const handleChange = (e: any) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
-  };*/
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    /*
+    const type = "Expense";
+    const account = e.target.elements.account.value;
+    const category = e.target.elements.category.value;
+    const total = e.target.elements.total.value;
+    const date = e.target.elements.date.value;
+    const description = e.target.elements.description.value;
+    
+    //console.log(type, account, category, date, description, total);
+    */
+
+    dispatch(addWallet(form));
+
+    //refComment.current.value = "";
+    //refTotal.current.value = "";
+    //refNewFecha.current.value = hoy.substr(0, 10);
+
+    setForm(initailForm);
+
+    //window.location = "/transactions";
+    //navigate("/transactions");
+    alert("DATA SEND: " + JSON.stringify(form.category));
+  };
 
   return (
     <section className={inter.className}>
@@ -103,8 +143,11 @@ const [form, setForm] = useState(initailForm);
       </div>
 
       <div className="pb-10">
-        <form className="w-full text-gray-200 Xborder-2 p-5">
-          {/** TYPO */}
+        <form
+          onSubmit={handleSubmit}
+          className="w-full text-gray-200 Xborder-2 p-5"
+        >
+          {/** TYPE */}
           <div className="flex flex-row mb-10">
             <div className="hidden bg-gray-800/50 py-3 w-14 Xflex justify-center">
               <svg
@@ -152,7 +195,7 @@ const [form, setForm] = useState(initailForm);
             <div className="w-full relative">
               <select
                 name="account"
-                //onChange={handleChange}
+                onChange={handleChange}
                 className="w-full p-3 bg-gray-600/50 appearance-none focus:outline-none"
                 //value={form.account}
               >
@@ -195,8 +238,8 @@ const [form, setForm] = useState(initailForm);
             </div>
             <div className="w-full relative">
               <select
-                name="account"
-                //onChange={handleChange}
+                name="category"
+                onChange={handleChange}
                 className="w-full p-3 bg-gray-600/50 appearance-none focus:outline-none"
                 //value={form.account}
               >
@@ -239,6 +282,8 @@ const [form, setForm] = useState(initailForm);
             </div>
             <input
               type="number"
+              name="XXXtotal"
+              onChange={handleChange}
               className="w-full p-3 bg-gray-600/50 focus:outline-none"
               placeholder="Precio, monto, saldo"
             />
@@ -264,6 +309,8 @@ const [form, setForm] = useState(initailForm);
             <div className="w-full relative">
               <input
                 type="date"
+                name="date"
+                onChange={handleChange}
                 className="w-full p-3 bg-gray-600/50 appearance-none focus:outline-none"
                 placeholder="Fecha"
                 defaultValue={hoy.substr(0, 10)}
@@ -298,6 +345,8 @@ const [form, setForm] = useState(initailForm);
               </svg>
             </div>
             <textarea
+              name="comment"
+              onChange={handleChange}
               rows={3}
               className="w-full p-3 bg-gray-600/50 focus:outline-none"
               placeholder="Descripcion, detalle, nota"

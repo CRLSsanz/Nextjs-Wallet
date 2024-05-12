@@ -1,12 +1,16 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { decrement, increment } from "@/redux/features/counterSlice";
+import {
+  decrement,
+  increment,
+  incrementByAmount,
+} from "@/redux/features/counterSlice";
 
 const Count = () => {
   const count = useAppSelector((state) => state.counterReducer.counter);
   const dispatch = useAppDispatch();
-
+  const [amount, setAmount] = useState(0);
   //const wallet = useAppSelector((state) => state.wallet);
   //const dispatch = useAppDispatch();
 
@@ -30,6 +34,23 @@ const Count = () => {
         >
           Decrement
         </button>
+      </div>
+      <br />
+      <div>
+        <button
+          onClick={() => {
+            dispatch(incrementByAmount(amount));
+          }}
+          className="bg-zinc-400 rounded-md px-5 py-2 mr-5"
+        >
+          Increment por:
+        </button>
+        <input
+          onChange={(e) => setAmount(Number(e.target.value))}
+          type="text"
+          className="py-2 w-32 pl-5 text-black"
+          placeholder="0"
+        />
       </div>
       {/*
       <div>

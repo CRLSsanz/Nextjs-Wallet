@@ -562,6 +562,7 @@ const HistoryPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session } = useSession();
   const wallet = useAppSelector((state) => state.wallet);
+  console.log(wallet);
 
   let groupDate = ""; //para agrupar las fechas repetidas
   const nameDiaxFecha = (fecha: any) =>
@@ -601,7 +602,7 @@ const HistoryPage = () => {
 
   const totalIncome = () => {
     let total = 0;
-    wallet.forEach(function (value) {
+    wallet.forEach(function (value: any) {
       if (value.type === "Income") total += value.total;
     });
     return total;

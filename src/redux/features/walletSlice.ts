@@ -8,6 +8,36 @@ const initialState = [
     category: "Celular",
     comment: "Linea de celular en Wintre ",
     date: "2024-04-19T00:00:00.000Z",
+    total: 120,
+    type: "Expense",
+    account: "Efectivo",
+    createdAt: "2024-04-10T00:52:22.492Z",
+    updatedAt: "2024-04-10T00:52:22.492Z",
+    __v: 0,
+  },
+  {
+    _id: "659bcf57377a593e630cf262",
+    email: "carlonchosanz@gmail.com",
+    category: "Otros ingresos",
+    comment: "Ahorro del año anterior 2023",
+    date: "2024-04-01T00:00:00.000Z",
+    total: 164,
+    type: "Income",
+    account: "Caja fuerte",
+    createdAt: "2024-01-08T10:32:55.071Z",
+    updatedAt: "2024-01-08T10:32:55.071Z",
+    __v: 0,
+  },
+];
+
+/*
+const initialState = [
+  {
+    _id: "6615e2c6821f539ff31ceb5b",
+    email: "carlonchosanz@gmail.com",
+    category: "Celular",
+    comment: "Linea de celular en Wintre ",
+    date: "2024-04-19T00:00:00.000Z",
     total: 10,
     type: "Expense",
     account: "Efectivo",
@@ -591,17 +621,25 @@ const initialState = [
     __v: 0,
   },
 ];
+*/
 
 export const walletSlice = createSlice({
   name: "wallet",
   initialState,
   reducers: {
     listWallet: (state) => state,
+
     addWallet: (state, action) => {
+      console.log(state, action);
       state.push(action.payload);
       //return newState=[...state, action.payload ]
     },
+
+    findWallet: () => {},
+
     deleteWallet: () => {},
+
+    updateWallet: () => {},
   },
 });
 
