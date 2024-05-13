@@ -7,7 +7,7 @@ import { useState } from "react";
 import HistoryRow from "./row";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 
 const inter = Montserrat({
   subsets: ["latin"],
@@ -563,7 +563,6 @@ const HistoryPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session } = useSession();
   const wallet = useAppSelector((state) => state.wallet);
-  console.log(wallet);
 
   let groupDate = ""; //para agrupar las fechas repetidas
   const nameDiaxFecha = (fecha: any) =>

@@ -1,10 +1,11 @@
 import React from "react";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
 import { updateWallet } from "@/redux/features/walletSlice";
 
 const ModalEdit = ({ item, visible, onClose }: any) => {
-  if (!visible) return null;
   const dispatch = useAppDispatch();
+
+  if (!visible) return null;
 
   const handelOnClose = (e: any) => {
     //onClose();
