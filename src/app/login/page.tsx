@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const LoginPage = () => {
   const { data: session } = useSession();
-  console.log(session);
+  //console.log(session);
 
   type Props = {
     title: string;
