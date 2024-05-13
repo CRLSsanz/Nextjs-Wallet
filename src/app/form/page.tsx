@@ -4,6 +4,9 @@ import { Barlow, Montserrat } from "next/font/google";
 import Link from "next/link";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { addWallet } from "@/redux/features/walletSlice";
+import { useRouter } from "next/navigation";
+//import { v4 as uuid } from "uuid";
+const { v4: uuid } = require("uuid");
 
 const inter = Montserrat({
   subsets: ["latin"],
@@ -65,7 +68,7 @@ const initailForm = {
   //date: new Date(),
   date: hoy.substr(0, 10),
   account: "Efectivo" || "Ahorro",
-  total: 34,
+  total: 123,
   category: "",
   comment: "",
   type: "Expense" || "Income",
@@ -75,6 +78,7 @@ const initailForm = {
 const FormPage = () => {
   const [form, setForm] = useState(initailForm);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const handleChange = (e: any) => {
     setForm({
@@ -91,22 +95,24 @@ const FormPage = () => {
     const category = e.target.elements.category.value;
     const total = e.target.elements.total.value;
     const date = e.target.elements.date.value;
-    const description = e.target.elements.description.value;
-    
+    const description = e.target.elements.description.value;    
     //console.log(type, account, category, date, description, total);
     */
-
-    dispatch(addWallet(form));
 
     //refComment.current.value = "";
     //refTotal.current.value = "";
     //refNewFecha.current.value = hoy.substr(0, 10);
 
+    dispatch(
+      addWallet({
+        ...form,
+        _id: uuid(),
+        total: Number(e.target.elements.total.value),
+      })
+    );
     setForm(initailForm);
-
-    //window.location = "/transactions";
-    //navigate("/transactions");
     alert("DATA SEND: " + JSON.stringify(form.category));
+    router.push("/history#list");
   };
 
   return (
@@ -282,7 +288,7 @@ const FormPage = () => {
             </div>
             <input
               type="number"
-              name="XXXtotal"
+              name="total"
               onChange={handleChange}
               className="w-full p-3 bg-gray-600/50 focus:outline-none"
               placeholder="Precio, monto, saldo"

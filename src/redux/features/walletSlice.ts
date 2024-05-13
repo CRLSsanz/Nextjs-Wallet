@@ -630,19 +630,31 @@ export const walletSlice = createSlice({
     listWallet: (state) => state,
 
     addWallet: (state, action) => {
-      console.log(state, action);
+      //console.log(state, action);
       state.push(action.payload);
       //return newState=[...state, action.payload ]
     },
 
     findWallet: () => {},
 
-    deleteWallet: () => {},
+    deleteWallet: (state, action) => {
+      const itemFound = state.find((item) => item._id === action.payload);
+      if (itemFound) {
+        state.splice(state.indexOf(itemFound), 1);
+      }
+    },
 
-    updateWallet: () => {},
+    updateWallet: (state, action) => {
+      const { _id, total, comment } = action.payload;
+      const foundWallet = state.find((item) => item._id === _id);
+      if (foundWallet) {
+        (foundWallet.total = total), (foundWallet.comment = comment);
+      }
+    },
   },
 });
 
-export const { listWallet, addWallet, deleteWallet } = walletSlice.actions;
+export const { listWallet, addWallet, deleteWallet, updateWallet } =
+  walletSlice.actions;
 
 export default walletSlice.reducer;

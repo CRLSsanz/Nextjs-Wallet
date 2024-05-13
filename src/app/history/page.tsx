@@ -2,6 +2,7 @@
 
 import UserList from "@/components/UserList";
 import { Montserrat } from "next/font/google";
+//provar texto new-hero - https://www.fireload.com/error?errco=320&ref=download&e=File+has+been+removed.
 import { useState } from "react";
 import HistoryRow from "./row";
 import Link from "next/link";
@@ -933,8 +934,17 @@ const HistoryPage = () => {
       <div className="hidden">
         <UserList />
       </div>
-      <div className="bg-gray-800/50 py-7 mt-5 text-center text-gray-200">
-        @copyright
+
+      <div className="bg-gray-800/50 py-7 mt-5 text-center text-gray-200 flex flex-row justify-center items-center ">
+        <h1>
+          <span className={inter.className}>@ 2024 </span> Wall
+          <span className={inter.className}>3</span>t. All rights reserved.{" "}
+        </h1>
+        <img
+          src="./images/dino.png"
+          alt="Dino"
+          className="w-5 h-5 ml-2 hover:-rotate-12"
+        />
       </div>
     </>
   );
