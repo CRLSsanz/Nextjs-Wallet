@@ -3,6 +3,13 @@ import { useGetUsersQuery } from "@/redux/services/userApi";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import {
+  filterByYear,
+  filterByMonth,
+  filterByType,
+} from "@/redux/features/filterAnalyticsSlice";
 
 const inter = Montserrat({
   subsets: ["latin"],
@@ -56,9 +63,169 @@ const barsColor = [
 const AnalyticsPage = () => {
   const { data, error, isLoading, isFetching } = useGetUsersQuery(null);
   const { data: session } = useSession();
+  const wallet = useAppSelector((state) => state.wallet);
+  const dispatch = useAppDispatch();
+  const { byYear, byMonth, byType } = useAppSelector(
+    (state) => state.filterAnalytics
+  );
 
-  if (isLoading || isFetching) return <p>Cargando...</p>;
-  if (error) return <p>Some Error</p>;
+  if (isLoading || isFetching)
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <p className="text-white text-lg">Cargando...</p>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <p className="text-white text-lg">Some Error</p>
+      </div>
+    );
+
+  {
+    /** BALANCE GENERAL */
+  }
+  const BalanceGaneral = (wallet: any) => {
+    let totalExpense = 0;
+    wallet.forEach(function (value: any) {
+      if (value.type === "Expense") totalExpense += value.total;
+    });
+
+    let totalIncome = 0;
+    wallet.forEach(function (value: any) {
+      if (value.type === "Income") totalIncome += value.total;
+    });
+
+    if (totalIncome <= totalExpense) return 0;
+    const balance = totalIncome - totalExpense;
+    //console.log(totalIncome + " " + totalExpense + " " + balance.toFixed(0));
+    return balance.toFixed(2);
+  };
+  const transformData = (byYear: string) => {
+    let data = wallet;
+
+    if (byYear) {
+      data = data.filter(
+        (item) =>
+          item.date >= `${byYear}-01-01` && item.date <= `${byYear}-12-32`
+      );
+    }
+
+    let total = BalanceGaneral(data);
+
+    return Number(total);
+  };
+
+  // BALANCE ANUAL
+
+  const transformData2 = (byYear: string) => {
+    let data = wallet;
+
+    if (byYear) {
+      data = data.filter(
+        (item) =>
+          item.date >= `${byYear}-01-01` && item.date <= `${byYear}-12-32`
+      );
+    }
+    return data;
+  };
+
+  const totalExpense = () => {
+    let total = 0;
+    transformData2(byYear).forEach(function (value: any) {
+      if (value.type === "Expense") total += value.total;
+    });
+    return total;
+  };
+
+  const totalIncome = () => {
+    let total = 0;
+    transformData2(byYear).forEach(function (value: any) {
+      if (value.type === "Income") total += value.total;
+    });
+    return total;
+  };
+
+  // WALLET FILTRADO
+
+  const walletFiltrado = () => {
+    let data = wallet;
+
+    if (byYear) {
+      data = data.filter(
+        (item) =>
+          item.date >= `${byYear}-01-01` && item.date <= `${byYear}-12-32`
+      );
+    }
+
+    if (byMonth) {
+      data = data.filter(
+        (item) =>
+          item.date >= `${byYear}-${byMonth}-01` &&
+          item.date < `${byYear}-${byMonth}-32`
+      );
+    }
+
+    if (byType) {
+      data = data.filter((item) => item.type === byType);
+    }
+
+    return data;
+  };
+
+  // DATOS POR CATEGORIAS
+  const dataCategoryX = walletFiltrado().reduce(
+    (prev: any, cur) => (
+      (prev[cur.category] = prev[cur.category] + cur.total || cur.total), prev
+    ),
+    {}
+  );
+  const dataCategory = walletFiltrado().reduce((acum: any, item) => {
+    return !acum[item.category]
+      ? { ...acum, [item.category]: item.total, ["count"]: 1 }
+      : {
+          ...acum,
+          [item.category]: acum[item.category] + item.total,
+        };
+  }, []);
+  //console.log(dataCategory);
+
+  function groupById(array: any) {
+    return array.reduce((acc: any, current: any) => {
+      const foundItem = acc.find((it: any) => it.category === current.category);
+
+      if (foundItem) {
+        foundItem.count = foundItem.count + 1;
+        foundItem.total = foundItem.total + current.total;
+      } else {
+        acc.push({
+          category: current.category,
+          total: current.total,
+          count: 1,
+          //'nombre': current.nombre,
+          //'data': [{ 'fecha': current.fecha, 'observacion': current.observacion }]
+        });
+      }
+      return acc;
+    }, []);
+  }
+  //console.log(groupById(transformData2("2024")));
+
+  // MAYOR VALOR TOTAL - ARRAY ORDENADOS POR TOTAL
+  const resultadosOrdenados = groupById(walletFiltrado()).sort(
+    (a: any, b: any) => {
+      return Number.parseInt(b.total) - Number.parseInt(a.total);
+    }
+  );
+  //console.log("Array Ordenado: ", resultadosOrdenados);
+  //console.log("Mayor Valor: ", resultadosOrdenados[0]);
+
+  const progress = (num: number) => {
+    const valor = (num * 100) / resultadosOrdenados[0].total;
+    //console.log(num, valor);
+    return valor;
+  };
 
   return (
     <section className={inter.className}>
@@ -136,29 +303,42 @@ const AnalyticsPage = () => {
           <div className="Xh-64 px-5 py-10 pb-20 bg-gray-500/50 rounded-3xl">
             <div className="w-full flex flex-row justify-between items-center mb-2">
               <h1 className="text-gray-200">Balance General</h1>
-              <h1 className="text-white text-lg">$ 5950.00</h1>
+              <h1 className="text-white text-lg">$ {BalanceGaneral(wallet)}</h1>
             </div>
             <div className="w-full flex flex-row justify-between items-center mb-2">
               <h1 className="text-gray-400">Balance anual 2024</h1>
-              <h1 className="text-white text-lg">$ 3950.00</h1>
+              <h1 className="text-white text-lg">
+                $ {transformData("2024").toFixed(2)}
+              </h1>
             </div>
             <div className="w-full flex flex-row justify-between items-center">
               <h1 className="text-gray-400">Balance anual 2023</h1>
-              <h1 className="text-white text-lg">$ 1950.00</h1>
+              <h1 className="text-white text-lg">
+                $ {transformData("2023").toFixed(2)}
+              </h1>
             </div>
           </div>
 
           <div className="mx-4 -mt-16 rounded-2xl bg-gray-900 border border-gray-500/30">
             {/** BALANCE */}
             <div className="py-10 flex flex-col items-center justify-center">
-              <h1 className="text-5xl font-thin -tracking-wider mb-5">
-                {" 2004 "}
-              </h1>
+              <div className="h-12 text-5xl font-thin -tracking-wider flex items-center mb-5">
+                <select
+                  defaultValue={byYear}
+                  onChange={(e) => dispatch(filterByYear(e.target.value))}
+                  className="focus:outline-none appearance-none bg-transparent p-2"
+                >
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                </select>
+              </div>
               <div className="flex flex-col justify-center">
                 <h1 className="text-center">Total Balance Anual</h1>
                 <h1 className="text-green-600 flex justify-center tracking-wider mb-2">
                   <span className="mt-0.5 text-xl"> $ </span>
-                  <span className="text-4xl font-light"> 55,590.00 </span>
+                  <span className="text-4xl font-light">
+                    {(totalIncome() - totalExpense()).toFixed(2)}
+                  </span>
                 </h1>
               </div>
             </div>
@@ -186,7 +366,7 @@ const AnalyticsPage = () => {
                     <h1 className="text-sm ">Ingresos</h1>
                     <h1 className="flex text-lg text-white">
                       <span className="text-sm pt-0.5 mr-1">$ </span>
-                      36000.00
+                      {totalIncome().toFixed(2)}
                     </h1>
                   </div>
                 </div>
@@ -196,7 +376,7 @@ const AnalyticsPage = () => {
                     <h1 className="text-sm ">Gastos</h1>
                     <h1 className="flex text-lg text-white">
                       <span className="text-sm pt-0.5 mr-1">$ </span>
-                      12900.00
+                      {totalExpense().toFixed(2)}
                     </h1>
                   </div>
                   <div className="w-8 h-8 flex items-center justify-center bg-gray-900/70 text-pink-600 rotate-90 rounded-md">
@@ -263,51 +443,101 @@ const AnalyticsPage = () => {
         </div>
 
         {/** LIST FOR CATEGORY */}
-        <div className="bg-black/50 xmx-5 Xrounded-3xl">
+        <div className="bg-black/50 min-h-screen xmx-5 Xrounded-3xl py-5">
+          <h1 className="p-5 text-teal-500 font-medium flex place-items-center">
+            Resumen por categorias
+          </h1>
           <div className="px-5 py-7 flex flex-row items-center justify-between Xborder-b Xborder-gray-500/30 ">
-            <h1 className="h-12 text-teal-500 font-medium flex place-items-center">
-              Resumen por categorias
+            <h1 className="hidden bg-teal-500 text-white whitespace-nowrap rounded-full px-5 py-2 ">
+              Ingresos
             </h1>
-            <h1 className="bg-teal-500 text-white whitespace-nowrap rounded-full px-5 py-2 ">
-              septiembre
-            </h1>
-          </div>
-          {bd.map((item, index) => (
+
             <div
-              key={index}
-              className="flex flex-row items-center justify-between px-5 py-2 Xbg-white/5 text-white Xborder-t border-gray-500/20"
+              className={` text-white whitespace-nowrap rounded-full px-5 py-2 
+            ${
+              byType === "Income"
+                ? " bg-indigo-600 "
+                : ` ${
+                    byType === "Expense"
+                      ? " bg-pink-500 "
+                      : " border border-gray-500/30 "
+                  } `
+            }
+            `}
             >
-              <img
-                src={`./images/category/${item.category}.png`}
-                alt="image"
-                className="w-14 h-14 opacity-100 rounded-lg bg-gray-600/50 p-2"
-              />
-              <div className="w-full ml-4">
-                <div className="flex flex-row justify-between">
-                  <div>
-                    <h1 className="font-medium">{item.category}</h1>
-                    <h1 className="text-xs text-gray-400 mb-1">
-                      {item.items} transacciones
+              <select
+                //defaultValue={byType}
+                onChange={(e) => dispatch(filterByType(e.target.value))}
+                className="text-center focus:outline-none appearance-none bg-transparent px-2"
+              >
+                <option value="">Ver todo</option>
+                <option value="Income">Ingresos</option>
+                <option value="Expense">Gastos</option>
+              </select>
+            </div>
+
+            <div className="text-gray-300 rounded-full border border-gray-500/30 px-5 py-2">
+              <select
+                //defaultValue={byMonth}
+                onChange={(e) => dispatch(filterByMonth(e.target.value))}
+                className="text-center focus:outline-none appearance-none bg-transparent px-2"
+              >
+                <option value="">Todos los meses</option>
+                <option value="01">Enero</option>
+                <option value="02">Febrero</option>
+                <option value="03">Marzo</option>
+                <option value="04">Abril</option>
+                <option value="05">Mayo</option>
+                <option value="06">Junio</option>
+                <option value="07">Julio</option>
+                <option value="08">Agosto</option>
+                <option value="09">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+              </select>
+            </div>
+          </div>
+          {groupById(walletFiltrado())
+            .sort()
+            .map((item: any, index: any) => (
+              <div
+                key={index}
+                className="flex flex-row items-center justify-between px-5 py-2 Xbg-white/5 text-white Xborder-t border-gray-500/20"
+              >
+                <img
+                  src={`./images/category/${item.category}.png`}
+                  alt="image"
+                  className="w-10 h-10 opacity-100 rounded-lg bg-gray-600/50 p-2"
+                />
+                <div className="w-full ml-4">
+                  <div className="flex flex-row justify-between">
+                    <div>
+                      <h1 className="font-medium">{item.category}</h1>
+                      <h1 className="text-xs text-gray-400 mb-1">
+                        {item.count} transacciones
+                      </h1>
+                    </div>
+                    <h1 className="">
+                      <span className="">$</span> {item.total.toFixed(2)}
                     </h1>
                   </div>
-                  <h1 className="">
-                    <span className="">$</span> {item.total.toFixed(2)}
-                  </h1>
-                </div>
-                <div className="w-full h-1 bg-gray-500/10 rounded-full">
-                  <h1
-                    className={` w-40 h-1 ${barsColor[index]}  rounded-full `}
-                  >
-                    {" "}
-                  </h1>
+                  <div className="w-full h-1 bg-gray-500/10 rounded-full">
+                    <h1
+                      className={` Xw-[75%] h-1 ${barsColor[index]}  rounded-full `}
+                      //style={{ width: progress() }}
+                      style={{ width: `${progress(item.total)}%` }}
+                    >
+                      {" "}
+                    </h1>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
 
-      <div className="w-full p-5 py-10 grid grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="hidden w-full p-5 py-10 xgrid grid-cols-2 lg:grid-cols-4 gap-5">
         {data?.map((user) => (
           <div key={user.id} className="p-3 py-6 bg-gray-200">
             <p>{user.name}</p>
