@@ -78,29 +78,128 @@ const HistoryRow = ({ item }: any) => {
         {/* INFO */}
         <div
           className={` w-full relative ${
-            item.type === "Expense" ? " pr-2 pb-2 " : " pr-2 pb-2 "
+            item.type === "Expense" ? " Xpr-2 Xpb-2 " : " Xpr-2 Xpb-2 "
           } `}
         >
           <div
             className={` absolute bottom-0 rounded-b-3xl
           ${
             item.type === "Expense"
-              ? " right-0 w-40 h-16 bg-gradient-to-tl from-pink-600/90 via-transparent Xbg-pink-600/90 "
-              : " right-0 w-40 h-16 bg-gradient-to-tl from-indigo-600/90 via-transparent  Xbg-indigo-600/90 "
+              ? " right-0 w-40 h-16 bg-gradient-to-tl from-pink-60 0/50 via-transparent Xbg-pink-600/90 "
+              : " right-0 w-40 h-16 bg-gradient-to-tl from-indigo-60 0/50 via-transparent  Xbg-indigo-600/90 "
           }`}
-          ></div>
+          >
+            {/**BOTONES  */}
+            <span
+              className={`hidden ${isOpen && " text-gray-200 "} `}
+              hidden={!isOpen}
+            >
+              {/** ADD EDIT DELET CLOSE */}
+              <h1 className="h-10"></h1>
+              <div className="flex text-gray-400 pt-3 justify-start gap-x-7">
+                <Link
+                  href={"/form"}
+                  //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
+                  className="xborder border-gray-700 rounded-md"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                  </svg>
+                </Link>
+
+                <span
+                  onClick={() => setIsEdit(true)}
+                  //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
+                  className="xborder border-indigo-700 rounded-md"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                    />
+                  </svg>
+                </span>
+
+                <span
+                  onClick={() => handleDelete(item._id)}
+                  //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
+                  className="xborder border-red-700 rounded-md"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                    />
+                  </svg>
+                </span>
+
+                <span
+                  onClick={() => setIsOpen((prev) => !prev)}
+                  //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
+                  className="xborder border-gray-700 rounded-md"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </span>
+          </div>
 
           <div
-            className={` w-full relative py-5 px-3 rounded-2xl bg-gray-900/50 flex flex-col  ${
-              isOpen ? " border border-gray-500/50 " : " "
+            className={` w-full relative py-5 px-3 rounded-2xl bg-gray-950/30 flex flex-col  ${
+              isOpen
+                ? " Xborder-b Xborder-gray-500/50 shadow-md shadow-gray-700  "
+                : " "
             }`}
           >
-            <div className="w-full flex flex-row justify-between items-center">
-              <div className="flex flex-row items-center">
+            {/**  IMAGEN - CATEGORY - TOTAL */}
+            <div className="relative w-full flex flex-row justify-between items-start">
+              {/** IMAGEN - CATEGORY */}
+              <div className="flex flex-row items-start">
+                {/** IMAGENES */}
                 <div className="pr-3 ">
                   <img
                     src={`./images/category/${item.category}.png`}
-                    className={`w-8 h-8 rounded-md transform transition-all duration-500 ${
+                    className={`min-w-8 h-8 rounded-md transform transition-all duration-500 ${
                       isOpen
                         ? " bg-gray-300 scale-110 p-[2px] "
                         : ` p-1 bg-slate-600`
@@ -109,11 +208,12 @@ const HistoryRow = ({ item }: any) => {
                     alt={item.category}
                   />
                 </div>
+                {/** CATEGORY Y COMMENT */}
                 <div>
                   <h1
                     className={`   ${
                       isOpen
-                        ? " text-gray-400 "
+                        ? " text-gray-300 "
                         : " text-gray-200 Xfont-medium "
                     } `}
                   >
@@ -121,156 +221,160 @@ const HistoryRow = ({ item }: any) => {
                   </h1>
 
                   <div
-                    className={` relative -mt-1 pr-5 w-44 text-xs truncate "} `}
-                    hidden={isOpen}
+                    className={` relative -mt-1 pr-5 transform transition-all duration-1000 ${
+                      !isOpen
+                        ? " text-xs w-44 truncate "
+                        : " text-gray-300 text-sm mt-3 "
+                    } `}
                   >
+                    <span hidden={!isOpen}></span>
                     {item.comment}
+                    {/**BOTONES  */}
                     <span
-                      onClick={() => setIsOpen((prev) => !prev)}
-                      className="absolute top-0 right-0"
+                      className={` ${isOpen && " text-gray-200 "} `}
+                      hidden={!isOpen}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-4 h-4"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
-                        />
-                      </svg>
+                      {/** ADD EDIT DELET CLOSE */}
+                      <div className="flex text-gray-400 pt-3 justify-start gap-x-7">
+                        <Link
+                          href={"/form"}
+                          //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
+                          className="xborder border-gray-700 rounded-md"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-4 h-4"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                            />
+                          </svg>
+                        </Link>
+
+                        <span
+                          onClick={() => setIsEdit(true)}
+                          //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
+                          className="xborder border-indigo-700 rounded-md"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-4 h-4"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                            />
+                          </svg>
+                        </span>
+
+                        <span
+                          onClick={() => handleDelete(item._id)}
+                          //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
+                          className="xborder border-red-700 rounded-md"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-4 h-4"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                            />
+                          </svg>
+                        </span>
+
+                        <span
+                          onClick={() => setIsOpen((prev) => !prev)}
+                          //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
+                          className="xborder border-gray-700 rounded-md"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-4 h-4"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+                            />
+                          </svg>
+                        </span>
+                      </div>
                     </span>
                   </div>
                 </div>
               </div>
-
-              <div>
+              {/** TOTAL */}
+              <div className="absolute top-0 right-0 flex flex-row">
                 <h1
-                  className={`flex text-base tracking-wider  ${
+                  className={`flex text-lg tracking-wider font-medium ${
                     item.type === "Expense"
-                      ? " text-gray-200 "
-                      : " text-gray-200 Xfont-medium "
+                      ? " text-pink-500"
+                      : " text-cyan-500"
                   }`}
                 >
-                  <span className={` m-[3px] text-xs Xfont-bold `}>
-                    {item.type === "Income" ? "$ " : "$ "}
+                  <span className={` Xm-[3px] Xtext-xs Xfont-bold `}>
+                    {item.type === "Income" ? "$ " : "-$ "}
                   </span>
                   {item.total.toFixed(2)}
                 </h1>
+                <span
+                  className="flex text-gray-600 items-center ml-1"
+                  onClick={() => setIsOpen((prev) => !prev)}
+                >
+                  {!isOpen ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2.5}
+                      stroke="currentColor"
+                      className="w-4 h-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2.5}
+                      stroke="currentColor"
+                      className="w-4 h-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m4.5 15.75 7.5-7.5 7.5 7.5"
+                      />
+                    </svg>
+                  )}
+                </span>
               </div>
-            </div>
-            {/** NOTA */}
-            <div
-              className={` pt-2 ml-11 w-[calc(100vw-130px)] text-sm ${
-                !isOpen && " truncate "
-              } `}
-              hidden={!isOpen}
-            >
-              <span
-                className={` font-semibold ${
-                  isOpen
-                    ? " text-white "
-                    : item.type === "Expense"
-                    ? " Xborder-b border-pink-600 "
-                    : " Xborder-b border-indigo-600 "
-                }   
-              `}
-              >
-                Nota:{" "}
-              </span>
-              <span className={` ${isOpen && " text-gray-200 "} `}>
-                {item.comment}
-                {/** ADD EDIT DELET CLOSE */}
-                <div className="flex text-gray-400 pt-3 justify-start gap-x-7">
-                  <Link
-                    href={"/form"}
-                    //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
-                    className="xborder border-gray-700 rounded-md"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-4 h-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                      />
-                    </svg>
-                  </Link>
-
-                  <span
-                    onClick={() => setIsEdit(true)}
-                    //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
-                    className="xborder border-indigo-700 rounded-md"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-4 h-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-                      />
-                    </svg>
-                  </span>
-
-                  <span
-                    onClick={() => handleDelete(item._id)}
-                    //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
-                    className="xborder border-red-700 rounded-md"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-4 h-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                      />
-                    </svg>
-                  </span>
-
-                  <span
-                    onClick={() => setIsOpen((prev) => !prev)}
-                    //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
-                    className="xborder border-gray-700 rounded-md"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-4 h-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </span>
             </div>
 
             {/** MODAL EDIT */}
@@ -295,7 +399,9 @@ const HistoryRow = ({ item }: any) => {
                 </div>
               </div>
             </div>
-            <div className="hidden w-full h-screen p-5 fixed z-50 top-0 left-0 bg-white/50 xflex items-center justify-center"></div>
+            <div className="hidden w-full h-screen p-5 fixed z-50 top-0 left-0 bg-white/50 xflex items-center justify-center">
+              {" "}
+            </div>
             <ModalEdit item={item} onClose={handleOnClose} visible={isEdit} />
 
             {/** DELETE */}
