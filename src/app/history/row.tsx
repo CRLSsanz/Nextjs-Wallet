@@ -46,7 +46,7 @@ const HistoryRow = ({ item }: any) => {
     <>
       <div
         //onClick={() => setIsOpen((prev) => !prev)}
-        className={` xhidden w-full px-2 mb-2 flex flex-row justify-between text-gray-400 cursor-pointer ${inter.className} `}
+        className={` hidden w-full px-2 mb-2 xflex flex-row justify-between text-gray-400 cursor-pointer ${inter.className} `}
       >
         {/* DATE - DIA */}
         <div
@@ -378,31 +378,6 @@ const HistoryRow = ({ item }: any) => {
             </div>
 
             {/** MODAL EDIT */}
-            <div className="hidden w-full h-screen fixed z-50 top-0 left-0 bg-white/50">
-              <div className="flex bg-gray-400 text-black items-center justify-center">
-                <div className="px-5">
-                  <h1 className="py-5 border-b">Modal Edit Wallet</h1>
-                  <h1>ID: {item._id}</h1>
-                  <h1>Date: {item.category}</h1>
-                  <h1>Total:</h1>
-                  <input
-                    type="text"
-                    defaultValue={item.total}
-                    className="p-3"
-                  />
-                  <h1>Descripcion:</h1>
-                  <textarea rows={3} defaultValue={item.comment} />
-                </div>
-
-                <div className="py-5">
-                  <div onClick={() => setIsEdit(false)}>cerrar</div>
-                </div>
-              </div>
-            </div>
-            <div className="hidden w-full h-screen p-5 fixed z-50 top-0 left-0 bg-white/50 xflex items-center justify-center">
-              {" "}
-            </div>
-            <ModalEdit item={item} onClose={handleOnClose} visible={isEdit} />
 
             {/** DELETE */}
             <div
@@ -430,286 +405,222 @@ const HistoryRow = ({ item }: any) => {
       </div>
 
       <div
-        onClick={() => setIsOpen((prev) => !prev)}
-        className={`hidden w-full xflex flex-row justify-between text-gray-400 cursor-pointer ${inter.className} `}
+        //onClick={() => setIsOpen((prev) => !prev)}
+        className={` xhidden w-full flex flex-row text-gray-400 cursor-pointer ${inter.className} `}
       >
-        {/* TIME LINE */}
-        <div className={` relative min-w-12 flex justify-center `}>
-          <div className="w-0.5 bg-gray-600 h-full "> </div>
+        {/** IMAGENES */}
+        <div className="pr-3 pt-7">
           <div
-            className={`absolute top-5 left-4  bg-gray-700 border-2 rounded-full transition-all duration-500
-                ${
-                  !isOpen
-                    ? " border-gray-500 w-5 h-5 "
-                    : ` w-6 h-6 ${
-                        item.type === "Expense"
-                          ? " -ml-1 border-pink-600 "
-                          : " -ml-1 border-indigo-600 "
-                      }`
-                } `}
+            className={` w-6 h-6 rounded-md transform transition-all duration-1000 ${
+              isOpen ? " bg-slate-700 rotate-90 " : ` bg-slate-700/20`
+            } `}
           >
-            <span
-              onClick={() => handleDelete(item._id)}
-              className="flex justify-center items-center"
-            >
-              {isOpen && (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="2.5"
-                  stroke="currentColor"
-                  className="w-4 h-4"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 12h14"
-                  />
-                </svg>
-              )}
-            </span>
+            {" "}
           </div>
-        </div>
-
-        {/* ICONO */}
-        <div className=" hidden w-20 pl-4 py-6 ">
           <img
             src={`./images/category/${item.category}.png`}
-            className={`w-2.5 rounded-full transform transition-all duration-500 ${
-              isOpen
-                ? " bg-gray-800 mt-3 scale-[3.0] p-[1px] "
-                : ` mt-1 p-1 ${
-                    item.type === "Expense"
-                      ? " bg-pink-600 "
-                      : " bg-indigo-600 "
-                  }`
+            className={`min-w-6 h-6 -mt-6 p-1 rounded-md transform transition-all duration-500 ${
+              isOpen ? " Xscale-110 xp-[2px] " : ` xp-1 bg-transparent`
             } 
           `}
             alt={item.category}
           />
         </div>
-
-        <div className="hidden px-4 pt-6 ">
-          <div
-            className={` flex items-center justify-center w-6 h-6 rounded-md bg-gray-800/50 
-        ${
-          item.type === "Expense"
-            ? " rotate-[45deg] text-pink-600"
-            : " -rotate-[45deg] text-indigo-600 "
-        }
-        `}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="3.0"
-              stroke="currentColor"
-              className="w-3 h-3"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                //d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-              />
-            </svg>
-          </div>
-        </div>
-
         {/* INFO */}
-        <div
-          className={` w-full relative p-5 mr-5 mb-5 flex flex-col bg-gray-800/50 border 
-        ${
-          !isOpen
-            ? " border-gray-400/30 "
-            : ` border-gray-400  ${
-                item.type === "Expense"
-                  ? " bg-pink-600/90 "
-                  : " bg-indigo-600/90 "
-              }`
-        } 
-        `}
-        >
-          <div className="flex flex-row justify-between">
-            <h1 className="text-base text-gray-300">{item.category}</h1>
-            <h1
-              className={`X-mt-1 text-base tracking-wider  ${
-                item.type === "Expense"
-                  ? " text-white "
-                  : " text-gray-200 Xfont-medium "
-              }`}
-            >
-              <span className={` Xtext-sm Xfont-bold `}>
-                {item.type === "Income" ? "+ € " : "- € "}
-              </span>
-              {item.total.toFixed(2)}
-            </h1>
-          </div>
-
-          <div
-            className={` w-[calc(100vw-120px)] text-sm  py-1 ${
-              !isOpen && " truncate "
-            } `}
-          >
-            <span
-              className={` font-semibold ${
-                isOpen
-                  ? " text-white "
-                  : item.type === "Expense"
-                  ? " text-pink-600 "
-                  : " text-indigo-600 "
-              }   
-              `}
-            >
-              Nota:{" "}
-            </span>
-            <span className={` ${isOpen && " text-gray-200 "} `}>
-              {item.comment}
-            </span>
-          </div>
-
-          <div
-            onClick={() => handleDelete(item._id)}
-            className="hidden absolute text-gray-600 bottom-4 right-3"
-            hidden={!isOpen}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-4 h-4"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      <div
-        onClick={() => setIsOpen((prev) => !prev)}
-        className={` hidden w-full xflex flex-row justify-between text-gray-400 cursor-pointer ${inter.className} `}
-      >
-        {/* INFO */}
-        <div className="w-full relative mx-5 py-7 flex flex-col border-b border-gray-500/30">
-          <div className="w-full flex flex-row justify-between items-center">
-            <div className="flex flex-row items-center">
-              <div className="pr-3 ">
-                <img
-                  src={`./images/category/${item.category}.png`}
-                  className={`w-8 h-8 rounded-md transform transition-all duration-500 ${
-                    isOpen
-                      ? " bg-gray-300 scale-110 p-[2px] "
-                      : ` p-1 bg-slate-600`
-                  } 
-          `}
-                  alt={item.category}
-                />
-              </div>
+        <div className="w-full relative mr-5 py-7 flex flex-col border-b border-gray-500/30">
+          <div className="relative w-full flex flex-row justify-between items-start">
+            {/** CATEGORY Y COMMENT */}
+            <div className="flex flex-row items-start">
               <div>
-                <h1
-                  className={` w-32 leading-4 ${
-                    isOpen ? " text-gray-400 " : " text-gray-200 Xfont-medium "
+                <div
+                  className={` flex flex-row  ${
+                    isOpen ? " text-gray-500 " : " text-gray-200 Xfont-medium "
                   } `}
                 >
                   {item.category}
-                </h1>
+                </div>
 
                 <div
-                  className={`hidden -mt-1 w-36 text-xs truncate "} `}
-                  hidden={isOpen}
+                  className={` relative -mt-1 transform transition-all duration-1000 ${
+                    !isOpen
+                      ? " text-xs text-gray-500 w-44 truncate "
+                      : " text-gray-200 text-sm mt-3 "
+                  } `}
                 >
+                  <span hidden={!isOpen}></span>
                   {item.comment}
+                  {/**BOTONES  */}
+                  <div
+                    className={` ${isOpen && " text-gray-200 "} `}
+                    hidden={!isOpen}
+                  >
+                    {/** ADD EDIT DELET CLOSE */}
+                    <div className="flex text-gray-400 pt-4 justify-start gap-10">
+                      <Link
+                        href={"/form"}
+                        //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
+                        className="xborder border-gray-700 rounded-md"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-4 h-4"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                          />
+                        </svg>
+                      </Link>
+
+                      <span
+                        onClick={() => setIsEdit(true)}
+                        //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
+                        className="xborder border-indigo-700 rounded-md"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-4 h-4"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                          />
+                        </svg>
+                      </span>
+
+                      <span
+                        onClick={() => handleDelete(item._id)}
+                        //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
+                        className="xborder border-red-700 rounded-md"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-4 h-4"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                          />
+                        </svg>
+                      </span>
+
+                      <span
+                        onClick={() => setIsOpen((prev) => !prev)}
+                        //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
+                        className="xborder border-gray-700 rounded-md"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-4 h-4"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div>
+            {/** TOTAL */}
+            <div className="absolute top-0 right-0">
               <h1
-                className={`flex text-base tracking-wider  ${
-                  item.type === "Expense"
-                    ? " text-gray-200 "
-                    : " text-indigo-600 font-medium "
+                className={`flex tracking-wider font-medium ${
+                  item.type === "Expense" ? " text-pink-500" : " text-cyan-600"
                 }`}
               >
-                <span
-                  className={` font-bold ${
-                    item.type === "Expense" && " text-pink-600 font-medium "
-                  } `}
-                >
-                  {item.type === "Income" ? " " : "- "}
+                <span className={` Xm-[3px] Xtext-xs Xfont-bold `}>
+                  {item.type === "Income" ? "$ " : "-$ "}
                 </span>
                 {item.total.toFixed(2)}
-                <span className={` m-[2px] text-xs Xfont-bold `}>$</span>
               </h1>
             </div>
-          </div>
-          {/** NOTA */}
-          <div
-            className={` pt-2 pl-11 w-[calc(100vw-120px)] text-sm ${
-              !isOpen && " truncate "
-            } `}
-            hidden={!isOpen}
-          >
-            <span
-              className={` text-white font-medium ${
-                item.type === "Expense"
-                  ? " Xborder-b Xtext-pink-600 "
-                  : " Xborder-b Xtext-indigo-600 "
-              }
-                 
-              `}
-              hidden={!isOpen}
+            {/** MAS INFO */}
+            <div
+              onClick={() => setIsOpen((prev) => !prev)}
+              className="absolute top-6 right-0"
+              hidden={isOpen}
             >
-              Nota:{" "}
-            </span>
-            <span className={` ${isOpen && " text-gray-200 "} `}>
-              {item.comment}
-            </span>
-          </div>
-          {/** DELETE */}
-          <div
-            onClick={() => handleDelete(item._id)}
-            className="absolute p-0.5 z-20 text-white rounded-full bg-gray-700 top-8 -right-[30px]"
-            hidden={!isOpen}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-4 h-4"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18 18 6M6 6l12 12"
-              />
-            </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-3 h-3"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                />
+              </svg>
+            </div>
+
+            {/** MODAL EDIT */}
+            <div className="hidden w-full h-screen fixed z-50 top-0 left-0 bg-white/50">
+              <div className="flex bg-gray-400 text-black items-center justify-center">
+                <div className="px-5">
+                  <h1 className="py-5 border-b">Modal Edit Wallet</h1>
+                  <h1>ID: {item._id}</h1>
+                  <h1>Date: {item.category}</h1>
+                  <h1>Total:</h1>
+                  <input
+                    type="text"
+                    defaultValue={item.total}
+                    className="p-3"
+                  />
+                  <h1>Descripcion:</h1>
+                  <textarea rows={3} defaultValue={item.comment} />
+                </div>
+
+                <div className="py-5">
+                  <div onClick={() => setIsEdit(false)}>cerrar</div>
+                </div>
+              </div>
+            </div>
+            <div className="hidden w-full h-screen p-5 fixed z-50 top-0 left-0 bg-white/50 xflex items-center justify-center">
+              {" "}
+            </div>
+            <ModalEdit item={item} onClose={handleOnClose} visible={isEdit} />
           </div>
         </div>
 
         {/* DATE - DIA */}
         <div
-          className={` relative min-w-20 pt-4 px-5 text-center border-l border-gray-500 
+          className={` relative min-w-16 pt-6 text-center border-l border-gray-500 
                     ${isOpen && " text-yellow-400 "}           `}
         >
           {item.date.substr(5, 5) === "groupDate" ? (
             <></>
           ) : (
             <>
-              <h1 className="text-3xl font-extralight">
+              <h1 className="text-2xl font-extralight">
                 {item.date.substr(8, 2)}
               </h1>
-              <h1 className="uppercase text-sm -mt-2">
+              <h1 className="uppercase text-xs -mt-1">
                 {nameDiaxFecha(item.date)}
               </h1>
               <div

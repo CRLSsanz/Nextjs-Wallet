@@ -200,6 +200,7 @@ const AnalyticsPage = () => {
         foundItem.total = foundItem.total + current.total;
       } else {
         acc.push({
+          type: current.type,
           category: current.category,
           total: current.total,
           count: 1,
@@ -210,7 +211,7 @@ const AnalyticsPage = () => {
       return acc;
     }, []);
   }
-  //console.log(groupById(transformData2("2024")));
+  //console.log(groupById(walletFiltrado()));
 
   // MAYOR VALOR TOTAL - ARRAY ORDENADOS POR TOTAL
   const resultadosOrdenados = groupById(walletFiltrado()).sort(
@@ -498,42 +499,58 @@ const AnalyticsPage = () => {
               </select>
             </div>
           </div>
-          {groupById(walletFiltrado())
-            .sort()
-            .map((item: any, index: any) => (
+
+          <div className="w-full px-2 grid grid-cols-3 gap-1">
+            {groupById(walletFiltrado()).map((item: any, index: any) => (
               <div
                 key={index}
-                className="flex flex-row items-center justify-between px-5 py-2 Xbg-white/5 text-white Xborder-t border-gray-500/20"
+                className="relative flex flex-col items-center text-center p-5 gap-3 bg-black/20 text-white rounded-xl"
               >
-                <img
-                  src={`./images/category/${item.category}.png`}
-                  alt="image"
-                  className="w-10 h-10 opacity-100 rounded-lg bg-gray-600/50 p-2"
-                />
-                <div className="w-full ml-4">
-                  <div className="flex flex-row justify-between">
-                    <div>
-                      <h1 className="font-medium">{item.category}</h1>
-                      <h1 className="text-xs text-gray-400 mb-1">
-                        {item.count} transacciones
-                      </h1>
-                    </div>
-                    <h1 className="">
-                      <span className="">$</span> {item.total.toFixed(2)}
-                    </h1>
-                  </div>
-                  <div className="w-full h-1 bg-gray-500/10 rounded-full">
-                    <h1
-                      className={` Xw-[75%] h-1 ${barsColor[index]}  rounded-full `}
-                      //style={{ width: progress() }}
-                      style={{ width: `${progress(item.total)}%` }}
-                    >
-                      {" "}
-                    </h1>
-                  </div>
+                <div className="w-10 h-10 flex border border-gray-500/30 rotate-45 rounded-lg">
+                  <img
+                    src={`./images/category/${item.category}.png`}
+                    alt="image"
+                    className="w-6 h-6 m-auto opacity-100 -rotate-45 "
+                  />
+                </div>
+
+                <h1 className=" text-gray-200 text-xs w-20 truncate ">
+                  {item.category}
+                </h1>
+
+                <h1 className=" text-gray-400 -mt-2">
+                  $ {item.total.toFixed(0)}
+                </h1>
+
+                <div className="w-full h-1.5 bg-gray-500/20 rounded-full">
+                  <h1
+                    className={` Xw-[75%] h-1.5 $ {barsColor[index]}  rounded-full $
+                      ${
+                        item.type === "Expense"
+                          ? " bg-pink-700 shadow-md shadow-pink-400/50"
+                          : " bg-cyan-600 shadow-md shadow-cyan-400/50"
+                      } `}
+                    //style={{ width: progress() }}
+                    style={{ width: `${progress(item.total)}%` }}
+                  >
+                    {" "}
+                  </h1>
+                </div>
+                <h1 className="absolute top-2 right-2 bg-purple-500/50 text-xs text-gray-100 rounded-full w-5 h-5 flex items-center justify-center">
+                  {item.count}
+                </h1>
+
+                <div className="hidden">
+                  <h1 className="w-10 h-10 text-center opacity-100 rounded-lg bg-gray-600/50 p-2">
+                    {item.count}{" "}
+                  </h1>
+                  <h1 className="text-center text-gray-400 text-[10px]">
+                    Transac.
+                  </h1>
                 </div>
               </div>
             ))}
+          </div>
         </div>
       </div>
 
