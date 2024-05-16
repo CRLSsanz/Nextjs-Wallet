@@ -1,7 +1,7 @@
 "use client";
 
 import UserList from "@/components/UserList";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Barlow, Outfit } from "next/font/google";
 //provar texto new-hero - https://www.fireload.com/error?errco=320&ref=download&e=File+has+been+removed.
 import { useState } from "react";
 import HistoryRow from "./row";
@@ -10,9 +10,10 @@ import { useSession } from "next-auth/react";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { filterByYear, filterByMonth } from "@/redux/features/filterSlice";
 
-const inter = Montserrat({
+const inter = Outfit({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
+  //weight: ["400", "500", "600", "700"],
 });
 
 const HistoryPage = () => {
@@ -135,7 +136,7 @@ const HistoryPage = () => {
         {/** SALDO ACTUAL CON INCOME EXPENSES - VISIBLE */}
         <div className="px-5 mb-10">
           <div className="rounded-2xl Xbg-black/30 items-center mb-10">
-            <div className="flex flex-col justify-between gap-2">
+            <div className="flex flex-col justify-between gap-2 number">
               <h1 className="text-gray-400">Presupuesto mensual</h1>
               <h1
                 className={`text-5xl text-gray-200 ${

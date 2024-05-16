@@ -6,12 +6,12 @@ import { useGetUsersQuery } from "@/redux/services/userApi";
 import LoginPage from "./login/page";
 import Loader from "@/components/Loader";
 import { useSession } from "next-auth/react";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Outfit } from "next/font/google";
 import Link from "next/link";
 
 const number = Montserrat({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "600", "700"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
 export default function Home() {
@@ -82,7 +82,7 @@ export default function Home() {
 
           {/** INFO DE USER */}
           <div className="px-5 mb-10">
-            <h1 className="text-lg font-medium text-teal-500">
+            <h1 className="text-lg font-semibold text-teal-500">
               Hola {session.user.name}{" "}
             </h1>
             <h1 className=" text-4xl">
@@ -92,7 +92,7 @@ export default function Home() {
 
           {/** CARD */}
           <div className=" px-10">
-            <div className="w-full h-40 p-4 rounded-3xl bg-gradient-to-br from-indigo-600/80 to-pink-600 text-black/50">
+            <div className="w-full h-40 p-4 rounded-3xl bg-gradient-to-br from-indigo-600/80 to-pink-600 text-white/30">
               Avalieve Balance
             </div>
           </div>

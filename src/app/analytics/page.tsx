@@ -1,6 +1,6 @@
 "use client";
 import { useGetUsersQuery } from "@/redux/services/userApi";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Barlow, Poiret_One, Josefin_Sans } from "next/font/google";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -11,9 +11,10 @@ import {
   filterByType,
 } from "@/redux/features/filterAnalyticsSlice";
 
-const inter = Montserrat({
+const inter = Josefin_Sans({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "600", "700"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  //weight: ["400"],
 });
 
 const bd = [
@@ -229,7 +230,7 @@ const AnalyticsPage = () => {
   };
 
   return (
-    <section className={inter.className}>
+    <section className={""}>
       <div className="min-h-screen text-white">
         <div className="w-full p-5 text-white flex flex-row justify-between items-center mb-5">
           <div className="flex flex-row items-center">
@@ -307,15 +308,33 @@ const AnalyticsPage = () => {
               <h1 className="text-white text-lg">$ {BalanceGaneral(wallet)}</h1>
             </div>
             <div className="w-full flex flex-row justify-between items-center mb-2">
-              <h1 className="text-gray-400">Balance anual 2024</h1>
+              <h1 className="text-gray-300 font-light">Next Event 2024</h1>
               <h1 className="text-white text-lg">
                 $ {transformData("2024").toFixed(2)}
               </h1>
             </div>
             <div className="w-full flex flex-row justify-between items-center">
-              <h1 className="text-gray-400">Balance anual 2023</h1>
+              <h1 className="text-gray-300 font-extralight">Next Event 2024</h1>
               <h1 className="text-white text-lg">
                 $ {transformData("2023").toFixed(2)}
+              </h1>
+            </div>
+            <div className="text-lg tracking-wider">
+              <h1 className="text-gray-100 font-extralight">Next Event 200</h1>
+              <h1 className="text-gray-100 font-light">
+                Next Events / Wind Speeds $300
+              </h1>
+              <h1 className="text-gray-100 font-normal">
+                Next Events / Wind Speeds $400
+              </h1>
+              <h1 className="text-gray-100 font-medium">
+                Next Events / Wind Speeds 500
+              </h1>
+              <h1 className="text-gray-100 font-semibold">
+                Next Events / Wind Speeds 600
+              </h1>
+              <h1 className="text-gray-100 font-bold">
+                Next Events / Wind Speeds 700
               </h1>
             </div>
           </div>

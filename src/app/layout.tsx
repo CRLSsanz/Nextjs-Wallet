@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Poppins, Raleway } from "next/font/google";
+import { Inter, Raleway, Poiret_One, Josefin_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/redux/providers";
 import Navbar from "@/components/Navbar";
 import { ProvidersAuth } from "./Providers";
 
-const inter = Raleway({
+const inter = Poiret_One({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  //weight: ["100", "200", "300", "400", "500", "600", "700"], //Josefin_Sans
+  weight: ["400"], // Poiret_One
 });
 
 export const metadata: Metadata = {

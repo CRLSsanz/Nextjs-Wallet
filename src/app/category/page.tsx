@@ -34,7 +34,7 @@ const expensesCategory = [
 
 const CategoryPage = () => {
   return (
-    <div className={inter.className}>
+    <div className={"inter.className"}>
       <div className="p-5 text-gray-100 mb-5">
         <h1 className="text-5xl font-thin -tracking-wider mb-5">
           Lista de Categorias

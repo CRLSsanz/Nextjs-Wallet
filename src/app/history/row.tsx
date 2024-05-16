@@ -406,7 +406,7 @@ const HistoryRow = ({ item }: any) => {
 
       <div
         //onClick={() => setIsOpen((prev) => !prev)}
-        className={` xhidden w-full flex flex-row text-gray-400 cursor-pointer ${inter.className} `}
+        className={` xhidden w-full flex flex-row text-gray-400 cursor-pointer $ {inter.className} `}
       >
         {/** IMAGENES */}
         <div className="pr-3 pt-7">
