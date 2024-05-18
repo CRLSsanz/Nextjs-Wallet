@@ -99,7 +99,7 @@ const HistoryPage = () => {
 
   return (
     <>
-      <section className={` text-white ${inter.className} `}>
+      <section className={` text-white $ {inter.className} `}>
         {/** VOLVER - titulo - blanco */}
         <div className="w-full p-5 text-white  flex flex-row justify-between items-center">
           <div className="h-12 flex flex-row items-center">
@@ -248,7 +248,7 @@ const HistoryPage = () => {
         </div>
         {/** LLAMAR A LAS FILAS*/}
         <div id="list" className="bg-black/20 pb-7 X-mx-5 Xrounded-3xl">
-          <div className="w-full px-3 pb-10">
+          <div className="w-full Xpx-3 pb-10">
             {transformData().map((item, index) => (
               <div key={index}>
                 {item.date.substr(5, 5) === groupDate ? (

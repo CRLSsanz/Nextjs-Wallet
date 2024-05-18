@@ -6,12 +6,16 @@ import { useGetUsersQuery } from "@/redux/services/userApi";
 import LoginPage from "./login/page";
 import Loader from "@/components/Loader";
 import { useSession } from "next-auth/react";
-import { Montserrat, Outfit } from "next/font/google";
+import { Barlow, Montserrat, Outfit, Poiret_One } from "next/font/google";
 import Link from "next/link";
 
 const number = Montserrat({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
+const titulo = Poiret_One({
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 export default function Home() {
@@ -81,11 +85,9 @@ export default function Home() {
           </div>
 
           {/** INFO DE USER */}
-          <div className="px-5 mb-10">
-            <h1 className="text-lg font-semibold text-teal-500">
-              Hola {session.user.name}{" "}
-            </h1>
-            <h1 className=" text-4xl">
+          <div className={`px-5 mb-10 `}>
+            <h1 className="text-lg text-teal-500">Hola {session.user.name} </h1>
+            <h1 className={`text-4xl ${titulo.className} `}>
               Let{`'`}s complete your current balance
             </h1>
           </div>

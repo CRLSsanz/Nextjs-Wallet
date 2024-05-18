@@ -1,6 +1,19 @@
 "use client";
 import { useGetUsersQuery } from "@/redux/services/userApi";
-import { Montserrat, Barlow, Poiret_One, Josefin_Sans } from "next/font/google";
+import {
+  Albert_Sans,
+  Barlow,
+  Comfortaa,
+  Jost,
+  Lato,
+  Montserrat,
+  Outfit,
+  Plus_Jakarta_Sans,
+  Reddit_Mono,
+  Roboto,
+  Rubik,
+  Urbanist,
+} from "next/font/google";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -10,11 +23,61 @@ import {
   filterByMonth,
   filterByType,
 } from "@/redux/features/filterAnalyticsSlice";
+import Reddit from "next-auth/providers/reddit";
 
-const inter = Josefin_Sans({
+const number = Jost({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
-  //weight: ["400"],
+  //weight: ["400"], // Poiret_One
+});
+
+const albert_Sans = Albert_Sans({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
+const barlow = Barlow({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
+const comfortaa = Comfortaa({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+const jost = Jost({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["400"],
+});
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
+const plus_Jakarta_Sans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700"],
+});
+const reddit_Mono = Reddit_Mono({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700"],
+});
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400"],
+});
+const rubik = Rubik({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+const urbanist = Urbanist({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
 const bd = [
@@ -87,7 +150,7 @@ const AnalyticsPage = () => {
   {
     /** BALANCE GENERAL */
   }
-  const BalanceGaneral = (wallet: any) => {
+  const BalanceGeneral = (wallet: any) => {
     let totalExpense = 0;
     wallet.forEach(function (value: any) {
       if (value.type === "Expense") totalExpense += value.total;
@@ -113,7 +176,7 @@ const AnalyticsPage = () => {
       );
     }
 
-    let total = BalanceGaneral(data);
+    let total = BalanceGeneral(data);
 
     return Number(total);
   };
@@ -239,7 +302,7 @@ const AnalyticsPage = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth="1.5"
+                strokeWidth="1.0"
                 stroke="currentColor"
                 className="w-7 h-7"
               >
@@ -264,7 +327,7 @@ const AnalyticsPage = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth="1.5"
+                strokeWidth="0.5"
                 stroke="currentColor"
                 className="w-7 h-7 active:animate-ping hover:scale-110 Xhover:mt-2"
               >
@@ -280,12 +343,12 @@ const AnalyticsPage = () => {
                 />
               </svg>
             </Link>
-            <Link href={session?.user ? "/category#list" : "#"} hidden>
+            <Link href={session?.user ? "/category#list" : "#"}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth="1.5"
+                strokeWidth="1.0"
                 stroke="currentColor"
                 className="w-7 h-7 active:animate-ping hover:scale-110 Xhover:mt-2"
               >
@@ -300,41 +363,27 @@ const AnalyticsPage = () => {
         </div>
 
         {/** PRESUPUESTO INCOME EXPENSES*/}
-        <div className=" px-5 mb-5">
+        <div className={`px-5 mb-5 ${number.className} `}>
           {/** RESUMEN*/}
           <div className="Xh-64 px-5 py-10 pb-20 bg-gray-500/50 rounded-3xl">
             <div className="w-full flex flex-row justify-between items-center mb-2">
               <h1 className="text-gray-200">Balance General</h1>
-              <h1 className="text-white text-lg">$ {BalanceGaneral(wallet)}</h1>
+              <h1 className="text-white text-2xl">
+                $ {BalanceGeneral(wallet)}
+              </h1>
             </div>
             <div className="w-full flex flex-row justify-between items-center mb-2">
-              <h1 className="text-gray-300 font-light">Next Event 2024</h1>
-              <h1 className="text-white text-lg">
+              <h1 className="text-gray-300 font-light">Balance anual 2023</h1>
+              <h1 className="text-white text-xl">
                 $ {transformData("2024").toFixed(2)}
               </h1>
             </div>
             <div className="w-full flex flex-row justify-between items-center">
-              <h1 className="text-gray-300 font-extralight">Next Event 2024</h1>
+              <h1 className="text-gray-300 font-extralight">
+                Balance anual 2024
+              </h1>
               <h1 className="text-white text-lg">
                 $ {transformData("2023").toFixed(2)}
-              </h1>
-            </div>
-            <div className="text-lg tracking-wider">
-              <h1 className="text-gray-100 font-extralight">Next Event 200</h1>
-              <h1 className="text-gray-100 font-light">
-                Next Events / Wind Speeds $300
-              </h1>
-              <h1 className="text-gray-100 font-normal">
-                Next Events / Wind Speeds $400
-              </h1>
-              <h1 className="text-gray-100 font-medium">
-                Next Events / Wind Speeds 500
-              </h1>
-              <h1 className="text-gray-100 font-semibold">
-                Next Events / Wind Speeds 600
-              </h1>
-              <h1 className="text-gray-100 font-bold">
-                Next Events / Wind Speeds 700
               </h1>
             </div>
           </div>
@@ -342,14 +391,14 @@ const AnalyticsPage = () => {
           <div className="mx-4 -mt-16 rounded-2xl bg-gray-900 border border-gray-500/30">
             {/** BALANCE */}
             <div className="py-10 flex flex-col items-center justify-center">
-              <div className="h-12 text-5xl font-thin -tracking-wider flex items-center mb-5">
+              <div className="h-12 text-5xl font-thin flex items-center mb-5">
                 <select
                   defaultValue={byYear}
                   onChange={(e) => dispatch(filterByYear(e.target.value))}
                   className="focus:outline-none appearance-none bg-transparent p-2"
                 >
                   <option value="2023">2023</option>
-                  <option value="2024">2024</option>
+                  <option value="2024">$7641.90</option>
                 </select>
               </div>
               <div className="flex flex-col justify-center">
@@ -420,45 +469,231 @@ const AnalyticsPage = () => {
             </div>
           </div>
         </div>
+
         {/** GRAFICA */}
         <div className="p-5 mb-5">
           <div className="h-60 border border-gray-500/50 rounded-3xl"> </div>
         </div>
-        {/** GRID de 4 */}
-        <div className="hidden mx-auto w-[336px] xgrid grid-cols-2 gap-4 items-center py-10">
-          <div className="hidden bg-gray-800/50 px-4 py-8 rounded-lg border border-gray-600">
-            <h1 className="h-1 w-4/5 bg-indigo-600 mb-5"></h1>
-            <h1 className="text-sm ">Income</h1>
-            <h1 className="flex text-xl  font-medium">
-              <span className="text-sm pt-1 mr-1">$</span>
-              5,000.00
-            </h1>
-          </div>
 
-          <div className=" w-40 h-40 bg-gray-800/50 pl-4 py-8 rounded-lg rounded-tl-[150px] border border-gray-600 flex flex-col justify-end items-center">
-            <h1 className="text-sm ">Income</h1>
-            <h1 className="flex text-xl  font-medium">
-              <span className="text-sm pt-1 mr-1">$</span>
-              5,000.00
-            </h1>
+        {/** PRUEBA - Barlow, Jost, Outfit, Poiret_One, Rubik*/}
+        <div className="bg-gray-800/20 min-h-screen py-20 px-5 text-gray-400 flex flex-col gap-5">
+          <div className={` ${albert_Sans.className} `}>
+            <div className="w-full bg-gray-700/60 flex flex-row ">
+              <div className="w-2/5 p-5 border-r border-gray-500/50">
+                <h1 className="mb-2 text">Balance total</h1>
+                <h1 className="text-4xl text-gray-100">$52.90</h1>
+              </div>
+              <div className="w-3/5 flex flex-col">
+                <div className="flex flex-row justify-between border-b border-gray-500/50 p-5">
+                  <h1 className="">Ingreso</h1>
+                  <h1 className="text-cyan-500">+ $6748.0</h1>
+                </div>
+                <div className="flex flex-row justify-between p-5">
+                  <h1 className="">Gastos</h1>
+                  <h1 className="text-pink-400">- €213,95</h1>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div className=" w-40 h-40 bg-gray-800/50 pr-4 py-8 rounded-lg rounded-tr-[150px] border-8 border-pink-600 shadow-lg shadow-pink-600 flex flex-col justify-end items-center">
-            <h1 className="text-sm ">Expenses</h1>
-            <h1 className="flex text-xl font-medium">
-              <span className="text-sm pt-1 mr-1">$ </span>
-              3,900.50
-            </h1>
+          <div className={` ${barlow.className} `}>
+            <div className="w-full bg-gray-700/60 flex flex-row ">
+              <div className="w-2/5 p-5 border-r border-gray-500/50">
+                <h1 className="mb-2 text">Balance total</h1>
+                <h1 className="text-4xl text-gray-100">$52.90</h1>
+              </div>
+              <div className="w-3/5 flex flex-col">
+                <div className="flex flex-row justify-between border-b border-gray-500/50 p-5">
+                  <h1 className="">Ingreso</h1>
+                  <h1 className="text-cyan-500">+ $6748.0</h1>
+                </div>
+                <div className="flex flex-row justify-between p-5">
+                  <h1 className="">Gastos</h1>
+                  <h1 className="text-pink-400">- €213,95</h1>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div className=" w-40 h-40 bg-gray-800/50 pl-4 py-8 rounded-lg rounded-bl-[150px] border border-gray-600 flex flex-col Xjustify-end items-center">
-            <h1 className="text-sm mb-5">Transacciones</h1>
-            <h1 className="flex text-xl font-medium">{bd.length}</h1>
+          <div className={` ${lato.className} `}>
+            <div className="w-full bg-gray-700/60 flex flex-row ">
+              <div className="w-2/5 p-5 border-r border-gray-500/50">
+                <h1 className="mb-2 text">Balance total</h1>
+                <h1 className="text-4xl text-gray-100">$52.90</h1>
+              </div>
+              <div className="w-3/5 flex flex-col">
+                <div className="flex flex-row justify-between border-b border-gray-500/50 p-5">
+                  <h1 className="">Ingreso</h1>
+                  <h1 className="text-cyan-500">+ $6748.0</h1>
+                </div>
+                <div className="flex flex-row justify-between p-5">
+                  <h1 className="">Gastos</h1>
+                  <h1 className="text-pink-400">- €213,95</h1>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div className=" w-40 h-40 bg-gray-800/50 pr-4 py-8 rounded-lg rounded-br-[150px] border border-gray-600 flex flex-col Xjustify-end items-center">
-            <h1 className="text-sm mb-5">Categorias</h1>
-            <h1 className="text-xl font-medium">07</h1>
+          <div className={` ${comfortaa.className} `}>
+            <div className="w-full bg-gray-700/60 flex flex-row ">
+              <div className="w-2/5 p-5 border-r border-gray-500/50">
+                <h1 className="mb-2 text">Balance total</h1>
+                <h1 className="text-4xl text-gray-100">$52.90</h1>
+              </div>
+              <div className="w-3/5 flex flex-col">
+                <div className="flex flex-row justify-between border-b border-gray-500/50 p-5">
+                  <h1 className="">Ingreso</h1>
+                  <h1 className="text-cyan-500">+ $6748.0</h1>
+                </div>
+                <div className="flex flex-row justify-between p-5">
+                  <h1 className="">Gastos</h1>
+                  <h1 className="text-pink-400">- €213,95</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={` ${jost.className} `}>
+            <div className="w-full bg-gray-700/60 flex flex-row ">
+              <div className="w-2/5 p-5 border-r border-gray-500/50">
+                <h1 className="mb-2 text">Balance total</h1>
+                <h1 className="text-4xl text-gray-100">$52.90</h1>
+              </div>
+              <div className="w-3/5 flex flex-col">
+                <div className="flex flex-row justify-between border-b border-gray-500/50 p-5">
+                  <h1 className="">Ingreso</h1>
+                  <h1 className="text-cyan-500">+ $6748.0</h1>
+                </div>
+                <div className="flex flex-row justify-between p-5">
+                  <h1 className="">Gastos</h1>
+                  <h1 className="text-pink-400">- €213,95</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div className={` ${montserrat.className} `}>
+            <div className="w-full bg-gray-700/60 flex flex-row ">
+              <div className="w-2/5 p-5 border-r border-gray-500/50">
+                <h1 className="mb-2 text">Balance total</h1>
+                <h1 className="text-4xl text-gray-100">$52.90</h1>
+              </div>
+              <div className="w-3/5 flex flex-col">
+                <div className="flex flex-row justify-between border-b border-gray-500/50 p-5">
+                  <h1 className="">Ingreso</h1>
+                  <h1 className="text-cyan-500">+ $6748.0</h1>
+                </div>
+                <div className="flex flex-row justify-between p-5">
+                  <h1 className="">Gastos</h1>
+                  <h1 className="text-pink-400">- €213,95</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={` ${outfit.className} `}>
+            <div className="w-full bg-gray-700/60 flex flex-row ">
+              <div className="w-2/5 p-5 border-r border-gray-500/50">
+                <h1 className="mb-2 text">Balance total</h1>
+                <h1 className="text-4xl text-gray-100">$52.90</h1>
+              </div>
+              <div className="w-3/5 flex flex-col">
+                <div className="flex flex-row justify-between border-b border-gray-500/50 p-5">
+                  <h1 className="">Ingreso</h1>
+                  <h1 className="text-cyan-500">+ $6748.0</h1>
+                </div>
+                <div className="flex flex-row justify-between p-5">
+                  <h1 className="">Gastos</h1>
+                  <h1 className="text-pink-400">- €213,95</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={` ${plus_Jakarta_Sans.className} `}>
+            <div className="w-full bg-gray-700/60 flex flex-row ">
+              <div className="w-2/5 p-5 border-r border-gray-500/50">
+                <h1 className="mb-2 text">Balance total</h1>
+                <h1 className="text-4xl text-gray-100">$52.90</h1>
+              </div>
+              <div className="w-3/5 flex flex-col">
+                <div className="flex flex-row justify-between border-b border-gray-500/50 p-5">
+                  <h1 className="">Ingreso</h1>
+                  <h1 className="text-cyan-500">+ $6748.0</h1>
+                </div>
+                <div className="flex flex-row justify-between p-5">
+                  <h1 className="">Gastos</h1>
+                  <h1 className="text-pink-400">- €213,95</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={` ${reddit_Mono.className} `}>
+            <div className="w-full bg-gray-700/60 flex flex-row ">
+              <div className="w-2/5 p-5 border-r border-gray-500/50">
+                <h1 className="mb-2 text">Balance total</h1>
+                <h1 className="text-4xl text-gray-100">$52.90</h1>
+              </div>
+              <div className="w-3/5 flex flex-col">
+                <div className="flex flex-row justify-between border-b border-gray-500/50 p-5">
+                  <h1 className="">Ingreso</h1>
+                  <h1 className="text-cyan-500">+ $6748.0</h1>
+                </div>
+                <div className="flex flex-row justify-between p-5">
+                  <h1 className="">Gastos</h1>
+                  <h1 className="text-pink-400">- €213,95</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={` ${roboto.className} `}>
+            <div className="w-full bg-gray-700/60 flex flex-row ">
+              <div className="w-2/5 p-5 border-r border-gray-500/50">
+                <h1 className="mb-2 text">Balance total</h1>
+                <h1 className="text-4xl text-gray-100">$52.90</h1>
+              </div>
+              <div className="w-3/5 flex flex-col">
+                <div className="flex flex-row justify-between border-b border-gray-500/50 p-5">
+                  <h1 className="">Ingreso</h1>
+                  <h1 className="text-cyan-500">+ $6748.0</h1>
+                </div>
+                <div className="flex flex-row justify-between p-5">
+                  <h1 className="">Gastos</h1>
+                  <h1 className="text-pink-400">- €213,95</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div className={` ${rubik.className} `}>
+            <div className="w-full bg-gray-700/60 flex flex-row ">
+              <div className="w-2/5 p-5 border-r border-gray-500/50">
+                <h1 className="mb-2 text">Balance total</h1>
+                <h1 className="text-4xl text-gray-100">$52.90</h1>
+              </div>
+              <div className="w-3/5 flex flex-col">
+                <div className="flex flex-row justify-between border-b border-gray-500/50 p-5">
+                  <h1 className="">Ingreso</h1>
+                  <h1 className="text-cyan-500">+ $6748.0</h1>
+                </div>
+                <div className="flex flex-row justify-between p-5">
+                  <h1 className="">Gastos</h1>
+                  <h1 className="text-pink-400">- €213,95</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={` ${urbanist.className} `}>
+            <div className="w-full bg-gray-700/60 flex flex-row ">
+              <div className="w-2/5 p-5 border-r border-gray-500/50">
+                <h1 className="mb-2 text">Balance total</h1>
+                <h1 className="text-4xl text-gray-100">$52.90</h1>
+              </div>
+              <div className="w-3/5 flex flex-col">
+                <div className="flex flex-row justify-between border-b border-gray-500/50 p-5">
+                  <h1 className="">Ingreso</h1>
+                  <h1 className="text-cyan-500">+ $6748.0</h1>
+                </div>
+                <div className="flex flex-row justify-between p-5">
+                  <h1 className="">Gastos</h1>
+                  <h1 className="text-pink-400">- €213,95</h1>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -519,52 +754,45 @@ const AnalyticsPage = () => {
             </div>
           </div>
 
-          <div className="w-full px-2 grid grid-cols-3 gap-1">
+          <div className="w-full px-2 grid grid-cols-2 gap-4">
             {groupById(walletFiltrado()).map((item: any, index: any) => (
               <div
                 key={index}
-                className="relative flex flex-col items-center text-center p-5 gap-3 bg-black/20 text-white rounded-xl"
+                className="relative flex flex-col py-5 bg-black/20 text-white rounded-sm"
               >
-                <div className="w-10 h-10 flex border border-gray-500/30 rotate-45 rounded-lg">
+                <div className="w-full flex flex-row justify-between border-l-2 border-gray-500/40 px-5 mb-10">
+                  <h1
+                    className={` text-gray-50 text-lg font-light ${number.className} `}
+                  >
+                    ${item.total.toFixed(2)}
+                  </h1>
                   <img
                     src={`./images/category/${item.category}.png`}
                     alt="image"
-                    className="w-6 h-6 m-auto opacity-100 -rotate-45 "
+                    className="w-6 h-6"
                   />
                 </div>
 
-                <h1 className=" text-gray-200 text-xs w-20 truncate ">
-                  {item.category}
-                </h1>
-
-                <h1 className=" text-gray-400 -mt-2">
-                  $ {item.total.toFixed(0)}
-                </h1>
-
-                <div className="w-full h-1.5 bg-gray-500/20 rounded-full">
-                  <h1
-                    className={` Xw-[75%] h-1.5 $ {barsColor[index]}  rounded-full $
+                <div className="px-5">
+                  <div className="w-full h-1.5 bg-gray-500/20 rounded-full mb-2">
+                    <h1
+                      className={` Xw-[75%] h-1.5 $ {barsColor[index]}  rounded-full $
                       ${
                         item.type === "Expense"
                           ? " bg-pink-700 shadow-md shadow-pink-400/50"
                           : " bg-cyan-600 shadow-md shadow-cyan-400/50"
                       } `}
-                    //style={{ width: progress() }}
-                    style={{ width: `${progress(item.total)}%` }}
-                  >
-                    {" "}
+                      //style={{ width: progress() }}
+                      style={{ width: `${progress(item.total)}%` }}
+                    >
+                      {" "}
+                    </h1>
+                  </div>
+                  <h1 className={`text-gray-400 text-xs ${number.className} `}>
+                    {item.count} Transacciones
                   </h1>
-                </div>
-                <h1 className="absolute top-2 right-2 bg-purple-500/50 text-xs text-gray-100 rounded-full w-5 h-5 flex items-center justify-center">
-                  {item.count}
-                </h1>
-
-                <div className="hidden">
-                  <h1 className="w-10 h-10 text-center opacity-100 rounded-lg bg-gray-600/50 p-2">
-                    {item.count}{" "}
-                  </h1>
-                  <h1 className="text-center text-gray-400 text-[10px]">
-                    Transac.
+                  <h1 className=" text-gray-300 whitespace-nowrap truncate">
+                    {item.category}
                   </h1>
                 </div>
               </div>

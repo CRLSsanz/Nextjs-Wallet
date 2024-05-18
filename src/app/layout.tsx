@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Raleway, Poiret_One, Josefin_Sans } from "next/font/google";
+import { Inter, Raleway } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/redux/providers";
 import Navbar from "@/components/Navbar";
 import { ProvidersAuth } from "./Providers";
 
-const inter = Poiret_One({
+const inter = Raleway({
   subsets: ["latin"],
-  //weight: ["100", "200", "300", "400", "500", "600", "700"], //Josefin_Sans
-  weight: ["400"], // Poiret_One
+  weight: ["100", "200", "300", "400", "500", "600", "700"], //Josefin_Sans
+  //weight: ["400"], // Poiret_One
 });
 
 export const metadata: Metadata = {
@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="bg-[#0C395A] bg-cover bg-fixed bg-[30%] bg-[url('/images/degra-blue.jpg')] min-h-screen Xpr-10">
+        <div className="bg-gray-950 bg-cover bg-fixed bg-[50%] bg-[url('/images/degra-blue.jpg')] min-h-screen Xpr-10">
           <Providers>
             <ProvidersAuth>
               <Navbar />
