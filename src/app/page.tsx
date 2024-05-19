@@ -28,7 +28,10 @@ export default function Home() {
         <Loader />
       </div>
     );
-  if (error) return <p>Some Error</p>;
+  if (error) return;
+  <div className="w-full h-screen flex items-center justify-center">
+    <p className="text-lg">Some Error</p>
+  </div>;
 
   return (
     <main className="text-white">

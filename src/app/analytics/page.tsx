@@ -327,7 +327,7 @@ const AnalyticsPage = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth="0.5"
+                strokeWidth="1"
                 stroke="currentColor"
                 className="w-7 h-7 active:animate-ping hover:scale-110 Xhover:mt-2"
               >
@@ -476,7 +476,7 @@ const AnalyticsPage = () => {
         </div>
 
         {/** PRUEBA - Barlow, Jost, Outfit, Poiret_One, Rubik*/}
-        <div className="bg-gray-800/20 min-h-screen py-20 px-5 text-gray-400 flex flex-col gap-5">
+        <div className="bg-gray-800 /20 min-h-screen py-20 px-5 text-gray-400 flex flex-col gap-5">
           <div className={` ${albert_Sans.className} `}>
             <div className="w-full bg-gray-700/60 flex flex-row ">
               <div className="w-2/5 p-5 border-r border-gray-500/50">
