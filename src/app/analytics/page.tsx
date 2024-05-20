@@ -476,7 +476,7 @@ const AnalyticsPage = () => {
         </div>
 
         {/** PRUEBA - Barlow, Jost, Outfit, Poiret_One, Rubik*/}
-        <div className="bg-gray-800 /20 min-h-screen py-20 px-5 text-gray-400 flex flex-col gap-5">
+        <div className="hidden bg-gray-800 /20 min-h-screen py-20 px-5 text-gray-400 xflex flex-col gap-5">
           <div className={` ${albert_Sans.className} `}>
             <div className="w-full bg-gray-700/60 flex flex-row ">
               <div className="w-2/5 p-5 border-r border-gray-500/50">
@@ -697,18 +697,16 @@ const AnalyticsPage = () => {
           </div>
         </div>
 
-        {/** LIST FOR CATEGORY */}
-        <div className="bg-black/50 min-h-screen xmx-5 Xrounded-3xl py-5">
-          <h1 className="p-5 text-teal-500 font-medium flex place-items-center">
-            Resumen por categorias
+        <h1 className="p-5 text-teal-500 font-medium flex place-items-center">
+          Resumen por categorias
+        </h1>
+        <div className="px-5 mb-32 flex flex-row items-center justify-between Xborder-b Xborder-gray-500/30 ">
+          <h1 className="hidden bg-teal-500 text-white whitespace-nowrap rounded-full px-5 py-2 ">
+            Ingresos
           </h1>
-          <div className="px-5 py-7 flex flex-row items-center justify-between Xborder-b Xborder-gray-500/30 ">
-            <h1 className="hidden bg-teal-500 text-white whitespace-nowrap rounded-full px-5 py-2 ">
-              Ingresos
-            </h1>
 
-            <div
-              className={` text-white whitespace-nowrap rounded-full px-5 py-2 
+          <div
+            className={` text-white whitespace-nowrap rounded-full px-5 py-2 
             ${
               byType === "Income"
                 ? " bg-indigo-600 "
@@ -719,68 +717,83 @@ const AnalyticsPage = () => {
                   } `
             }
             `}
+          >
+            <select
+              //defaultValue={byType}
+              onChange={(e) => dispatch(filterByType(e.target.value))}
+              className="text-center focus:outline-none appearance-none bg-transparent px-2"
             >
-              <select
-                //defaultValue={byType}
-                onChange={(e) => dispatch(filterByType(e.target.value))}
-                className="text-center focus:outline-none appearance-none bg-transparent px-2"
-              >
-                <option value="">Ver todo</option>
-                <option value="Income">Ingresos</option>
-                <option value="Expense">Gastos</option>
-              </select>
-            </div>
-
-            <div className="text-gray-300 rounded-full border border-gray-500/30 px-5 py-2">
-              <select
-                //defaultValue={byMonth}
-                onChange={(e) => dispatch(filterByMonth(e.target.value))}
-                className="text-center focus:outline-none appearance-none bg-transparent px-2"
-              >
-                <option value="">Todos los meses</option>
-                <option value="01">Enero</option>
-                <option value="02">Febrero</option>
-                <option value="03">Marzo</option>
-                <option value="04">Abril</option>
-                <option value="05">Mayo</option>
-                <option value="06">Junio</option>
-                <option value="07">Julio</option>
-                <option value="08">Agosto</option>
-                <option value="09">Septiembre</option>
-                <option value="10">Octubre</option>
-                <option value="11">Noviembre</option>
-                <option value="12">Diciembre</option>
-              </select>
-            </div>
+              <option value="">Ver todo</option>
+              <option value="Income">Ingresos</option>
+              <option value="Expense">Gastos</option>
+            </select>
           </div>
 
-          <div className="w-full px-2 grid grid-cols-2 gap-4">
+          <div className="text-gray-300 rounded-full border border-gray-500/30 px-5 py-2">
+            <select
+              //defaultValue={byMonth}
+              onChange={(e) => dispatch(filterByMonth(e.target.value))}
+              className="text-center focus:outline-none appearance-none bg-transparent px-2"
+            >
+              <option value="">Todos los meses</option>
+              <option value="01">Enero</option>
+              <option value="02">Febrero</option>
+              <option value="03">Marzo</option>
+              <option value="04">Abril</option>
+              <option value="05">Mayo</option>
+              <option value="06">Junio</option>
+              <option value="07">Julio</option>
+              <option value="08">Agosto</option>
+              <option value="09">Septiembre</option>
+              <option value="10">Octubre</option>
+              <option value="11">Noviembre</option>
+              <option value="12">Diciembre</option>
+            </select>
+          </div>
+        </div>
+
+        {/** LIST FOR CATEGORY */}
+        <div className="bg-gray-200 min-h-screen xmx-5 Xrounded-3xl py-5">
+          <div className="w-full px-5 -mt-24">
             {groupById(walletFiltrado()).map((item: any, index: any) => (
               <div
                 key={index}
-                className="relative flex flex-col py-5 bg-black/20 text-white rounded-sm"
+                className="relative flex flex-col p-5 bg-gray-50 text-gray-600 rounded-sm mb-2"
               >
-                <div className="w-full flex flex-row justify-between border-l-2 border-gray-500/40 px-5 mb-10">
-                  <h1
-                    className={` text-gray-50 text-lg font-light ${number.className} `}
-                  >
-                    ${item.total.toFixed(2)}
-                  </h1>
-                  <img
-                    src={`./images/category/${item.category}.png`}
-                    alt="image"
-                    className="w-6 h-6"
-                  />
+                <div className="w-full flex flex-row justify-between mb-3">
+                  <div className="w-12 flex items-center justify-center bg-gray-100 rounded-md">
+                    <img
+                      src={`./images/category/${item.category}.png`}
+                      alt="image"
+                      className="w-8 h-8"
+                    />
+                  </div>
+                  <div className="ml-5 w-full">
+                    <h1 className="font-semibold text-gray-500">
+                      {item.category}
+                    </h1>
+                    <h1
+                      className={`text-gray-400 text-sm ${number.className} `}
+                    >
+                      {item.count} Transacciones
+                    </h1>
+                  </div>
                 </div>
 
-                <div className="px-5">
-                  <div className="w-full h-1.5 bg-gray-500/20 rounded-full mb-2">
+                <h1
+                  className={`text-lg font-semibold text-gray-600 ${number.className} `}
+                >
+                  ${item.total.toFixed(2)}
+                </h1>
+
+                <div className="">
+                  <div className="w-full h-1.5 bg-gray-200 rounded-full mb-2">
                     <h1
                       className={` Xw-[75%] h-1.5 $ {barsColor[index]}  rounded-full $
                       ${
                         item.type === "Expense"
-                          ? " bg-pink-700 shadow-md shadow-pink-400/50"
-                          : " bg-cyan-600 shadow-md shadow-cyan-400/50"
+                          ? " bg-pink-700/70 shadow-md shadow-pink-400/50"
+                          : " bg-cyan-600/70 shadow-md shadow-cyan-400/50"
                       } `}
                       //style={{ width: progress() }}
                       style={{ width: `${progress(item.total)}%` }}
@@ -788,12 +801,6 @@ const AnalyticsPage = () => {
                       {" "}
                     </h1>
                   </div>
-                  <h1 className={`text-gray-400 text-xs ${number.className} `}>
-                    {item.count} Transacciones
-                  </h1>
-                  <h1 className=" text-gray-300 whitespace-nowrap truncate">
-                    {item.category}
-                  </h1>
                 </div>
               </div>
             ))}

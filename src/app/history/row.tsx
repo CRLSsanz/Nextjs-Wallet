@@ -44,9 +44,35 @@ const HistoryRow = ({ item }: any) => {
 
   return (
     <>
+      <div className="px-5 mb-2 ">
+        <div
+          className={` bg-gray-800 rounded-sm border-l-4 p-3 ${
+            item.type === "Income" ? "border-indigo-600" : "border-pink-600"
+          } `}
+        >
+          <div className="flex flex-row justify-between">
+            <h1 className="text-lg">{item.category} </h1>
+            <h1 className={`text-lg ${number.className} `}>
+              -$ {item.total.toFixed(2)}{" "}
+            </h1>
+          </div>
+
+          <div className={`flex flex-row justify-between `}>
+            <h1 className="text-gray-400 text-sm w-full truncate">
+              {item.comment}
+            </h1>
+            <div className="text-sm text-gray-400 whitespace-nowrap">
+              <span className="">{nameDiaxFecha(item.date)} </span>
+              <span className="">{item.date.substr(8, 2)} </span>
+              Abr 2024
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div
         //onClick={() => setIsOpen((prev) => !prev)}
-        className={` xhidden w-full flex flex-row justify-between Xborder-b border-gray-500/40 cursor-pointer ${number.className} `}
+        className={` hidden w-full xflex flex-row justify-between Xborder-b border-gray-500/40 cursor-pointer ${number.className} `}
       >
         {/* INFO */}
         <div
