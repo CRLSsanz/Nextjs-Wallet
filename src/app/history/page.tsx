@@ -160,7 +160,7 @@ const HistoryPage = () => {
         </div>
 
         {/** TRANSACCIONES */}
-        <div className=" bg-black/30 Xp-2">
+        <div className=" Xbg-black/30 Xp-2">
           <div className="flex flex-row">
             {/** MES Y CANTIDAD */}
             <div className="w-full flex flex-row-reverse justify-between items-center px-3">
@@ -247,8 +247,8 @@ const HistoryPage = () => {
           </div>
         </div>
         {/** LLAMAR A LAS FILAS*/}
-        <div id="list" className="bg-black/20 pb-7 X-mx-5 Xrounded-3xl">
-          <div className="w-full Xpx-3 pb-10">
+        <div id="list" className="Xbg-black/20 pb-7 X-mx-5 Xrounded-3xl">
+          <div className="w-full px-5 pb-10">
             {transformData().map((item, index) => (
               <div key={index}>
                 {item.date.substr(5, 5) === groupDate ? (
@@ -262,7 +262,7 @@ const HistoryPage = () => {
                       <div className="w-0.5 bg-gray-600 h-full "> </div>
                     </div>
                     {/** FECHA VISIBLE */}
-                    <p className="hidden bg-transparent text-teal-600 py-2 px-3 text-sm">
+                    <p className="Xhidden bg-transparent text-teal-500 py-2 text-sm">
                       {nameDiaxFecha(item.date) + ", "}{" "}
                       <span className="">{item.date.substr(8, 2)} </span>
                       {" de " + cmeses[Number(item.date.substr(5, 2)) - 1]}
