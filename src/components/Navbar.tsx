@@ -28,7 +28,7 @@ const Navbar = () => {
   return (
     <div>
       <nav
-        className={`hidden fixed z-50 w-12 h-12 right-4 bottom-4 Xbg-gradient-to-tl Xfrom-zinc-600 Xbackdrop-blur-2xl xflex flex-col justify-between items-center text-white 
+        className={`Xhidden fixed z-50 w-12 h-12 right-4 bottom-4 Xbg-gradient-to-tl Xfrom-zinc-600 Xbackdrop-blur-2xl xflex flex-col justify-between items-center text-white 
       ${navbar ? " bg-gray-800/20 " : " bg-gray-900/90 "}      
       `}
       >
@@ -304,7 +304,7 @@ const Navbar = () => {
       </ul>
 
       <ul
-        className={` hidden fixed top-0 z-20 text-gray-100 Xbg-[#222222]/70 Xw-full w-[320px] Xw-[calc(100vw-160px)] h-[calc(100vh-0px)] Xh-screen transform transition-all duration-500 xflex flex-col rounded-b-md text-center border-l border-gray-500
+        className={` Xhidden Xfixed Xtop-0 Xz-20 text-gray-100 bg-[#444444] Xw-full w-[320px] Xw-[calc(100vw-160px)] h-[calc(100vh-0px)] Xh-screen transform transition-all duration-500 xflex flex-col rounded-b-md text-center
         ${
           navbar
             ? ` ${
@@ -316,7 +316,7 @@ const Navbar = () => {
         }`}
       >
         {/** MENU */}
-        <div className="bg-gray-900/50 Xshadow-md Xshadow-white h-full py-5 px-7 flex flex-col justify-between">
+        <div className="h-full py-5 px-7 flex flex-col justify-between">
           {/** ITEMS */}
           <div className="flex flex-col space-y-8 transform transition-all duration-1000 ">
             {/** EXPANDIR * /}
@@ -389,11 +389,11 @@ const Navbar = () => {
                   onClick={() => setMaxim(!maxim)}
                   src={`${session.user.image}`}
                   alt="User image"
-                  className={`rounded-full border-gray-800/80 cursor-pointer 
+                  className={`rounded-md border-gray-800/80 cursor-pointer 
                   ${
                     maxim
-                      ? " w-20 h-20 "
-                      : " w-20 h-20 ml-2 Xactive:animate-ping"
+                      ? " w-14 h-14 "
+                      : " w-14 h-14 ml-2 Xactive:animate-ping"
                   }
                   `}
                 />
