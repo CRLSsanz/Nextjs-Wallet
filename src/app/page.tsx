@@ -34,13 +34,13 @@ export default function Home() {
   </div>;
 
   return (
-    <main className="text-white">
+    <main className="text-white py-10">
       {!session?.user ? (
         <LoginPage />
       ) : (
         <>
           {/** BOTON Y FOTO */}
-          <div className="w-full p-5 text-white flex flex-row justify-between items-center">
+          <div className="w-full p-5 text-white bg-[#333333] flex flex-row justify-between items-center">
             <div className="flex flex-row">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

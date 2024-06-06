@@ -304,7 +304,7 @@ const Navbar = () => {
       </ul>
 
       <ul
-        className={` Xhidden Xfixed Xtop-0 Xz-20 text-gray-100 bg-[#444444] Xw-full w-[320px] Xw-[calc(100vw-160px)] h-[calc(100vh-0px)] Xh-screen transform transition-all duration-500 xflex flex-col rounded-b-md text-center
+        className={` Xhidden Xfixed Xtop-0 Xz-20 text-gray-100 bg-[#444444] Xw-full w-[300px] Xw-[calc(100vw-160px)] h-[calc(100vh-0px)] Xh-screen transform transition-all border-l border-gray-500/20 duration-500 xflex flex-col rounded-b-md text-center
         ${
           navbar
             ? ` ${
@@ -316,9 +316,9 @@ const Navbar = () => {
         }`}
       >
         {/** MENU */}
-        <div className="h-full py-5 px-7 flex flex-col justify-between">
+        <div className="h-full py-10 pr-5 flex flex-col justify-between">
           {/** ITEMS */}
-          <div className="flex flex-col space-y-8 transform transition-all duration-1000 ">
+          <div className="flex flex-col space-y-5 transform transition-all duration-1000 text-gray-400">
             {/** EXPANDIR * /}
             <div className="hidden Xflex flex-row justify-between">
               <button
@@ -389,16 +389,18 @@ const Navbar = () => {
                   onClick={() => setMaxim(!maxim)}
                   src={`${session.user.image}`}
                   alt="User image"
-                  className={`rounded-md border-gray-800/80 cursor-pointer 
+                  className={`rounded-sm border-gray-800/80 cursor-pointer 
                   ${
                     maxim
-                      ? " w-14 h-14 "
-                      : " w-14 h-14 ml-2 Xactive:animate-ping"
+                      ? " w-12 h-12 "
+                      : " w-12 h-12 ml-2 Xactive:animate-ping"
                   }
                   `}
                 />
                 <div className="pl-5 text-left">
-                  <p className="text-xl text-cyan-600">{session.user.name}</p>
+                  <p className="uppercase tracking-widest text-xs font-semibold text-gray-100">
+                    {session.user.name}
+                  </p>
                   <p className="text-xs text-gray-400">{session.user.email}</p>
                 </div>
                 <div className="hidden w-full Xflex justify-center space-x-5 pb-5 mb-5 border-b border-gray-500/30">
@@ -536,21 +538,20 @@ const Navbar = () => {
               </>
             )}
 
-            <div className="hidden">contenido</div>
-
-            <h1 className="border-b-2 border-gray-500/30 -mx-4"> </h1>
+            <div className="mb-5"> </div>
+            <br />
             <Link
               href={session?.user ? "/" : "#"}
               onClick={() => setMaxim(false)}
-              className="flex flex-row items-center"
+              className="flex flex-row items-center text-gray-100"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth="1.5"
+                strokeWidth="2.5"
                 stroke="currentColor"
-                className="w-7 h-7 active:animate-ping hover:scale-125 hover:-ml-2"
+                className="w-6 h-6 active:animate-ping hover:scale-125 Xhover:-ml-2"
               >
                 <path
                   strokeLinecap="round"
@@ -558,7 +559,10 @@ const Navbar = () => {
                   d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
                 />
               </svg>
-              <h1 className="text-sm pl-4" hidden={!maxim}>
+              <h1
+                className="uppercase tracking-widest text-xs font-semibold pl-4"
+                hidden={!maxim}
+              >
                 Home
               </h1>
             </Link>
@@ -572,9 +576,9 @@ const Navbar = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth="1.5"
+                strokeWidth="2.5"
                 stroke="currentColor"
-                className="w-7 h-7 active:animate-ping hover:scale-125 hover:-ml-2"
+                className="w-6 h-6 active:animate-ping hover:scale-125 hover:-ml-2"
               >
                 <path
                   strokeLinecap="round"
@@ -587,7 +591,10 @@ const Navbar = () => {
                   d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
                 />
               </svg>
-              <h1 className="text-sm pl-4" hidden={!maxim}>
+              <h1
+                className="uppercase tracking-widest text-xs font-semibold pl-4"
+                hidden={!maxim}
+              >
                 Analytics
               </h1>
             </Link>
@@ -601,9 +608,9 @@ const Navbar = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth="1.5"
+                strokeWidth="2.5"
                 stroke="currentColor"
-                className="w-7 h-7 active:animate-ping hover:scale-125 hover:-ml-2"
+                className="w-6 h-6 active:animate-ping hover:scale-125 hover:-ml-2"
               >
                 <path
                   strokeLinecap="round"
@@ -612,7 +619,10 @@ const Navbar = () => {
                 />
               </svg>
 
-              <h1 className="text-sm pl-4" hidden={!maxim}>
+              <h1
+                className="uppercase tracking-widest text-xs font-semibold pl-4"
+                hidden={!maxim}
+              >
                 Add
               </h1>
             </Link>
@@ -626,9 +636,9 @@ const Navbar = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth="1.5"
+                strokeWidth="2.5"
                 stroke="currentColor"
-                className="w-7 h-7 active:animate-ping hover:scale-125 hover:-ml-2"
+                className="w-6 h-6 active:animate-ping hover:scale-125 hover:-ml-2"
               >
                 <path
                   strokeLinecap="round"
@@ -636,7 +646,10 @@ const Navbar = () => {
                   d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                 />
               </svg>
-              <h1 className="text-sm pl-4" hidden={!maxim}>
+              <h1
+                className="uppercase tracking-widest text-xs font-semibold pl-4"
+                hidden={!maxim}
+              >
                 History
               </h1>
             </Link>
@@ -650,9 +663,9 @@ const Navbar = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth="1.5"
+                strokeWidth="2.5"
                 stroke="currentColor"
-                className="w-7 h-7 active:animate-ping hover:scale-125 hover:-ml-2"
+                className="w-6 h-6 active:animate-ping hover:scale-125 hover:-ml-2"
               >
                 <path
                   strokeLinecap="round"
@@ -660,7 +673,10 @@ const Navbar = () => {
                   d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
                 />
               </svg>
-              <h1 className="text-sm pl-4" hidden={!maxim}>
+              <h1
+                className="uppercase tracking-widest text-xs font-semibold pl-4"
+                hidden={!maxim}
+              >
                 Category
               </h1>
             </Link>

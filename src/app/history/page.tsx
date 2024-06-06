@@ -1,7 +1,7 @@
 "use client";
 
 import UserList from "@/components/UserList";
-import { Montserrat, Barlow, Outfit } from "next/font/google";
+import { Montserrat, Barlow, Outfit, Jost } from "next/font/google";
 //provar texto new-hero - https://www.fireload.com/error?errco=320&ref=download&e=File+has+been+removed.
 import { useState } from "react";
 import HistoryRow from "./row";
@@ -14,6 +14,11 @@ const inter = Outfit({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
   //weight: ["400", "500", "600", "700"],
+});
+
+const number = Jost({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
 const HistoryPage = () => {
@@ -99,10 +104,18 @@ const HistoryPage = () => {
 
   return (
     <>
-      <section className={` text-white $ {inter.className} `}>
+      <section className={`py-10 text-white lg:grid lg:grid-cols-2 lg:gap-5 `}>
         {/** VOLVER - titulo - blanco */}
-        <div className="w-full p-5 text-white  flex flex-row justify-between items-center">
-          <div className="h-12 flex flex-row items-center">
+        <div className="Xbg-[#333333] w-full pt-5 text-gray-100 mb-5 col-span-2 text-end flex flex-col items-end ">
+          <h1 className="uppercase tracking-widest Xtext-xs font-semibold">
+            Transactions
+          </h1>
+          <p className=" text-gray-500 mb-10">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque ad
+            repellen
+          </p>
+
+          <div className="lg:hidden h-12 flex flex-row items-center">
             <Link href={"/analytics"} className="mr-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -120,113 +133,100 @@ const HistoryPage = () => {
               </svg>
             </Link>
           </div>
-          <div className="font-extralight flex items-center">
-            <select
-              defaultValue={byYear}
-              onChange={(e) => dispatch(filterByYear(e.target.value))}
-              className="focus:outline-none appearance-none bg-transparent p-2"
-            >
-              <option value="2023">2023</option>
-              <option value="2024">2024</option>
-              <option value="2025">2025</option>
-            </select>
-          </div>
-        </div>
 
-        {/** SALDO ACTUAL CON INCOME EXPENSES - VISIBLE */}
-        <div className="px-5 mb-10">
-          <div className="rounded-2xl Xbg-black/30 items-center mb-10">
-            <div className="flex flex-col justify-between gap-2 number">
-              <h1 className="text-gray-400">Presupuesto mensual</h1>
-              <h1
-                className={`text-5xl text-gray-200 ${
-                  totalBalance() === 0 ? "text-yellow-500" : " "
-                }  `}
+          <div className="flex flex-row gap-4">
+            <div className="border border-gray-500 text-gray-400">
+              <select
+                defaultValue={byMonth}
+                onChange={(e) => dispatch(filterByMonth(e.target.value))}
+                className="text-center focus:outline-none appearance-none bg-transparent p-2 pl-4 pr-8"
               >
-                $ {(totalIncome() - totalExpense()).toFixed(2)}
-              </h1>
-              <div className="text-gray-300 flex flex-row items-center">
-                <h1 className="text-sm bg-cyan-600 font-medium rounded-md px-2 mr-4">
-                  +$ {totalIncome().toFixed(2)}{" "}
-                  <span className="hidden">Ingresos</span>
-                </h1>
-                <h1 className="text-sm bg-pink-500 font-medium rounded-md px-2">
-                  -$ {totalExpense().toFixed(2)}{" "}
-                  <span className="hidden">Gastos</span>
-                </h1>
-              </div>
+                <option value="01">Enero</option>
+                <option value="02">Febrero</option>
+                <option value="03">Marzo</option>
+                <option value="04">Abril</option>
+                <option value="05">Mayo</option>
+                <option value="06">Junio</option>
+                <option value="07">Julio</option>
+                <option value="08">Agosto</option>
+                <option value="09">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+              </select>
+            </div>
+
+            <div className="border border-gray-500 text-gray-400">
+              <select
+                defaultValue={byYear}
+                onChange={(e) => dispatch(filterByYear(e.target.value))}
+                className="focus:outline-none appearance-none bg-transparent p-2 pl-4 pr-8"
+              >
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+              </select>
             </div>
           </div>
         </div>
-
-        {/** TRANSACCIONES */}
-        <div className=" Xbg-black/30 Xp-2">
-          <div className="flex flex-row">
-            {/** MES Y CANTIDAD */}
-            <div className="w-full flex flex-row-reverse justify-between items-center px-3">
-              <div className="flex flex-col items-center mr-3">
-                <h1 className="text-sm text-gray-400">Transacciones</h1>
-                <p>{transformData().length} </p>
-              </div>
-              <div className="flex flex-col items-center">
-                <h1 className="text-sm text-gray-400">Mes</h1>
-                <div className="text-gray-300 flex flex-row items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-4 h-4 rotate-180"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m8.25 4.5 7.5 7.5-7.5 7.5"
-                    />
-                  </svg>
-
-                  <select
-                    defaultValue={byMonth}
-                    onChange={(e) => dispatch(filterByMonth(e.target.value))}
-                    className="text-center focus:outline-none appearance-none bg-transparent px-2"
-                  >
-                    <option value="01">Enero</option>
-                    <option value="02">Febrero</option>
-                    <option value="03">Marzo</option>
-                    <option value="04">Abril</option>
-                    <option value="05">Mayo</option>
-                    <option value="06">Junio</option>
-                    <option value="07">Julio</option>
-                    <option value="08">Agosto</option>
-                    <option value="09">Septiembre</option>
-                    <option value="10">Octubre</option>
-                    <option value="11">Noviembre</option>
-                    <option value="12">Diciembre</option>
-                  </select>
-
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-4 h-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m8.25 4.5 7.5 7.5-7.5 7.5"
-                    />
-                  </svg>
-                </div>
-              </div>
+        {/** SALDO ACTUAL CON INCOME EXPENSES - VISIBLE */}
+        <div className="bg-[#333333] p-5 mb-5">
+          <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
+            estadisticas
+          </h1>
+          <h1
+            className={`font-numero text-4xl text-gray-100 mb-2 ${
+              number.className
+            } ${totalBalance() === 0 ? "text-yellow-500" : " "}  `}
+          >
+            {(totalIncome() - totalExpense()).toFixed(2)}
+          </h1>
+          <p className=" text-gray-500 mb-10">
+            Resumen del mes de Mayo del 2024, monto total de gastos e ingresos.
+          </p>
+          <div className="text-gray-100 flex flex-row mb-2">
+            <div className="basis-1/2">
+              <h1 className={` text-lg ${number.className}`}>
+                $ {totalIncome().toFixed(2)}{" "}
+              </h1>
+              <h1 className=" text-cyan-600 font-medium mr-4">
+                Total ingresos
+              </h1>
             </div>
-            {/** ADD*/}
-            <div className="py-8 border-l border-gray-50/30 min-w-[76px]">
+            <div className="basis-1/2">
+              <h1 className={` text-lg ${number.className} `}>
+                $ {totalExpense().toFixed(2)}{" "}
+              </h1>
+              <h1 className=" text-pink-500 font-medium ">Gastos totales</h1>
+            </div>
+          </div>
+        </div>
+        {/** TRANSACCIONES */}
+        <div className=" bg-[#333333] p-5 mb-5">
+          <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
+            Transacciones
+          </h1>
+          <h1
+            className={`font-numero text-4xl text-gray-100 mb-2 ${
+              number.className
+            } ${transformData().length === 0 ? "text-yellow-500" : " "}  `}
+          >
+            {transformData().length}
+          </h1>
+          <p className=" text-gray-500 mb-10">
+            Total de transacciones realizadas en el mes de Mayo.
+          </p>
+          <div className="text-gray-100 flex flex-row justify-between mb-2">
+            <div className="">
+              <h1 className={` text-lg ${number.className}`}>2</h1>
+              <h1 className=" text-cyan-600 font-medium mr-4">
+                Agregados recientemente
+              </h1>
+            </div>
+            <div className=" text-gray-400 flex items-center justify-center">
               <Link
                 href={session?.user ? "/form" : "#"}
-                className=" flex items-center justify-center"
+                className=" border border-gray-700 p-2"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -243,12 +243,16 @@ const HistoryPage = () => {
                   />
                 </svg>
               </Link>
-            </div>{" "}
+            </div>
           </div>
         </div>
         {/** LLAMAR A LAS FILAS*/}
-        <div id="list" className="Xbg-black/20 pb-7 X-mx-5 Xrounded-3xl">
-          <div className="w-full px-5 pb-10">
+        <div id="list" className="Xbg-[#333333] py-5 lg:-mt-5">
+          <h1 className="hidden uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
+            Historial
+          </h1>
+
+          <div className="w-full pb-10">
             {transformData().map((item, index) => (
               <div key={index}>
                 {item.date.substr(5, 5) === groupDate ? (
@@ -262,7 +266,7 @@ const HistoryPage = () => {
                       <div className="w-0.5 bg-gray-600 h-full "> </div>
                     </div>
                     {/** FECHA VISIBLE */}
-                    <p className="Xhidden bg-transparent text-teal-500 py-2 text-sm">
+                    <p className="hidden bg-transparent text-yellow-500 py-2 text-sm">
                       {nameDiaxFecha(item.date) + ", "}{" "}
                       <span className="">{item.date.substr(8, 2)} </span>
                       {" de " + cmeses[Number(item.date.substr(5, 2)) - 1]}
@@ -276,23 +280,22 @@ const HistoryPage = () => {
             ))}
           </div>
         </div>
+        {/** FOOTER */}
+        <div className="Xbg-gray-800/50 py-10 mt-5 text-sm text-center text-gray-400 flex flex-row justify-center items-center ">
+          <h1>
+            <span className={inter.className}>@ 2024 </span> Wall
+            <span className={inter.className}>3</span>t. All rights reserved.{" "}
+          </h1>
+          <img
+            src="./images/dino.png"
+            alt="Dino"
+            className="w-5 h-5 ml-2 hover:-rotate-12"
+          />
+        </div>
       </section>
 
       <div className="hidden">
         <UserList />
-      </div>
-
-      {/** FOOTER */}
-      <div className="Xbg-gray-800/50 py-10 mt-5 text-sm text-center text-gray-400 flex flex-row justify-center items-center ">
-        <h1>
-          <span className={inter.className}>@ 2024 </span> Wall
-          <span className={inter.className}>3</span>t. All rights reserved.{" "}
-        </h1>
-        <img
-          src="./images/dino.png"
-          alt="Dino"
-          className="w-5 h-5 ml-2 hover:-rotate-12"
-        />
       </div>
     </>
   );

@@ -44,10 +44,10 @@ const HistoryRow = ({ item }: any) => {
 
   return (
     <>
-      <div className="Xhidden bg-[#1C1F26] py-5 Xpl-5 rounded-lg border border-gray-700 mb-2 ">
+      <div className="hidden bg-[#333333] py-5 mb-2 ">
         <div
           className={` px-4 border-l-4 ${
-            item.type === "Income" ? "border-indigo-600" : "border-pink-600"
+            item.type === "Income" ? "border-cyan-600" : "border-pink-500"
           } `}
         >
           <div className="pb-1 flex flex-row justify-between">
@@ -57,7 +57,7 @@ const HistoryRow = ({ item }: any) => {
             </h1>
           </div>
 
-          <div className="relative flex flex-row pt-1 border-t border-gray-800">
+          <div className="relative flex flex-row pt-1 border-t border-gray-700/30">
             {/** IMAGENES */}
             <div className="mr-3">
               <div
@@ -445,13 +445,13 @@ const HistoryRow = ({ item }: any) => {
 
       <div
         //onClick={() => setIsOpen((prev) => !prev)}
-        className={` hidden w-full Xflex flex-row text-gray-400 cursor-pointer $ {inter.className} `}
+        className={` Xhidden w-full flex flex-row bg-[#333333] text-gray-400 cursor-pointer $ {inter.className} `}
       >
         {/** IMAGENES */}
-        <div className="pr-3 pt-7">
+        <div className="px-3 pt-7">
           <div
             className={` w-6 h-6 rounded-md transform transition-all duration-1000 ${
-              isOpen ? " bg-slate-700 rotate-90 " : ` bg-slate-700/20`
+              isOpen ? " bg-gray-300 rotate-90 " : ` bg-gray-700/50`
             } `}
           >
             {" "}
@@ -465,8 +465,9 @@ const HistoryRow = ({ item }: any) => {
             alt={item.category}
           />
         </div>
+
         {/* INFO */}
-        <div className="w-full relative mr-5 py-7 flex flex-col border-b border-gray-500/30">
+        <div className="w-full relative mr-5 py-7 flex flex-col border-b border-gray-500/20">
           <div className="relative w-full flex flex-row justify-between items-start">
             {/** CATEGORY Y COMMENT */}
             <div className="flex flex-row items-start">
@@ -587,6 +588,8 @@ const HistoryRow = ({ item }: any) => {
             <div className="absolute top-0 right-0">
               <h1
                 className={`flex tracking-wider font-medium ${
+                  number.className
+                } ${
                   item.type === "Expense" ? " text-pink-500" : " text-cyan-600"
                 }`}
               >
@@ -624,14 +627,14 @@ const HistoryRow = ({ item }: any) => {
 
         {/* DATE - DIA */}
         <div
-          className={` relative min-w-16 pt-6 text-center border-l border-gray-500 
-                    ${isOpen && " text-yellow-400 "}           `}
+          className={` relative min-w-16 pt-6 text-center border-l border-gray-500/30 
+                    ${isOpen && " text-gray-100 font-medium "}           `}
         >
           {item.date.substr(5, 5) === "groupDate" ? (
             <></>
           ) : (
             <>
-              <h1 className="text-2xl font-extralight">
+              <h1 className={`text-2xl font-extralight ${number.className}`}>
                 {item.date.substr(8, 2)}
               </h1>
               <h1 className="uppercase text-xs -mt-1">

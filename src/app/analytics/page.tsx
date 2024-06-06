@@ -294,8 +294,8 @@ const AnalyticsPage = () => {
 
   return (
     <section className={""}>
-      <div className="min-h-screen text-white">
-        <div className="w-full p-5 text-white flex flex-row justify-between items-center mb-5">
+      <div className="w-[600px] min-h-screen py-10 text-white">
+        <div className=" p-5 text-white bg-[#333333] flex flex-row justify-between items-center mb-5">
           <div className="flex flex-row items-center">
             <Link href={"/"} className="mr-5">
               <svg
@@ -363,7 +363,7 @@ const AnalyticsPage = () => {
         </div>
 
         {/** PRESUPUESTO INCOME EXPENSES*/}
-        <div className={`px-5 mb-5 ${number.className} `}>
+        <div className={`bg-[#333333] p-5 mb-5 ${number.className} `}>
           {/** RESUMEN*/}
           <div className="Xh-64 px-5 py-10 pb-20 bg-gray-500/50 rounded-3xl">
             <div className="w-full flex flex-row justify-between items-center mb-2">
@@ -471,7 +471,7 @@ const AnalyticsPage = () => {
         </div>
 
         {/** GRAFICA */}
-        <div className="p-5 mb-5">
+        <div className="bg-[#333333] p-5 mb-5">
           <div className="h-60 border border-gray-500/50 rounded-3xl"> </div>
         </div>
 
@@ -697,10 +697,10 @@ const AnalyticsPage = () => {
           </div>
         </div>
 
-        <h1 className="p-5 text-teal-500 font-medium flex place-items-center">
+        <h1 className="bg-[#333333] p-5 text-teal-500 font-medium flex place-items-center">
           Resumen por categorias
         </h1>
-        <div className="px-5 mb-32 flex flex-row items-center justify-between Xborder-b Xborder-gray-500/30 ">
+        <div className="bg-[#333333] p-5 flex flex-row items-center justify-between Xborder-b Xborder-gray-500/30 ">
           <h1 className="hidden bg-teal-500 text-white whitespace-nowrap rounded-full px-5 py-2 ">
             Ingresos
           </h1>
@@ -753,15 +753,15 @@ const AnalyticsPage = () => {
         </div>
 
         {/** LIST FOR CATEGORY */}
-        <div className="bg-gray-200 min-h-screen xmx-5 Xrounded-3xl py-5">
-          <div className="w-full px-5 -mt-24">
+        <div className="bg-[#333333] min-h-screen p-5">
+          <div className="w-full grid grid-cols-2 gap-3 px-5">
             {groupById(walletFiltrado()).map((item: any, index: any) => (
               <div
                 key={index}
-                className="relative flex flex-col p-5 bg-gray-50 text-gray-600 rounded-sm mb-2"
+                className="relative flex flex-col p-5 shadow shadow-[#444] text-gray-600 rounded-sm mb-2"
               >
                 <div className="w-full flex flex-row justify-between mb-3">
-                  <div className="w-12 flex items-center justify-center bg-gray-100 rounded-md">
+                  <div className="w-12 flex items-center justify-center bg-gray-100/30 rounded-md">
                     <img
                       src={`./images/category/${item.category}.png`}
                       alt="image"
@@ -787,7 +787,7 @@ const AnalyticsPage = () => {
                 </h1>
 
                 <div className="">
-                  <div className="w-full h-1.5 bg-gray-200 rounded-full mb-2">
+                  <div className="w-full h-1.5 bg-gray-200/30 rounded-full mb-2">
                     <h1
                       className={` Xw-[75%] h-1.5 $ {barsColor[index]}  rounded-full $
                       ${
