@@ -106,7 +106,7 @@ const HistoryPage = () => {
     <>
       <section className={`py-10 text-white lg:grid lg:grid-cols-2 lg:gap-5 `}>
         {/** VOLVER - titulo - blanco */}
-        <div className="Xbg-[#333333] w-full pt-5 text-gray-100 mb-5 col-span-2 text-end flex flex-col items-end ">
+        <div className="Xbg-[#333333] w-full pt-5 px-5 lg:px-0 text-gray-100 mb-5 col-span-2 text-end flex flex-col items-end ">
           <h1 className="uppercase tracking-widest Xtext-xs font-semibold">
             Transactions
           </h1>
@@ -169,8 +169,8 @@ const HistoryPage = () => {
             </div>
           </div>
         </div>
-        {/** SALDO ACTUAL CON INCOME EXPENSES - VISIBLE */}
-        <div className="bg-[#333333] p-5 mb-5">
+        {/** SALDO ACTUAL CON INCOME EXPENSES */}
+        <div className="bg-[#333333] p-5 mb-5 lg:mb-0 mx-5 lg:mx-0">
           <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
             estadisticas
           </h1>
@@ -189,9 +189,7 @@ const HistoryPage = () => {
               <h1 className={` text-lg ${number.className}`}>
                 $ {totalIncome().toFixed(2)}{" "}
               </h1>
-              <h1 className=" text-cyan-600 font-medium mr-4">
-                Total ingresos
-              </h1>
+              <h1 className=" text-cyan-600 font-medium">Total ingresos</h1>
             </div>
             <div className="basis-1/2">
               <h1 className={` text-lg ${number.className} `}>
@@ -202,8 +200,8 @@ const HistoryPage = () => {
           </div>
         </div>
         {/** TRANSACCIONES */}
-        <div className=" bg-[#333333] p-5 mb-5">
-          <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
+        <div className="relative bg-[#333333] p-5 border-b lg:border-0 border-gray-500/30">
+          <h1 className="hidden lg:flex uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
             Transacciones
           </h1>
           <h1
@@ -212,42 +210,45 @@ const HistoryPage = () => {
             } ${transformData().length === 0 ? "text-yellow-500" : " "}  `}
           >
             {transformData().length}
+            <span className="lg:hidden uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
+              {" "}
+              Transacciones
+            </span>
           </h1>
-          <p className=" text-gray-500 mb-10">
+
+          <p className="hidden lg:flex text-gray-500 mb-10">
             Total de transacciones realizadas en el mes de Mayo.
           </p>
-          <div className="text-gray-100 flex flex-row justify-between mb-2">
-            <div className="">
-              <h1 className={` text-lg ${number.className}`}>2</h1>
-              <h1 className=" text-cyan-600 font-medium mr-4">
-                Agregados recientemente
-              </h1>
-            </div>
-            <div className=" text-gray-400 flex items-center justify-center">
-              <Link
-                href={session?.user ? "/form" : "#"}
-                className=" border border-gray-700 p-2"
+          <div className="hidden lg:flex lg:flex-col">
+            <h1 className={` text-purple-500 text-lg ${number.className}`}>
+              2
+            </h1>
+            <h1 className="text-gray-500">Agregados recientemente</h1>
+          </div>
+          <div className=" absolute bottom-6 lg:bottom-8 right-5 text-gray-400 flex items-center justify-center">
+            <Link
+              href={session?.user ? "/form" : "#"}
+              className=" bg-gray-700/30 p-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6 active:animate-ping hover:scale-125 Xhover:-ml-2"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6 active:animate-ping hover:scale-125 Xhover:-ml-2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 4.5v15m7.5-7.5h-15"
-                  />
-                </svg>
-              </Link>
-            </div>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 4.5v15m7.5-7.5h-15"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
         {/** LLAMAR A LAS FILAS*/}
-        <div id="list" className="Xbg-[#333333] py-5 lg:-mt-5">
+        <div id="list" className="Xbg-[#333333] lg:py-5 lg:-mt-5">
           <h1 className="hidden uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
             Historial
           </h1>
