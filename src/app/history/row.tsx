@@ -492,7 +492,7 @@ const HistoryRow = ({ item }: any) => {
 
                   <span
                     onClick={() => setIsOpen((prev) => !prev)}
-                    className="text-gray-400 absolute top-1 -right-5"
+                    className="text-gray-400 absolute top-0.5 -right-5"
                     hidden={isOpen}
                   >
                     <svg

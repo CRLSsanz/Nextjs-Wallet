@@ -104,7 +104,9 @@ const HistoryPage = () => {
 
   return (
     <>
-      <section className={`py-10 text-white lg:grid lg:grid-cols-2 lg:gap-5 `}>
+      <section
+        className={`px-5 py-10 lg:px-0 text-white lg:grid lg:grid-cols-2 lg:gap-5 `}
+      >
         {/** VOLVER - titulo - blanco */}
         <div className="Xbg-[#333333] w-full pt-5 px-5 lg:px-0 text-gray-100 mb-5 col-span-2 text-end flex flex-col items-end ">
           <h1 className="uppercase tracking-widest Xtext-xs font-semibold">
@@ -170,7 +172,7 @@ const HistoryPage = () => {
           </div>
         </div>
         {/** SALDO ACTUAL CON INCOME EXPENSES */}
-        <div className="bg-[#333333] p-5 mb-5 lg:mb-0 mx-5 lg:mx-0">
+        <div className="bg-[#333333] p-5 mb-5 lg:mb-0">
           <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
             estadisticas
           </h1>

@@ -294,7 +294,7 @@ const AnalyticsPage = () => {
 
   return (
     <section className={""}>
-      <div className="w-[600px] min-h-screen py-10 text-white">
+      <div className="px-5 max-w-[600px] min-h-screen py-10 text-white">
         <div className=" p-5 text-white bg-[#333333] flex flex-row justify-between items-center mb-5">
           <div className="flex flex-row items-center">
             <Link href={"/"} className="mr-5">
@@ -700,7 +700,7 @@ const AnalyticsPage = () => {
         <h1 className="bg-[#333333] p-5 text-teal-500 font-medium flex place-items-center">
           Resumen por categorias
         </h1>
-        <div className="bg-[#333333] p-5 flex flex-row items-center justify-between Xborder-b Xborder-gray-500/30 ">
+        <div className="bg-[#333333] p-5 flex flex-row items-center justify-between Xborder-b Xborder-gray-500/30 mb-5">
           <h1 className="hidden bg-teal-500 text-white whitespace-nowrap rounded-full px-5 py-2 ">
             Ingresos
           </h1>
@@ -753,15 +753,15 @@ const AnalyticsPage = () => {
         </div>
 
         {/** LIST FOR CATEGORY */}
-        <div className="bg-[#333333] min-h-screen p-5">
-          <div className="w-full grid grid-cols-2 gap-3 px-5">
+        <div className="Xbg-[#333333] min-h-screen Xp-5">
+          <div className="w-full grid grid-cols-2 gap-3">
             {groupById(walletFiltrado()).map((item: any, index: any) => (
               <div
                 key={index}
-                className="relative flex flex-col p-5 shadow shadow-[#444] text-gray-600 rounded-sm mb-2"
+                className="bg-[#333333] px-5 pt-5 relative flex flex-col text-gray-600 rounded-sm"
               >
                 <div className="w-full flex flex-row justify-between mb-3">
-                  <div className="w-12 flex items-center justify-center bg-gray-100/30 rounded-md">
+                  <div className="w-16 h-12 flex items-center justify-center bg-[#444444] rounded-br-lg -mt-5 -ml-5">
                     <img
                       src={`./images/category/${item.category}.png`}
                       alt="image"
@@ -775,7 +775,7 @@ const AnalyticsPage = () => {
                     <h1
                       className={`text-gray-400 text-sm ${number.className} `}
                     >
-                      {item.count} Transacciones
+                      {item.count} items
                     </h1>
                   </div>
                 </div>
@@ -786,10 +786,10 @@ const AnalyticsPage = () => {
                   ${item.total.toFixed(2)}
                 </h1>
 
-                <div className="">
-                  <div className="w-full h-1.5 bg-gray-200/30 rounded-full mb-2">
+                <div className="flex justify-center">
+                  <div className="w-20 h-1.5 bg-gray-500/10">
                     <h1
-                      className={` Xw-[75%] h-1.5 $ {barsColor[index]}  rounded-full $
+                      className={` Xw-[75%] h-1.5 $ {barsColor[index]} Xrounded-full $
                       ${
                         item.type === "Expense"
                           ? " bg-pink-700/70 shadow-md shadow-pink-400/50"
