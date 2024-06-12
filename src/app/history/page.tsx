@@ -105,7 +105,7 @@ const HistoryPage = () => {
   return (
     <>
       <section
-        className={`px-5 py-10 lg:px-0 text-white lg:grid lg:grid-cols-2 lg:gap-5 `}
+        className={`px-2 py-10 lg:px-0 text-white lg:grid lg:grid-cols-2 lg:gap-5 `}
       >
         {/** VOLVER - titulo - blanco */}
         <div className="Xbg-[#333333] w-full pt-5 px-5 lg:px-0 text-gray-100 mb-5 col-span-2 text-end flex flex-col items-end ">
@@ -183,8 +183,8 @@ const HistoryPage = () => {
           >
             {(totalIncome() - totalExpense()).toFixed(2)}
           </h1>
-          <p className=" text-gray-500 mb-10">
-            Resumen del mes de Mayo del 2024, monto total de gastos e ingresos.
+          <p className=" text-sm text-gray-500 mb-10">
+            Resumen total del mes, presupuesto de gastos e ingreso actual.
           </p>
           <div className="text-gray-100 flex flex-row mb-2">
             <div className="basis-1/2">
@@ -218,8 +218,8 @@ const HistoryPage = () => {
             </span>
           </h1>
 
-          <p className="hidden lg:flex text-gray-500 mb-10">
-            Total de transacciones realizadas en el mes de Mayo.
+          <p className="hidden lg:flex text-sm text-gray-500 mb-10">
+            Cantidad total de transacciones realizadas en este mes.
           </p>
           <div className="hidden lg:flex lg:flex-col">
             <h1 className={` text-purple-500 text-lg ${number.className}`}>

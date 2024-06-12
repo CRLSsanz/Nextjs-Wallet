@@ -473,7 +473,7 @@ const HistoryRow = ({ item }: any) => {
             <div className="w-full">
               <div
                 className={` ${
-                  isOpen ? " text-gray-500 " : " text-gray-200 Xfont-medium "
+                  isOpen ? " text-gray-300 font-medium" : " text-gray-200  "
                 } `}
               >
                 {item.category}
@@ -484,7 +484,7 @@ const HistoryRow = ({ item }: any) => {
                 className={` relative -mt-1 transform transition-all duration-1000 ${
                   !isOpen
                     ? " text-xs text-gray-500 w-44 truncate "
-                    : " text-gray-200 text-sm mt-3 "
+                    : " text-gray-400 text-sm mt-3 "
                 } `}
               >
                 <span className="relative">

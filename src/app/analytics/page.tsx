@@ -294,8 +294,9 @@ const AnalyticsPage = () => {
 
   return (
     <section className={""}>
-      <div className="px-5 max-w-[600px] min-h-screen py-10 text-white">
-        <div className=" p-5 text-white bg-[#333333] flex flex-row justify-between items-center mb-5">
+      <div className="px-2 max-w-[600px] min-h-screen py-10 text-white lg:grid lg:grid-cols-2 lg:gap-5 ">
+        {/** BOTON MENU Y INFO NAME - BOTONES*/}
+        <div className=" hidden p-5 text-white bg-[#333333] Xflex flex-row justify-between items-center mb-5">
           <div className="flex flex-row items-center">
             <Link href={"/"} className="mr-5">
               <svg
@@ -362,117 +363,118 @@ const AnalyticsPage = () => {
           </div>
         </div>
 
-        {/** PRESUPUESTO INCOME EXPENSES*/}
-        <div className={`bg-[#333333] p-5 mb-5 ${number.className} `}>
-          {/** RESUMEN*/}
-          <div className="Xh-64 px-5 py-10 pb-20 bg-gray-500/50 rounded-3xl">
-            <div className="w-full flex flex-row justify-between items-center mb-2">
-              <h1 className="text-gray-200">Balance General</h1>
-              <h1 className="text-white text-2xl">
-                $ {BalanceGeneral(wallet)}
-              </h1>
-            </div>
-            <div className="w-full flex flex-row justify-between items-center mb-2">
-              <h1 className="text-gray-300 font-light">Balance anual 2023</h1>
-              <h1 className="text-white text-xl">
-                $ {transformData("2024").toFixed(2)}
-              </h1>
-            </div>
-            <div className="w-full flex flex-row justify-between items-center">
-              <h1 className="text-gray-300 font-extralight">
-                Balance anual 2024
-              </h1>
-              <h1 className="text-white text-lg">
-                $ {transformData("2023").toFixed(2)}
-              </h1>
-            </div>
-          </div>
+        {/** GRAFICA */}
+        <div className="bg-[#333333] p-5 mb-5 lg:mb-0 lg:col-span-2">
+          <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
+            Statement graph
+          </h1>
+          <div className="h-60 border border-gray-500/20 rounded-3xl"> </div>
+        </div>
 
-          <div className="mx-4 -mt-16 rounded-2xl bg-gray-900 border border-gray-500/30">
-            {/** BALANCE */}
-            <div className="py-10 flex flex-col items-center justify-center">
-              <div className="h-12 text-5xl font-thin flex items-center mb-5">
+        {/** PRESUPUESTO GENERAL*/}
+        <div className={`bg-[#333333] p-5 mb-5 lg:mb-0 ${number.className} `}>
+          <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
+            Resumen
+          </h1>
+          <h1 className="text-start text-white text-4xl mb-5">
+            {BalanceGeneral(wallet)}
+          </h1>
+
+          <div className="w-full flex flex-row-reverse justify-between items-center mb-2">
+            <h1 className="text-gray-300 font-light">Balance 2023</h1>
+            <h1 className="text-white text-lg">
+              $ {transformData("2024").toFixed(2)}
+            </h1>
+          </div>
+          <div className="w-full flex flex-row-reverse justify-between items-center">
+            <h1 className="text-gray-300 font-extralight">Balance 2024</h1>
+            <h1 className="text-white text-lg">
+              $ {transformData("2023").toFixed(2)}
+            </h1>
+          </div>
+        </div>
+
+        {/** SELECT ANO - INCOME EXPENCES */}
+        <div>
+          <div className="bg-[#333333] p-5 mb-5">
+            <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
+              Total Balance
+            </h1>
+            <div className="flex flex-row justify-between">
+              <h1 className="text-4xl text-green-500 font-light">
+                {(totalIncome() - totalExpense()).toFixed(2)}
+              </h1>
+
+              <div className="border border-gray-500 text-gray-400">
                 <select
                   defaultValue={byYear}
                   onChange={(e) => dispatch(filterByYear(e.target.value))}
                   className="focus:outline-none appearance-none bg-transparent p-2"
                 >
                   <option value="2023">2023</option>
-                  <option value="2024">$7641.90</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
                 </select>
-              </div>
-              <div className="flex flex-col justify-center">
-                <h1 className="text-center">Total Balance Anual</h1>
-                <h1 className="text-green-600 flex justify-center tracking-wider mb-2">
-                  <span className="mt-0.5 text-xl"> $ </span>
-                  <span className="text-4xl font-light">
-                    {(totalIncome() - totalExpense()).toFixed(2)}
-                  </span>
-                </h1>
-              </div>
-            </div>
-            {/** INCOME EXPENCES */}
-            <div className=" px-3 pb-10 text-gray-200">
-              <div className="flex flex-row justify-between">
-                <div className="flex flex-row items-center">
-                  <div className="w-8 h-8 flex items-center justify-center bg-gray-900/70 text-indigo-600 -rotate-90 rounded-md">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                      />
-                    </svg>
-                  </div>
-                  <div className="ml-1">
-                    <h1 className="text-sm ">Ingresos</h1>
-                    <h1 className="flex text-lg text-white">
-                      <span className="text-sm pt-0.5 mr-1">$ </span>
-                      {totalIncome().toFixed(2)}
-                    </h1>
-                  </div>
-                </div>
-
-                <div className="flex flex-row items-center">
-                  <div className="text-end mr-1">
-                    <h1 className="text-sm ">Gastos</h1>
-                    <h1 className="flex text-lg text-white">
-                      <span className="text-sm pt-0.5 mr-1">$ </span>
-                      {totalExpense().toFixed(2)}
-                    </h1>
-                  </div>
-                  <div className="w-8 h-8 flex items-center justify-center bg-gray-900/70 text-pink-600 rotate-90 rounded-md">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                      />
-                    </svg>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/** GRAFICA */}
-        <div className="bg-[#333333] p-5 mb-5">
-          <div className="h-60 border border-gray-500/50 rounded-3xl"> </div>
+          <div className="grid grid-cols-2 gap-5">
+            <div
+              className={`bg-[#333333] p-5 mb-5 lg:mb-0 ${number.className} `}
+            >
+              <div className="w-8 h-8 flex items-center justify-center bg-[#444] text-cyan-500 -rotate-90 rounded-md mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </div>
+
+              <h1 className="flex text-2xl text-white mb-1">
+                {totalIncome().toFixed(2)}
+              </h1>
+              <h1 className="uppercase tracking-widest text-xs font-semibold text-cyan-500/70">
+                Ingresos
+              </h1>
+            </div>
+
+            <div
+              className={`bg-[#333333] p-5 mb-5 lg:mb-0 ${number.className} `}
+            >
+              <div className="w-8 h-8 flex items-center justify-center bg-[#444] text-pink-500 rotate-90 rounded-md mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </div>
+              <h1 className="flex text-2xl text-white mb-1">
+                {totalExpense().toFixed(2)}
+              </h1>
+              <h1 className="uppercase tracking-widest text-xs font-semibold text-pink-500/70 ">
+                Gastos
+              </h1>
+            </div>
+          </div>
         </div>
 
         {/** PRUEBA - Barlow, Jost, Outfit, Poiret_One, Rubik*/}
@@ -697,16 +699,15 @@ const AnalyticsPage = () => {
           </div>
         </div>
 
-        <h1 className="bg-[#333333] p-5 text-teal-500 font-medium flex place-items-center">
-          Resumen por categorias
-        </h1>
-        <div className="bg-[#333333] p-5 flex flex-row items-center justify-between Xborder-b Xborder-gray-500/30 mb-5">
-          <h1 className="hidden bg-teal-500 text-white whitespace-nowrap rounded-full px-5 py-2 ">
-            Ingresos
-          </h1>
+        {/** RESUMEN POR CATEGORY */}
 
-          <div
-            className={` text-white whitespace-nowrap rounded-full px-5 py-2 
+        <div className="bg-[#333333] p-5 lg:col-span-2 ">
+          <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
+            Resumen por categorias
+          </h1>
+          <div className="flex flex-row items-center justify-between mb-5">
+            <div
+              className={` text-white whitespace-nowrap rounded-full px-5 py-2 
             ${
               byType === "Income"
                 ? " bg-indigo-600 "
@@ -717,44 +718,45 @@ const AnalyticsPage = () => {
                   } `
             }
             `}
-          >
-            <select
-              //defaultValue={byType}
-              onChange={(e) => dispatch(filterByType(e.target.value))}
-              className="text-center focus:outline-none appearance-none bg-transparent px-2"
             >
-              <option value="">Ver todo</option>
-              <option value="Income">Ingresos</option>
-              <option value="Expense">Gastos</option>
-            </select>
-          </div>
+              <select
+                //defaultValue={byType}
+                onChange={(e) => dispatch(filterByType(e.target.value))}
+                className="text-center focus:outline-none appearance-none bg-transparent px-2"
+              >
+                <option value="">Ver todo</option>
+                <option value="Income">Ingresos</option>
+                <option value="Expense">Gastos</option>
+              </select>
+            </div>
 
-          <div className="text-gray-300 rounded-full border border-gray-500/30 px-5 py-2">
-            <select
-              //defaultValue={byMonth}
-              onChange={(e) => dispatch(filterByMonth(e.target.value))}
-              className="text-center focus:outline-none appearance-none bg-transparent px-2"
-            >
-              <option value="">Todos los meses</option>
-              <option value="01">Enero</option>
-              <option value="02">Febrero</option>
-              <option value="03">Marzo</option>
-              <option value="04">Abril</option>
-              <option value="05">Mayo</option>
-              <option value="06">Junio</option>
-              <option value="07">Julio</option>
-              <option value="08">Agosto</option>
-              <option value="09">Septiembre</option>
-              <option value="10">Octubre</option>
-              <option value="11">Noviembre</option>
-              <option value="12">Diciembre</option>
-            </select>
+            <div className="text-gray-300 rounded-full border border-gray-500/30 px-5 py-2">
+              <select
+                //defaultValue={byMonth}
+                onChange={(e) => dispatch(filterByMonth(e.target.value))}
+                className="text-center focus:outline-none appearance-none bg-transparent px-2"
+              >
+                <option value="">Todos los meses</option>
+                <option value="01">Enero</option>
+                <option value="02">Febrero</option>
+                <option value="03">Marzo</option>
+                <option value="04">Abril</option>
+                <option value="05">Mayo</option>
+                <option value="06">Junio</option>
+                <option value="07">Julio</option>
+                <option value="08">Agosto</option>
+                <option value="09">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+              </select>
+            </div>
           </div>
         </div>
 
         {/** LIST FOR CATEGORY */}
-        <div className="Xbg-[#333333] min-h-screen Xp-5">
-          <div className="w-full grid grid-cols-2 gap-3">
+        <div className="Xbg-[#333333] min-h-screen Xp-5 lg:col-span-2">
+          <div className="w-full grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-5 ">
             {groupById(walletFiltrado()).map((item: any, index: any) => (
               <div
                 key={index}
@@ -768,23 +770,22 @@ const AnalyticsPage = () => {
                       className="w-8 h-8"
                     />
                   </div>
-                  <div className="ml-5 w-full">
-                    <h1 className="font-semibold text-gray-500">
-                      {item.category}
-                    </h1>
-                    <h1
-                      className={`text-gray-400 text-sm ${number.className} `}
-                    >
-                      {item.count} items
-                    </h1>
-                  </div>
+
+                  <h1
+                    className={`text-lg font-semibold text-gray-600 ${number.className} `}
+                  >
+                    ${item.total.toFixed(2)}
+                  </h1>
                 </div>
 
-                <h1
-                  className={`text-lg font-semibold text-gray-600 ${number.className} `}
-                >
-                  ${item.total.toFixed(2)}
-                </h1>
+                <div className="w-full text-center">
+                  <h1 className="Xfont-semibold truncate text-gray-500">
+                    {item.category}
+                  </h1>
+                  <h1 className={`text-gray-400 text-sm ${number.className} `}>
+                    {item.count} items
+                  </h1>
+                </div>
 
                 <div className="flex justify-center">
                   <div className="w-20 h-1.5 bg-gray-500/10">
