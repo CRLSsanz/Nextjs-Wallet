@@ -775,7 +775,7 @@ const AnalyticsPage = () => {
             {groupById(walletFiltrado()).map((item: any, index: any) => (
               <div
                 key={index}
-                className="bg-card p-5 flex flex-col text-gray-500 rounded-sm shadow-lg shadow-black/50"
+                className="bg-card px-5 pt-5 flex flex-col text-gray-500 rounded-sm Xshadow-lg Xshadow-black/50"
               >
                 <div className="w-full flex flex-row-reverse items-center justify-between">
                   <div
@@ -811,22 +811,24 @@ const AnalyticsPage = () => {
                   <span>Cantidad de items: {item.count}</span>
                 </div>
 
-                <div className="w-full flex justify-center mb-2">
-                  <div className="w-full h-1.5 bg-[#111]">
-                    <h1
-                      className={` Xw-[75%] h-1.5 ${
-                        barsColor[index]
-                      } Xrounded-full $
+                <div className="w-full flex justify-center ">
+                  <div className="w-20 h-2 pt-1 px-2 bg-fondo rounded-t-lg">
+                    <div className="h-1 bg-card">
+                      <h1
+                        className={` Xw-[75%] h-1 ${
+                          barsColor[index]
+                        } Xrounded-full $
                       ${
                         item.type === "Expense"
-                          ? " Xbg-pink-700/70 shadow-md shadow-white/50"
-                          : " Xbg-cyan-600/70 shadow-md shadow-white/50"
+                          ? " Xbg-pink-700/70 Xshadow-md Xshadow-white/50"
+                          : " Xbg-cyan-600/70 Xshadow-md Xshadow-white/50"
                       } `}
-                      //style={{ width: progress() }}
-                      style={{ width: `${progress(item.total)}%` }}
-                    >
-                      {" "}
-                    </h1>
+                        //style={{ width: progress() }}
+                        style={{ width: `${progress(item.total)}%` }}
+                      >
+                        {" "}
+                      </h1>
+                    </div>
                   </div>
                 </div>
               </div>

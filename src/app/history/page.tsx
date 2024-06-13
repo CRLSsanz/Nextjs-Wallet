@@ -108,7 +108,7 @@ const HistoryPage = () => {
         className={`px-2 py-10 lg:px-0 text-white lg:grid lg:grid-cols-2 lg:gap-5 `}
       >
         {/** VOLVER - titulo - blanco */}
-        <div className="Xbg-[#333333] w-full pt-5 px-5 lg:px-0 text-gray-100 mb-5 col-span-2 text-end flex flex-col items-end ">
+        <div className="Xbg-card w-full pt-5 px-5 lg:px-0 text-gray-100 mb-5 col-span-2 text-end flex flex-col items-end ">
           <h1 className="uppercase tracking-widest Xtext-xs font-semibold">
             Transactions
           </h1>
@@ -172,7 +172,7 @@ const HistoryPage = () => {
           </div>
         </div>
         {/** SALDO ACTUAL CON INCOME EXPENSES */}
-        <div className="bg-[#333333] p-5 mb-5 lg:mb-0">
+        <div className="bg-card p-5 mb-5 lg:mb-0">
           <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
             estadisticas
           </h1>
@@ -202,7 +202,7 @@ const HistoryPage = () => {
           </div>
         </div>
         {/** TRANSACCIONES */}
-        <div className="relative bg-[#333333] p-5 border-b lg:border-0 border-gray-500/30">
+        <div className="relative bg-card p-5 border-b lg:border-0 border-gray-500/30">
           <h1 className="hidden lg:flex uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
             Transacciones
           </h1>
@@ -250,7 +250,7 @@ const HistoryPage = () => {
           </div>
         </div>
         {/** LLAMAR A LAS FILAS*/}
-        <div id="list" className="Xbg-[#333333] lg:py-5 lg:-mt-5">
+        <div id="list" className="Xbg-card lg:py-5 lg:-mt-5">
           <h1 className="hidden uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
             Historial
           </h1>
@@ -269,11 +269,22 @@ const HistoryPage = () => {
                       <div className="w-0.5 bg-gray-600 h-full "> </div>
                     </div>
                     {/** FECHA VISIBLE */}
-                    <p className="hidden bg-transparent text-yellow-500 py-2 text-sm">
-                      {nameDiaxFecha(item.date) + ", "}{" "}
-                      <span className="">{item.date.substr(8, 2)} </span>
-                      {" de " + cmeses[Number(item.date.substr(5, 2)) - 1]}
-                    </p>
+                    <div className="Xhidden flex flex-row items-center bg-transparent text-gray-400 py-2 text-sm">
+                      <h1 className="text-3xl font-extralight mr-3">
+                        {item.date.substr(8, 2)}
+                      </h1>
+                      <div className="flex flex-col text-xs">
+                        <span className="-mb-1 uppercase">
+                          {nameDiaxFecha(item.date) + " "}
+                        </span>{" "}
+                        <span className="">
+                          {"" +
+                            cmeses[Number(item.date.substr(5, 2)) - 1] +
+                            " del " +
+                            item.date.substr(0, 4)}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 )}
                 <p className="hidden">{(groupDate = item.date.substr(5, 5))}</p>
