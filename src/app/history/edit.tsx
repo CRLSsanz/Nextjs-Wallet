@@ -30,17 +30,34 @@ const ModalEdit = ({ item, visible, onClose }: any) => {
       id="container"
       tabIndex={-1}
       onClick={handelOnClose}
-      className="fixed z-50 inset-0 bg-black bg-opacity-30 backdrop-blur-sm h-screen w-full px-5 text-gray-300 flex items-center justify-center"
+      className="fixed z-50 inset-0 bg-black bg-opacity-70 backdrop-blur-sm h-screen w-full px-5 text-gray-300 flex items-center justify-center"
     >
-      <form
-        onSubmit={handleSubmit}
-        className="Xh-[400px] w-full rounded-3xl bg-gray-900/90 "
-      >
+      <form onSubmit={handleSubmit} className=" w-full bg-card   ">
+        <div className=" p-5 flex flex-row items-center justify-between bg-purple-700">
+          <h1 className="uppercase text-sm ">Actualizar {item.type}</h1>
+          <h1 className="py-1 px-3 border text-sm ">+ Nuevo </h1>
+        </div>
         <div className="p-5 flex flex-col Xborder Xborder-gray-500/50 ">
-          <h1 className="uppercase py-5 text-center ">
-            Actualizar {item.type}
-          </h1>
-
+          <div
+            onClick={onClose}
+            className="text-cyan-600/90 mb-7 flex flex-row items-center "
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+              />
+            </svg>
+            <span className="ml-2">Regresar</span>
+          </div>
           {/** CATEGORY */}
           <div className="flex flex-row mb-5">
             <div className="bg-gray-800/50 w-14 flex items-center justify-center">
@@ -127,7 +144,7 @@ const ModalEdit = ({ item, visible, onClose }: any) => {
           <div className="flex flex-row py-5">
             <h1
               onClick={onClose}
-              className="bg-red-600/90 py-3 w-14 flex justify-center"
+              className="hidden bg-red-600/90 py-3 w-14 xflex justify-center"
             >
               {"<-"}
             </h1>

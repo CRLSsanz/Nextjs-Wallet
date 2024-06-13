@@ -269,8 +269,8 @@ const HistoryPage = () => {
                       <div className="w-0.5 bg-gray-600 h-full "> </div>
                     </div>
                     {/** FECHA VISIBLE */}
-                    <div className="Xhidden flex flex-row items-center bg-transparent text-gray-400 py-2 text-sm">
-                      <h1 className="text-3xl font-extralight mr-3">
+                    <div className="Xhidden flex flex-row items-center bg-transparent text-gray-400 pt-4 pb-2 text-sm">
+                      <h1 className="text-3xl font-light mr-3">
                         {item.date.substr(8, 2)}
                       </h1>
                       <div className="flex flex-col text-xs">

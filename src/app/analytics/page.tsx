@@ -118,7 +118,7 @@ const barsColor = [
   "bg-cyan-600",
   "bg-purple-600",
   "bg-red-600",
-  "bg-yellow-600",
+  "bg-yellow-500",
   "bg-indigo-600",
   "bg-pink-600",
 
@@ -381,7 +381,7 @@ const AnalyticsPage = () => {
         {/** PRESUPUESTO GENERAL*/}
         <div className={`bg-card p-5 mb-5 lg:mb-0 ${number.className} `}>
           <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
-            Resumen
+            Presupuesto General
           </h1>
           <h1 className="text-start text-white text-4xl mb-5">
             {BalanceGeneral(wallet)}
@@ -403,7 +403,7 @@ const AnalyticsPage = () => {
 
         {/** SELECT ANO - INCOME EXPENCES */}
         <div>
-          <div className="bg-card p-5 mb-5">
+          <div className="hidden bg-card p-5 mb-5">
             <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
               Total Balance
             </h1>
@@ -423,59 +423,6 @@ const AnalyticsPage = () => {
                   <option value="2025">2025</option>
                 </select>
               </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-5">
-            <div className={`bg-card p-5 mb-5 lg:mb-0 ${number.className} `}>
-              <div className="w-8 h-8 flex items-center justify-center bg-[#444] text-cyan-500 -rotate-90 rounded-md mb-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                  />
-                </svg>
-              </div>
-
-              <h1 className="flex text-2xl text-white mb-1">
-                {totalIncome().toFixed(2)}
-              </h1>
-              <h1 className="uppercase tracking-widest text-xs font-semibold text-cyan-500/70">
-                Ingresos
-              </h1>
-            </div>
-
-            <div className={`bg-card p-5 mb-5 lg:mb-0 ${number.className} `}>
-              <div className="w-8 h-8 flex items-center justify-center bg-[#444] text-pink-500 rotate-90 rounded-md mb-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                  />
-                </svg>
-              </div>
-              <h1 className="flex text-2xl text-white mb-1">
-                {totalExpense().toFixed(2)}
-              </h1>
-              <h1 className="uppercase tracking-widest text-xs font-semibold text-pink-500/70 ">
-                Gastos
-              </h1>
             </div>
           </div>
         </div>
@@ -703,8 +650,7 @@ const AnalyticsPage = () => {
         </div>
 
         {/** RESUMEN POR CATEGORY */}
-
-        <div className="bg-card p-5 lg:col-span-2 lg:-mb-5 Xshadow-lg Xshadow-black/50">
+        <div className="bg-card p-5 lg:col-span-2 mb-5 lg:-mb-5 Xshadow-lg Xshadow-black/50">
           <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
             Resumen por categorias
           </h1>
@@ -733,13 +679,13 @@ const AnalyticsPage = () => {
               </select>
             </div>
 
-            <div className="text-gray-300 border border-gray-500/30 px-5 py-2">
+            <div className="text-gray-300 border border-gray-500/30 px-2 py-2">
               <select
                 //defaultValue={byMonth}
                 onChange={(e) => dispatch(filterByMonth(e.target.value))}
                 className="text-center focus:outline-none appearance-none bg-transparent px-2"
               >
-                <option value="">Todos los meses</option>
+                <option value="">Meses</option>
                 <option value="01">Enero</option>
                 <option value="02">Febrero</option>
                 <option value="03">Marzo</option>
@@ -755,11 +701,11 @@ const AnalyticsPage = () => {
               </select>
             </div>
 
-            <div className="border border-gray-500 text-gray-400">
+            <div className="text-gray-300 border border-gray-500/30 px-2 py-2">
               <select
                 defaultValue={byYear}
                 onChange={(e) => dispatch(filterByYear(e.target.value))}
-                className="focus:outline-none appearance-none bg-transparent p-2"
+                className="focus:outline-none appearance-none bg-transparent px-2"
               >
                 <option value="2023">2023</option>
                 <option value="2024">2024</option>
@@ -769,69 +715,188 @@ const AnalyticsPage = () => {
           </div>
         </div>
 
+        {/** EXPENSE E INCOME */}
+        <div className="grid grid-cols-2 gap-5">
+          <div className={`bg-card p-5 mb-5 lg:mb-0 ${number.className} `}>
+            <div className="w-8 h-8 flex items-center justify-center bg-[#444] text-cyan-500 -rotate-90 rounded-md mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </div>
+
+            <h1 className="flex text-2xl text-white mb-1">
+              {totalIncome().toFixed(2)}
+            </h1>
+            <h1 className="uppercase tracking-widest text-xs font-semibold text-cyan-500/70">
+              Ingresos
+            </h1>
+          </div>
+
+          <div className={`bg-card p-5 mb-5 lg:mb-0 ${number.className} `}>
+            <div className="w-8 h-8 flex items-center justify-center bg-[#444] text-pink-500 rotate-90 rounded-md mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </div>
+            <h1 className="flex text-2xl text-white mb-1">
+              {totalExpense().toFixed(2)}
+            </h1>
+            <h1 className="uppercase tracking-widest text-xs font-semibold text-pink-500/70 ">
+              Gastos
+            </h1>
+          </div>
+        </div>
+
         {/** LIST FOR CATEGORY */}
         <div className="Xbg-card min-h-screen Xp-5 lg:col-span-2">
-          <div className="w-full grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-0 ">
+          <div className="w-full grid grid-cols-1 gap-5 lg:grid-cols-2 ">
             {groupById(walletFiltrado()).map((item: any, index: any) => (
-              <div
-                key={index}
-                className="bg-card px-5 pt-5 flex flex-col text-gray-500 rounded-sm Xshadow-lg Xshadow-black/50"
-              >
-                <div className="w-full flex flex-row-reverse items-center justify-between">
-                  <div
-                    className={`relative w-6 h-6 flex items-center justify-center rounded-lg
+              <>
+                <div
+                  key={index}
+                  className="hidden bg-card px-5 pt-5 xflex flex-col text-gray-500 rounded-sm Xshadow-lg Xshadow-black/50"
+                >
+                  <div className="w-full flex flex-row-reverse items-center justify-between">
+                    <div
+                      className={`relative w-6 h-6 flex items-center justify-center rounded-lg
                   ${barsColor[index]}
                   `}
-                  >
-                    <img
-                      src={`./images/category/${item.category}.png`}
-                      alt="image"
-                      className="w-5 h-5"
-                    />
+                    >
+                      <img
+                        src={`./images/category/${item.category}.png`}
+                        alt="image"
+                        className="w-5 h-5"
+                      />
+                    </div>
+
+                    <h1 className="text-xs truncate">{item.category}</h1>
                   </div>
 
-                  <h1 className="text-xs truncate">{item.category}</h1>
-                </div>
+                  <h1
+                    className={`text-xl font-light text-gray-200 mb-2 ${number.className} `}
+                  >
+                    ${item.total.toFixed(2)}
+                  </h1>
 
-                <h1
-                  className={`text-xl font-light text-gray-200 mb-2 ${number.className} `}
-                >
-                  ${item.total.toFixed(2)}
-                </h1>
-
-                <div
-                  className={`text-xs
+                  <div
+                    className={`text-xs
                       ${
                         item.type === "Expense"
                           ? " Xbg-pink-600"
                           : " Xbg-cyan-600"
                       }
                       ${number.className} `}
-                >
-                  <span>Cantidad de items: {item.count}</span>
-                </div>
+                  >
+                    <span>Cantidad de items: {item.count}</span>
+                  </div>
 
-                <div className="w-full flex justify-center ">
-                  <div className="w-20 h-2 pt-1 px-2 bg-fondo rounded-t-lg">
-                    <div className="h-1 bg-card">
-                      <h1
-                        className={` Xw-[75%] h-1 ${
-                          barsColor[index]
-                        } Xrounded-full $
+                  <div className="w-full flex justify-center ">
+                    <div className="w-20 h-2 pt-1 px-2 bg-fondo rounded-t-lg">
+                      <div className="h-1 bg-card">
+                        <h1
+                          className={` Xw-[75%] h-1 ${
+                            barsColor[index]
+                          } Xrounded-full $
                       ${
                         item.type === "Expense"
                           ? " Xbg-pink-700/70 Xshadow-md Xshadow-white/50"
                           : " Xbg-cyan-600/70 Xshadow-md Xshadow-white/50"
                       } `}
-                        //style={{ width: progress() }}
-                        style={{ width: `${progress(item.total)}%` }}
-                      >
-                        {" "}
-                      </h1>
+                          //style={{ width: progress() }}
+                          style={{ width: `${progress(item.total)}%` }}
+                        >
+                          {" "}
+                        </h1>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+
+                <div
+                  key={index}
+                  className="bg-card px-5 pt-5 flex flex-col text-gray-500 rounded-sm Xshadow-lg Xshadow-black/50"
+                >
+                  <div className="w-full flex flex-row items-center justify-between mb-2">
+                    <div className="flex flex-row items-center">
+                      <div
+                        className={`relative w-7 h-7 flex items-center justify-center rounded-lg
+                  ${barsColor[index]}
+                  `}
+                      >
+                        <img
+                          src={`./images/category/${item.category}.png`}
+                          alt="image"
+                          className="w-5 h-5"
+                        />
+                      </div>
+
+                      <div className="flex flex-col ml-3">
+                        <h1 className="text-sm text-gray-300">
+                          {item.category}
+                        </h1>
+                        <div
+                          className={`text-xs
+${item.type === "Expense" ? " Xbg-pink-600" : " Xbg-cyan-600"}
+${number.className} `}
+                        >
+                          <span>Cantidad de items: {item.count}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <h1
+                      className={`text-xl font-light text-gray-200 ${number.className} `}
+                    >
+                      $ {item.total.toFixed(2)}
+                    </h1>
+                  </div>
+
+                  <div className="w-full flex justify-center ">
+                    <div className="w-full h-2 pt-1 px-2 bg-fondo rounded-t-lg">
+                      <div className="h-1 bg-card">
+                        <h1
+                          className={` relative Xw-[75%] h-1 ${
+                            barsColor[index]
+                          } Xrounded-full $
+                      ${
+                        item.type === "Expense"
+                          ? " Xbg-pink-700/70 Xshadow-md Xshadow-white/50"
+                          : " Xbg-cyan-600/70 Xshadow-md Xshadow-white/50"
+                      } `}
+                          //style={{ width: progress() }}
+                          style={{ width: `${progress(item.total)}%` }}
+                        >
+                          <span className="hidden absolute -top-1 -right-1 w-3 h-3 rounded-full bg-gray-300 ">
+                            {" "}
+                          </span>
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
             ))}
           </div>
         </div>
