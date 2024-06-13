@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className=" bg-[#444444] Xbg-[#0D1116] bg-cover bg-fixed bg-[50%] Xbg-[url('/images/panal-hexa.jpg')] min-h-screen Xpr-10">
+        <div className=" bg-fondo Xbg-[#0D1116] bg-cover bg-fixed bg-[50%] Xbg-[url('/images/panal-hexa.jpg')] min-h-screen Xpr-10">
           <Providers>
             <ProvidersAuth>
               <div className="Xbg-[#333333] flex flex-col lg:flex-row mx-auto lg:max-w-[1024px]">

@@ -41,3 +41,9 @@ html {
 .font-aqua {
   font-family: "Aqua", sans-serif;
 }
+.bg-card {
+  @apply bg-[#1B1C21];
+}
+.bg-fondo {
+  @apply bg-[#25282F];
+}

@@ -304,7 +304,7 @@ const Navbar = () => {
       </ul>
 
       <ul
-        className={` Xhidden Xfixed Xtop-0 Xz-20 text-gray-100 bg-[#444444] Xw-full w-[300px] Xw-[calc(100vw-160px)] h-[calc(100vh-0px)] Xh-screen transform transition-all border-l border-gray-500/20 duration-500 xflex flex-col rounded-b-md text-center
+        className={` Xhidden Xfixed Xtop-0 Xz-20 text-gray-100 bg-transparent Xw-full w-[300px] Xw-[calc(100vw-160px)] h-[calc(100vh-0px)] Xh-screen transform transition-all border-l border-gray-500/20 duration-500 xflex flex-col rounded-b-md text-center
         ${
           navbar
             ? ` ${

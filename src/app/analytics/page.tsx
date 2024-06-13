@@ -114,14 +114,21 @@ const bd = [
 ];
 
 const barsColor = [
-  "bg-red-700",
-  "bg-orange-700",
-  "bg-pink-700",
-  "bg-purple-700",
-  "bg-indigo-700",
-  "bg-blue-700",
-  "bg-cyan-700",
-  "bg-teal-700",
+  "bg-green-600",
+  "bg-cyan-600",
+  "bg-purple-600",
+  "bg-red-600",
+  "bg-yellow-600",
+  "bg-indigo-600",
+  "bg-pink-600",
+
+  "bg-green-600",
+  "bg-cyan-600",
+  "bg-purple-600",
+  "bg-red-600",
+  "bg-yellow-600",
+  "bg-indigo-600",
+  "bg-pink-600",
 ];
 
 const AnalyticsPage = () => {
@@ -296,7 +303,7 @@ const AnalyticsPage = () => {
     <section className={""}>
       <div className="px-2 max-w-[600px] min-h-screen py-10 text-white lg:grid lg:grid-cols-2 lg:gap-5 ">
         {/** BOTON MENU Y INFO NAME - BOTONES*/}
-        <div className=" hidden p-5 text-white bg-[#333333] Xflex flex-row justify-between items-center mb-5">
+        <div className=" hidden p-5 text-white bg-card Xflex flex-row justify-between items-center mb-5">
           <div className="flex flex-row items-center">
             <Link href={"/"} className="mr-5">
               <svg
@@ -364,7 +371,7 @@ const AnalyticsPage = () => {
         </div>
 
         {/** GRAFICA */}
-        <div className="bg-[#333333] p-5 mb-5 lg:mb-0 lg:col-span-2">
+        <div className="bg-card p-5 mb-5 lg:mb-0 lg:col-span-2">
           <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
             Statement graph
           </h1>
@@ -372,7 +379,7 @@ const AnalyticsPage = () => {
         </div>
 
         {/** PRESUPUESTO GENERAL*/}
-        <div className={`bg-[#333333] p-5 mb-5 lg:mb-0 ${number.className} `}>
+        <div className={`bg-card p-5 mb-5 lg:mb-0 ${number.className} `}>
           <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
             Resumen
           </h1>
@@ -396,7 +403,7 @@ const AnalyticsPage = () => {
 
         {/** SELECT ANO - INCOME EXPENCES */}
         <div>
-          <div className="bg-[#333333] p-5 mb-5">
+          <div className="bg-card p-5 mb-5">
             <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
               Total Balance
             </h1>
@@ -420,9 +427,7 @@ const AnalyticsPage = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-5">
-            <div
-              className={`bg-[#333333] p-5 mb-5 lg:mb-0 ${number.className} `}
-            >
+            <div className={`bg-card p-5 mb-5 lg:mb-0 ${number.className} `}>
               <div className="w-8 h-8 flex items-center justify-center bg-[#444] text-cyan-500 -rotate-90 rounded-md mb-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -448,9 +453,7 @@ const AnalyticsPage = () => {
               </h1>
             </div>
 
-            <div
-              className={`bg-[#333333] p-5 mb-5 lg:mb-0 ${number.className} `}
-            >
+            <div className={`bg-card p-5 mb-5 lg:mb-0 ${number.className} `}>
               <div className="w-8 h-8 flex items-center justify-center bg-[#444] text-pink-500 rotate-90 rounded-md mb-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -701,13 +704,13 @@ const AnalyticsPage = () => {
 
         {/** RESUMEN POR CATEGORY */}
 
-        <div className="bg-[#333333] p-5 lg:col-span-2 ">
+        <div className="bg-card p-5 lg:col-span-2 lg:-mb-5 Xshadow-lg Xshadow-black/50">
           <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
             Resumen por categorias
           </h1>
-          <div className="flex flex-row items-center justify-between mb-5">
+          <div className="flex flex-row items-center justify-end gap-5 mb-5">
             <div
-              className={` text-white whitespace-nowrap rounded-full px-5 py-2 
+              className={` text-white whitespace-nowrap px-5 py-2 
             ${
               byType === "Income"
                 ? " bg-indigo-600 "
@@ -730,7 +733,7 @@ const AnalyticsPage = () => {
               </select>
             </div>
 
-            <div className="text-gray-300 rounded-full border border-gray-500/30 px-5 py-2">
+            <div className="text-gray-300 border border-gray-500/30 px-5 py-2">
               <select
                 //defaultValue={byMonth}
                 onChange={(e) => dispatch(filterByMonth(e.target.value))}
@@ -751,50 +754,73 @@ const AnalyticsPage = () => {
                 <option value="12">Diciembre</option>
               </select>
             </div>
+
+            <div className="border border-gray-500 text-gray-400">
+              <select
+                defaultValue={byYear}
+                onChange={(e) => dispatch(filterByYear(e.target.value))}
+                className="focus:outline-none appearance-none bg-transparent p-2"
+              >
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+              </select>
+            </div>
           </div>
         </div>
 
         {/** LIST FOR CATEGORY */}
-        <div className="Xbg-[#333333] min-h-screen Xp-5 lg:col-span-2">
-          <div className="w-full grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-5 ">
+        <div className="Xbg-card min-h-screen Xp-5 lg:col-span-2">
+          <div className="w-full grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-0 ">
             {groupById(walletFiltrado()).map((item: any, index: any) => (
               <div
                 key={index}
-                className="bg-[#333333] px-5 pt-5 relative flex flex-col text-gray-600 rounded-sm"
+                className="bg-card p-5 flex flex-col text-gray-500 rounded-sm shadow-lg shadow-black/50"
               >
-                <div className="w-full flex flex-row justify-between mb-3">
-                  <div className="w-16 h-12 flex items-center justify-center bg-[#444444] rounded-br-lg -mt-5 -ml-5">
+                <div className="w-full flex flex-row-reverse items-center justify-between">
+                  <div
+                    className={`relative w-6 h-6 flex items-center justify-center rounded-lg
+                  ${barsColor[index]}
+                  `}
+                  >
                     <img
                       src={`./images/category/${item.category}.png`}
                       alt="image"
-                      className="w-8 h-8"
+                      className="w-5 h-5"
                     />
                   </div>
 
-                  <h1
-                    className={`text-lg font-semibold text-gray-600 ${number.className} `}
-                  >
-                    ${item.total.toFixed(2)}
-                  </h1>
+                  <h1 className="text-xs truncate">{item.category}</h1>
                 </div>
 
-                <div className="w-full text-center">
-                  <h1 className="Xfont-semibold truncate text-gray-500">
-                    {item.category}
-                  </h1>
-                  <h1 className={`text-gray-400 text-sm ${number.className} `}>
-                    {item.count} items
-                  </h1>
-                </div>
+                <h1
+                  className={`text-xl font-light text-gray-200 mb-2 ${number.className} `}
+                >
+                  ${item.total.toFixed(2)}
+                </h1>
 
-                <div className="flex justify-center">
-                  <div className="w-20 h-1.5 bg-gray-500/10">
-                    <h1
-                      className={` Xw-[75%] h-1.5 $ {barsColor[index]} Xrounded-full $
+                <div
+                  className={`text-xs
                       ${
                         item.type === "Expense"
-                          ? " bg-pink-700/70 shadow-md shadow-pink-400/50"
-                          : " bg-cyan-600/70 shadow-md shadow-cyan-400/50"
+                          ? " Xbg-pink-600"
+                          : " Xbg-cyan-600"
+                      }
+                      ${number.className} `}
+                >
+                  <span>Cantidad de items: {item.count}</span>
+                </div>
+
+                <div className="w-full flex justify-center mb-2">
+                  <div className="w-full h-1.5 bg-[#111]">
+                    <h1
+                      className={` Xw-[75%] h-1.5 ${
+                        barsColor[index]
+                      } Xrounded-full $
+                      ${
+                        item.type === "Expense"
+                          ? " Xbg-pink-700/70 shadow-md shadow-white/50"
+                          : " Xbg-cyan-600/70 shadow-md shadow-white/50"
                       } `}
                       //style={{ width: progress() }}
                       style={{ width: `${progress(item.total)}%` }}
