@@ -116,7 +116,7 @@ const FormPage = () => {
   };
 
   return (
-    <section className={` w-[600px] py-10 ${inter.className}`}>
+    <section className={` max-w-[600px] py-10 ${inter.className}`}>
       <div className="w-full p-5 text-white  flex flex-row justify-between items-center mb-5">
         <div className="flex flex-row items-center">
           <Link href={"/history"} className="mr-3">

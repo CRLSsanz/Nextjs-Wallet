@@ -105,7 +105,7 @@ const HistoryPage = () => {
   return (
     <>
       <section
-        className={`px-2 py-10 lg:px-0 text-white lg:grid lg:grid-cols-2 lg:gap-5 `}
+        className={`Xpx-2 py-10 lg:px-0 text-white lg:grid lg:grid-cols-2 lg:gap-5 `}
       >
         {/** VOLVER - titulo - blanco */}
         <div className="Xbg-card w-full pt-5 px-5 lg:px-0 text-gray-100 mb-5 col-span-2 text-end flex flex-col items-end ">
@@ -171,38 +171,83 @@ const HistoryPage = () => {
             </div>
           </div>
         </div>
+
         {/** SALDO ACTUAL CON INCOME EXPENSES */}
-        <div className="bg-card p-5 mb-5 lg:mb-0">
-          <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
-            estadisticas
-          </h1>
-          <h1
-            className={`font-numero text-4xl text-gray-100 mb-2 ${
-              number.className
-            } ${totalBalance() === 0 ? "text-yellow-500" : " "}  `}
-          >
-            {(totalIncome() - totalExpense()).toFixed(2)}
-          </h1>
-          <p className=" text-sm text-gray-500 mb-10">
-            Resumen total del mes, presupuesto de gastos e ingreso actual.
-          </p>
-          <div className="text-gray-100 flex flex-row mb-2">
-            <div className="basis-1/2">
-              <h1 className={` text-lg ${number.className}`}>
-                $ {totalIncome().toFixed(2)}{" "}
-              </h1>
-              <h1 className=" text-cyan-600 font-medium">Total ingresos</h1>
+        <div className="bg-gradient-to-b from-transparent via-[#25282F]/50 to-[#25282F] p-5 ">
+          <div className="w-full py-1 bg-white/30 rounded-full text-center mb-5">
+            <h1>Search</h1>
+          </div>
+
+          <div className="px-10 flex flex-row justify-between">
+            <div className="flex flex-row">
+              <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
+              <div className="ml-3 ">
+                <h1 className="text-sm">Balance</h1>
+                <h1
+                  className={`-mt-1 text-2xl text-gray-100 mb-2 ${
+                    number.className
+                  } ${totalBalance() === 0 ? "text-yellow-500" : " "}  `}
+                >
+                  {(totalIncome() - totalExpense()).toFixed(2)}
+                </h1>
+              </div>
             </div>
-            <div className="basis-1/2">
-              <h1 className={` text-lg ${number.className} `}>
-                $ {totalExpense().toFixed(2)}{" "}
-              </h1>
-              <h1 className=" text-pink-500 font-medium ">Gastos totales</h1>
+
+            <div className="flex flex-col items-end">
+              <div className="flex flex-row items-center">
+                <div className={`text-cyan-500 -rotate-45`}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </div>
+                <h1 className={` ml-2 ${number.className}`}>
+                  {totalIncome().toFixed(2)}
+                  {" $"}
+                </h1>
+              </div>
+
+              <div className="flex flex-row items-center">
+                <div className={`text-pink-500 rotate-45`}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </div>
+                <h1 className={` ml-2 ${number.className}`}>
+                  {totalExpense().toFixed(2)}
+                  {" $"}
+                </h1>
+              </div>
             </div>
           </div>
+          <h1 className="text-center">
+            {transformData().length} transacciones
+          </h1>
         </div>
+
         {/** TRANSACCIONES */}
-        <div className="relative bg-card p-5 border-b lg:border-0 border-gray-500/30">
+        <div className="hidden relative bg-fondo p-5">
           <h1 className="hidden lg:flex uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
             Transacciones
           </h1>
@@ -250,7 +295,7 @@ const HistoryPage = () => {
           </div>
         </div>
         {/** LLAMAR A LAS FILAS*/}
-        <div id="list" className="Xbg-card lg:py-5 lg:-mt-5">
+        <div id="list" className="bg-fondo px-2 lg:py-5 lg:-mt-5">
           <h1 className="hidden uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
             Historial
           </h1>
@@ -261,7 +306,7 @@ const HistoryPage = () => {
                 {item.date.substr(5, 5) === groupDate ? (
                   <p className="hidden">no mostrar</p>
                 ) : (
-                  <div className="px-2 flex flex-row">
+                  <div className="px-5 flex flex-row">
                     {/* TIME LINE */}
                     <div
                       className={`hidden relative min-w-12 Xflex justify-center `}
@@ -270,7 +315,9 @@ const HistoryPage = () => {
                     </div>
                     {/** FECHA VISIBLE */}
                     <div className="Xhidden flex flex-row items-center bg-transparent text-gray-400 pt-4 pb-2 text-sm">
-                      <h1 className="text-3xl font-light mr-3">
+                      <h1
+                        className={`text-3xl font-light mr-3 ${number.className}`}
+                      >
                         {item.date.substr(8, 2)}
                       </h1>
                       <div className="flex flex-col text-xs">
@@ -278,10 +325,10 @@ const HistoryPage = () => {
                           {nameDiaxFecha(item.date) + " "}
                         </span>{" "}
                         <span className="">
-                          {"" +
-                            cmeses[Number(item.date.substr(5, 2)) - 1] +
-                            " del " +
-                            item.date.substr(0, 4)}
+                          {cmeses[Number(item.date.substr(5, 2)) - 1] + " del "}
+                          <span className={`${number.className}`}>
+                            {item.date.substr(0, 4)}
+                          </span>
                         </span>
                       </div>
                     </div>

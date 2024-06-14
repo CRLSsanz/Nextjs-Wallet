@@ -34,14 +34,14 @@ export default function Home() {
   </div>;
 
   return (
-    <main className="text-white py-10">
+    <main className="">
       {!session?.user ? (
         <LoginPage />
       ) : (
-        <>
+        <div className="h-screen flex flex-col text-white">
           {/** BOTON Y FOTO */}
-          <div className="w-full p-5 text-white bg-[#333333] flex flex-row justify-between items-center">
-            <div className="flex flex-row">
+          <div className="basis-3/12 w-full p-5 border-b">
+            <div className="hidden xflex flex-row">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -80,40 +80,43 @@ export default function Home() {
                 </h1>
               </div>
             </div>
-            <img
-              src={`${session.user.image}`}
-              alt="Avatar"
-              className="rounded-full w-12 h-12 shadow-gray-300"
-            />
-          </div>
-
-          {/** INFO DE USER */}
-          <div className={`px-5 mb-10 `}>
-            <h1 className="text-lg text-teal-500">Hola {session.user.name} </h1>
-            <h1 className={`text-4xl ${titulo.className} `}>
-              Let{`'`}s complete your current balance
-            </h1>
-          </div>
-
-          {/** CARD */}
-          <div className=" px-10">
-            <div className="w-full h-40 p-4 rounded-3xl bg-gradient-to-br from-indigo-600/80 to-pink-600 text-white/30">
-              Avalieve Balance
-            </div>
-          </div>
-          <div className={` p-5 -mt-36 mb-5 ${number.className} `}>
-            <div className="w-full p-5 rounded-3xl bg-gray-800/30 backdrop-blur-xl border border-gray-500/30">
-              <h1>Saldo Disponible</h1>
-              <h1 className="text-2xl tracking-wider mt-2 mb-12">
-                $ <span className="">20150.00</span>
-              </h1>
-              <h1 className="tracking-[0.2em]">**** **** **** 7856</h1>
-              <h1 className="">01/05</h1>
+            <div className="flex flex-row items-center gap-3">
+              <img
+                src={`${session.user.image}`}
+                alt="Avatar"
+                className="rounded-full w-10 h-10 border-2 border-gray-300"
+              />
+              <div>
+                <h1 className=" ">Hola {session.user.name} </h1>
+                <h1
+                  className={`-mt-1 text-base Xtext-teal-500 ${titulo.className} `}
+                >
+                  Let{`'`}s complete your current balance
+                </h1>
+              </div>
             </div>
           </div>
 
-          {/** ITEM ADD - ANALYTICS - HISTORY - CATEGORY */}
-          <div className="p-5 text-gray-200 flex flex-row justify-between items-center mb-5">
+          {/** BALANCE RESUMEN */}
+          <div
+            className={` basis-4/12 px-5 flex flex-col justify-center text-sm border-b bg-[#111111]/50 `}
+          >
+            <h1 className="text-4xl font-extralight">2984.00</h1>
+            <h1 className="mb-5 text-gray-300">Balance de Junio del 2024</h1>
+            <div className="flex flex-row ">
+              <div className="flex flex-col mr-10">
+                <div className="text-lg">509.00</div>
+                <div className="-mt-1 text-cyan-600">Ingresos</div>
+              </div>
+              <div className="flex flex-col ">
+                <div className="text-lg">239.00</div>
+                <div className="-mt-1 text-pink-600">Gastos</div>
+              </div>
+            </div>
+          </div>
+
+          {/** BUTTON = ITEM ADD - ANALYTICS - HISTORY - CATEGORY */}
+          <div className="hidden p-5 text-gray-200 xflex flex-row justify-between items-center mb-5">
             <div className="flex flex-col items-center">
               <Link
                 href={session?.user ? "/form" : "#"}
@@ -208,7 +211,7 @@ export default function Home() {
               <div className=""> Category </div>
             </div>
 
-            <div className="hidden xflex flex-col items-center">
+            <div className="flex flex-col items-center">
               <div className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -230,7 +233,7 @@ export default function Home() {
           </div>
 
           {/** ULTIMAS TRANSACCIONES */}
-          <div className=" p-5 ">
+          <div className="basis-5/12 p-5 ">
             <div className="flex flex-row justify-between mb-5">
               <h1 className="font-semibold">Ultimas Transacciones</h1>
               <Link
@@ -294,10 +297,10 @@ export default function Home() {
               <div className="">$599.00</div>
             </div>
           </div>
-        </>
+        </div>
       )}
 
-      <div className="h-screen pt-20 px-5">
+      <div className="hidden h-screen pt-20 px-5">
         <Count />
 
         <UserList />

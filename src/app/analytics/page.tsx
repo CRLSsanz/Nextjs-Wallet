@@ -770,7 +770,7 @@ const AnalyticsPage = () => {
         </div>
 
         {/** LIST FOR CATEGORY */}
-        <div className="Xbg-card min-h-screen Xp-5 lg:col-span-2">
+        <div className="bg-black/80 min-h-screen -mx-2 px-2 lg:col-span-2">
           <div className="w-full grid grid-cols-1 gap-5 lg:grid-cols-2 ">
             {groupById(walletFiltrado()).map((item: any, index: any) => (
               <>

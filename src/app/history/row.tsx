@@ -207,7 +207,7 @@ const HistoryRow = ({ item }: any) => {
 
       <div
         //onClick={() => setIsOpen((prev) => !prev)}
-        className={` Xhidden w-full flex flex-row justify-between cursor-pointer ${number.className} `}
+        className={` Xhidden w-full flex flex-row justify-between cursor-pointer`}
       >
         {/* INFO */}
         <div
@@ -215,8 +215,8 @@ const HistoryRow = ({ item }: any) => {
             isOpen
               ? ` ${
                   item.type === "Expense"
-                    ? " bg-gradient-to-br from-[#1B1C21] to-pink-500/20 "
-                    : " bg-gradient-to-br from-[#1B1C21] to-cyan-500/20 "
+                    ? " bg-gradient-to-br from-[#1B1C21] to-pink-500/30 "
+                    : " bg-gradient-to-br from-[#1B1C21] to-cyan-500/30 "
                 } `
               : ` bg-card `
           } `}
@@ -268,7 +268,9 @@ const HistoryRow = ({ item }: any) => {
                       />
                     </svg>
                   </div>
-                  <h1 className={`ml-2 text-lg text-gray-200 `}>
+                  <h1
+                    className={`ml-2 text-lg text-gray-200 ${number.className} `}
+                  >
                     {item.total.toFixed(2)}
                   </h1>
                 </div>
@@ -282,7 +284,10 @@ const HistoryRow = ({ item }: any) => {
                     : " text-gray-300 text-sm mt-1 "
                 } `}
               >
-                <span onClick={() => setIsOpen(true)} className="relative">
+                <span
+                  onClick={() => setIsOpen(true)}
+                  className={`relative ${number.className}`}
+                >
                   {item.comment}
 
                   <span
