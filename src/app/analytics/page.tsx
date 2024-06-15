@@ -155,9 +155,7 @@ const AnalyticsPage = () => {
       </div>
     );
 
-  {
-    /** BALANCE GENERAL */
-  }
+  /** BALANCE GENERAL */
   const BalanceGeneral = (wallet: any) => {
     let totalExpense = 0;
     wallet.forEach(function (value: any) {
@@ -190,7 +188,6 @@ const AnalyticsPage = () => {
   };
 
   // BALANCE ANUAL
-
   const transformData2 = (byYear: string) => {
     let data = wallet;
 
@@ -220,7 +217,6 @@ const AnalyticsPage = () => {
   };
 
   // WALLET FILTRADO
-
   const walletFiltrado = () => {
     let data = wallet;
 
@@ -262,6 +258,33 @@ const AnalyticsPage = () => {
         };
   }, []);
   //console.log(dataCategory);
+
+  // AGRUPAR POR YEAR - MONTHS
+  const groupByYear = wallet.reduce((accum: any, value) => {
+    const [year, month] = value["date"].split("-");
+
+    //Buscas el año, si no está en el resultado lo creas
+    let existingYear = accum.find((x: any) => x.year === year);
+    if (!existingYear) {
+      accum.push({ year, months: [] });
+      existingYear = accum.find((x: any) => x.year === year);
+    }
+    /*
+    //ahora, dentro de ese año buscas el mes... si no está, lo creas
+    const existingMonth = existingYear.months.find(
+      (x: any) => x.month === month
+    );
+    if (existingMonth) {
+      existingMonth.data.push(value);
+    } else {
+      existingYear.months.push({ month, data: [value] }); //Ya con el dato insertado
+      //existingYear.months.push({ month }); //Ya con el dato insertado
+    }
+*/
+    return accum;
+  }, []);
+  //console.log(groupByYear);
+  // AGRUPAR POR YEAR - MONTHS
 
   function groupById(array: any) {
     return array.reduce((acc: any, current: any) => {
@@ -602,156 +625,94 @@ const AnalyticsPage = () => {
         </div>
 
         {/** LIST FOR CATEGORY */}
-        <div className="bg-[#25282F]/80 min-h-[58.333vh] pt-7 lg:col-span-2 border-b">
+        <div className="bg-card Xbg-[#25282F]/80 min-h-[58.333vh] pt-7 lg:col-span-2 border-b border-white/30">
           <div className="w-full grid grid-cols-4 gap-1 lg:grid-cols-3 ">
             {groupById(walletFiltrado()).map((item: any, index: any) => (
-              <>
+              <div
+                key={index}
+                onClick={() => setShow(!show)}
+                className="xbg-card flex flex-col items-center justify-center text-gray-500 rounded-sm Xshadow-lg Xshadow-black/50"
+              >
                 <div
-                  key={index}
-                  onClick={() => setShow(!show)}
-                  className="xbg-card flex flex-col items-center justify-center text-gray-600 rounded-sm Xshadow-lg Xshadow-black/50"
-                >
-                  <div
-                    className={`relative w-12 h-12 flex items-center justify-center rounded-full border-2 border-gray-200 mb-2
+                  className={`relative w-14 h-14 flex items-center justify-center rounded-full border-2 border-gray-200 mb-2
                   ${barsColor[index]}
                   `}
-                  >
-                    <img
-                      src={`./images/category/${item.category}.png`}
-                      alt="image"
-                      className="w-5 h-5"
-                    />
-                  </div>
+                >
+                  <img
+                    src={`./images/category/${item.category}.png`}
+                    alt="image"
+                    className="w-8 h-8"
+                  />
+                </div>
 
-                  <h1
-                    className={`text-lg font-extralight text-gray-100  ${number.className} `}
-                  >
-                    ${item.total.toFixed(0)}
-                  </h1>
+                <div
+                  className={` text-white flex flex-row items-center ${number.className} `}
+                >
+                  <span className="text-lg font-light ">
+                    {item.total.toFixed(0)}
+                  </span>
+                  <span className="text-sm ml-0.5"> $</span>
+                </div>
 
-                  <div
-                    hidden={show}
-                    className="px-2 w-full text-xs text-center truncate"
-                  >
-                    {item.category}
-                  </div>
+                <div
+                  hidden={show}
+                  className="px-2 w-full text-xs text-center truncate"
+                >
+                  {item.category}
+                </div>
 
-                  <h1
-                    hidden={show}
-                    className={`text-xs mb-2
+                <h1
+                  hidden={show}
+                  className={`text-xs mb-2
                       ${
                         item.type === "Expense"
                           ? " Xbg-pink -600"
                           : " Xbg-cyan-600"
                       }
                       ${number.className} `}
-                  >
-                    <span>{item.count} item</span>
-                  </h1>
-
-                  <div className="w-full flex justify-center mb-5">
-                    <div className="w-16 h-2 pb-1 px-2 Xbg-fondo rounded-b-lg">
-                      <div className="h-1 bg-card">
-                        <h1
-                          className={` Xw-[75%] h-1 ${
-                            barsColor[index]
-                          } Xrounded-full $
-                      ${
-                        item.type === "Expense"
-                          ? " Xbg-pink-700/70 Xshadow-md Xshadow-white/50"
-                          : " Xbg-cyan-600/70 Xshadow-md Xshadow-white/50"
-                      } `}
-                          //style={{ width: progress() }}
-                          style={{ width: `${progress(item.total)}%` }}
-                        >
-                          {" "}
-                        </h1>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  //key={index}
-                  className="hidden bg-card p-5 xflex flex-col text-gray-500 rounded-sm Xshadow-lg Xshadow-black/50"
                 >
-                  <div className="flex flex-row items-center">
-                    <div
-                      className={`w-10 text-xs text-center mr-3 ${
-                        item.type === "Expense"
-                          ? " text-pink-600"
-                          : " text-cyan-600"
-                      }
- `}
-                    >
-                      <h1 className={`text-2xl ${number.className} `}>
-                        {item.count}
-                      </h1>
-                      <h1 className="-mt-2">item</h1>
-                    </div>
+                  <span>{item.count} item</span>
+                </h1>
 
-                    <div
-                      className={` w-10 h-8 flex items-center justify-center rounded-full mr-3                  ${barsColor[index]}
-                  `}
-                    >
-                      <img
-                        src={`./images/category/${item.category}.png`}
-                        alt="image"
-                        className="w-6 h-6"
-                      />
-                    </div>
-
-                    <div className="w-full flex flex-col items-center">
-                      <div className="w-full flex flex-row items-center justify-between">
-                        <h1 className=" text-gray-300">{item.category}</h1>
-
-                        <h1
-                          className={`text-lg font-light text-gray-200 ${number.className} `}
-                        >
-                          $ {item.total.toFixed(2)}
-                        </h1>
-                      </div>
-                      {/** PROGRESS */}
-                      <div className="w-full flex justify-center pr-14">
-                        <div className="w-full h-2 pt-1 px-2 bg-fondo rounded-t-lg">
-                          <div className="h-1 bg-card">
-                            <h1
-                              className={` relative Xw-[75%] h-1 ${
-                                barsColor[index]
-                              } Xrounded-full $
+                <div className="w-full flex justify-center mb-5">
+                  <div className="w-16 h-2 pb-1 px-2 Xbg-fondo rounded-b-lg">
+                    <div className="h-1 bg-card">
+                      <h1
+                        className={` Xw-[75%] h-1 ${
+                          barsColor[index]
+                        } Xrounded-full $
                       ${
                         item.type === "Expense"
                           ? " Xbg-pink-700/70 Xshadow-md Xshadow-white/50"
                           : " Xbg-cyan-600/70 Xshadow-md Xshadow-white/50"
                       } `}
-                              //style={{ width: progress() }}
-                              style={{ width: `${progress(item.total)}%` }}
-                            >
-                              <span className="hidden absolute -top-1 -right-1 w-3 h-3 rounded-full bg-gray-300 ">
-                                {" "}
-                              </span>
-                            </h1>
-                          </div>
-                        </div>
-                      </div>
+                        //style={{ width: progress() }}
+                        style={{ width: `${progress(item.total)}%` }}
+                      >
+                        {" "}
+                      </h1>
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
             ))}
           </div>
         </div>
 
-        <div className="h-[calc(75vh)]">
+        <div className="h-[calc(33.333vh)] bg-[#25282F]/80 border-b border-gray-500/30">
           {/** FILTER */}
-          <div className="bg-[#25282F] p-5 lg:col-span-2 lg:-mb-5 Xshadow-lg Xshadow-black/50">
+          <div className="Xbg-[#25282F] p-5 lg:col-span-2 lg:-mb-5 Xshadow-lg Xshadow-black/50">
             <div className="flex flex-row items-center justify-end gap-5">
               <div
-                className={`relative text-white whitespace-nowrap px-5 py-2 
+                className={`relative whitespace-nowrap px-5 py-2 
             ${
               byType === "Income"
                 ? " bg-indigo-600 "
-                : ` ${byType === "Expense" ? " bg-pink-500 " : " border "} `
+                : ` ${
+                    byType === "Expense"
+                      ? " bg-pink-500 "
+                      : " border border-gray-500/30 "
+                  } `
             }
             `}
               >
@@ -782,7 +743,7 @@ const AnalyticsPage = () => {
                 </select>
               </div>
 
-              <div className="relative text-gray-300 border py-2">
+              <div className="relative text-gray-300 border border-gray-500/30 py-2">
                 <div className="absolute pointer-events-none top-3 right-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -834,7 +795,7 @@ const AnalyticsPage = () => {
             </div>
           </div>
           {/** SEARCH - BALANCE - INCOME EXPENSES */}
-          <div className=" bg-gradient-to-t from-transparent via-[#25282F]/80 to-[#25282F] p-5 ">
+          <div className=" Xbg-gradient-to-t Xfrom-transparent Xvia-[#25282F]/80 Xto-[#25282F] p-5 ">
             <div className="px-10 flex flex-row justify-between">
               <div className="flex flex-row mb-5">
                 <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
@@ -897,28 +858,51 @@ const AnalyticsPage = () => {
               </div>
             </div>
           </div>
+        </div>
 
-          {/** PRESUPUESTO GENERAL*/}
-          <div className={` Xbg-card p-14 mb-5 lg:mb-0 ${number.className} `}>
-            <h1 className="uppercase tracking-widest text-xs text-center font-semibold text-gray-300 mb-2">
-              Presupuesto General
-            </h1>
-            <h1 className="text-center text-white text-4xl mb-5">
-              {BalanceGeneral(wallet)}
-            </h1>
-
-            <div className="w-full flex flex-row justify-between items-center mb-2">
-              <h1 className="text-gray-300 font-light">Balance 2024</h1>
-              <h1 className="text-white text-lg">
-                $ {transformData("2024").toFixed(2)}
+        {/** PRESUPUESTO GENERAL*/}
+        <div
+          className={`h-[calc(41.667vh)] bg-[#25282F]/80 Xbg-card py-10 lg:mb-0 ${number.className} `}
+        >
+          <div className="flex flex-row justify-between">
+            <div className="px-10">
+              <h1 className="uppercase tracking-widest text-xs text-center font-semibold text-gray-300 mb-2">
+                Presupuesto General
+              </h1>
+              <h1 className="text-center text-white text-4xl mb-5">
+                {Number(BalanceGeneral(wallet)).toFixed(0)}
               </h1>
             </div>
-            <div className="w-full flex flex-row justify-between items-center">
-              <h1 className="text-gray-300 font-extralight">Balance 2023</h1>
-              <h1 className="text-white text-lg">
-                $ {transformData("2023").toFixed(2)}
-              </h1>
+            <div className="">
+              {groupByYear.map((item: any, index: any) => (
+                <div
+                  key={index}
+                  className="relative py-2 px-5 w-full flex flex-row justify-between items-center border-l-2 border-gray-500/50 "
+                >
+                  <div className="absolute top-4 left-0 w-2 h-2 border-b-2 border-gray-500/50 ">
+                    {}
+                  </div>
+                  <div className="flex flex-col mr-10">
+                    <span className="">{item.year} </span>
+                    <span className="text-gray-400 -mt-1 text-xs">
+                      Balance{" "}
+                    </span>
+                  </div>
+                  <h1 className="text-xl whitespace-nowrap">
+                    {transformData(item.year).toFixed(0)} $
+                  </h1>
+                </div>
+              ))}
             </div>
+          </div>
+          <div className="hidden relative py-2 px-5 w-full Xflex flex-row justify-between items-center border-l">
+            <div className="absolute top-3 -left-3 w-6 h-6 border bg-gray-400 rounded-full">
+              {}
+            </div>
+            <h1 className="text-gray-200 font-semibol">Balance General</h1>
+            <h1 className="text-green-500 font-semibol">
+              $ {BalanceGeneral(wallet)}
+            </h1>
           </div>
         </div>
       </div>

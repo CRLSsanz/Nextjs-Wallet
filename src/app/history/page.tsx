@@ -195,7 +195,7 @@ const HistoryPage = () => {
           </div>
 
           {/** SEARCH - BALANCE - INCOME EXPENSES */}
-          <div className="bg-gradient-to-b border-b from-transparent via-[#25282F]/80 to-[#25282F] p-5 ">
+          <div className="bg-gradient-to-b border-b border-gray-500/50 from-transparent via-[#25282F]/80 to-[#25282F] p-5 ">
             <div className="w-full py-1.5 bg-white/30 rounded-full text-center mb-5">
               <h1>Search</h1>
             </div>
@@ -313,64 +313,70 @@ const HistoryPage = () => {
             </Link>
           </div>
         </div>
-        {/** LLAMAR A LAS FILAS*/}
-        <div id="list" className="bg-fondo px-2 lg:py-5 lg:-mt-5">
-          <h1 className="hidden uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
-            Historial
-          </h1>
 
-          <div className="w-full pb-10">
-            {transformData().map((item, index) => (
-              <div key={index}>
-                {item.date.substr(5, 5) === groupDate ? (
-                  <p className="hidden">no mostrar</p>
-                ) : (
-                  <div className="px-5 flex flex-row">
-                    {/* TIME LINE */}
-                    <div
-                      className={`hidden relative min-w-12 Xflex justify-center `}
-                    >
-                      <div className="w-0.5 bg-gray-600 h-full "> </div>
-                    </div>
-                    {/** FECHA VISIBLE */}
-                    <div className="Xhidden flex flex-row items-center bg-transparent text-gray-400 pt-4 pb-2 text-sm">
-                      <h1
-                        className={`text-3xl font-light mr-3 ${number.className}`}
+        <div className="min-h-[calc(75vh)] bg-fondo flex flex-col justify-between">
+          {/** LLAMAR A LAS FILAS*/}
+          <div id="list" className="bg-fondo px-2 lg:py-5 lg:-mt-5">
+            <h1 className="hidden uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
+              Historial
+            </h1>
+
+            <div className="w-full pb-10">
+              {transformData().map((item, index) => (
+                <div key={index}>
+                  {item.date.substr(5, 5) === groupDate ? (
+                    <p className="hidden">no mostrar</p>
+                  ) : (
+                    <div className="px-5 flex flex-row">
+                      {/* TIME LINE */}
+                      <div
+                        className={`hidden relative min-w-12 Xflex justify-center `}
                       >
-                        {item.date.substr(8, 2)}
-                      </h1>
-                      <div className="flex flex-col text-xs">
-                        <span className="-mb-1 uppercase">
-                          {nameDiaxFecha(item.date) + " "}
-                        </span>{" "}
-                        <span className="">
-                          {cmeses[Number(item.date.substr(5, 2)) - 1] + " del "}
-                          <span className={`${number.className}`}>
-                            {item.date.substr(0, 4)}
+                        <div className="w-0.5 bg-gray-600 h-full "> </div>
+                      </div>
+                      {/** FECHA VISIBLE */}
+                      <div className="Xhidden flex flex-row items-center bg-transparent text-gray-400 pt-4 pb-2 text-sm">
+                        <h1
+                          className={`text-3xl font-light mr-3 ${number.className}`}
+                        >
+                          {item.date.substr(8, 2)}
+                        </h1>
+                        <div className="flex flex-col text-xs">
+                          <span className="-mb-1 uppercase">
+                            {nameDiaxFecha(item.date) + " "}
+                          </span>{" "}
+                          <span className="">
+                            {cmeses[Number(item.date.substr(5, 2)) - 1] +
+                              " del "}
+                            <span className={`${number.className}`}>
+                              {item.date.substr(0, 4)}
+                            </span>
                           </span>
-                        </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-                <p className="hidden">{(groupDate = item.date.substr(5, 5))}</p>
+                  )}
+                  <p className="hidden">
+                    {(groupDate = item.date.substr(5, 5))}
+                  </p>
 
-                <HistoryRow item={item} />
-              </div>
-            ))}
+                  <HistoryRow item={item} />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-        {/** FOOTER */}
-        <div className="Xbg-gray-800/50 py-10 mt-5 text-sm text-center text-gray-400 flex flex-row justify-center items-center ">
-          <h1>
-            <span className={inter.className}>@ 2024 </span> Wall
-            <span className={inter.className}>3</span>t. All rights reserved.{" "}
-          </h1>
-          <img
-            src="./images/dino.png"
-            alt="Dino"
-            className="w-5 h-5 ml-2 hover:-rotate-12"
-          />
+          {/** FOOTER */}
+          <div className="bg-card py-10 text-sm text-center text-gray-400 flex flex-row justify-center items-center ">
+            <h1>
+              <span className={inter.className}>@ 2024 </span> Wall
+              <span className={inter.className}>3</span>t. All rights reserved.{" "}
+            </h1>
+            <img
+              src="./images/dino.png"
+              alt="Dino"
+              className="w-5 h-5 ml-2 hover:-rotate-12"
+            />
+          </div>
         </div>
       </section>
 

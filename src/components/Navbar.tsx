@@ -33,9 +33,9 @@ const Navbar = () => {
   return (
     <div>
       <nav
-        className={`fixed z-50 w-20 h-16 p-2 pr-0 right-0 bottom-2 Xbackdrop-blur-2xl flex flex-col justify-center rounded-l-full text-white 
+        className={`fixed z-50 w-16 h-16 p-2 pb-0 right-6 bottom-0 Xbackdrop-blur-2xl flex flex-col justify-center rounded-t-full text-white 
       ${
-        navbar ? " bg-transparent " : " bg-gradient-to-b from-[#111] to-[#555] "
+        navbar ? " bg-transparent " : " bg-gradient-to-r from-[#111] to-[#555] "
       }      
       `}
       >
@@ -136,12 +136,12 @@ const Navbar = () => {
           <></>
         )}
         <div
-          className={`w-full h-12 flex items-center rounded-l-full
+          className={`w-12 h-full flex items-center justify-center rounded-t-full
         ${navbar ? "bg-transparent " : "bg-[#222]"} `}
         >
           {/** BOTOM MENU */}
           <div
-            className={`w-10 h-10 flex items-center justify-center active:rotate-180 Xhover:scale-[1.30] transition-transform duration-200 active:animate-ping cursor-pointer  rounded-full Xbg-red-400
+            className={`w-10 h-10 flex items-center justify-center active:rotate-180 Xhover:scale-[1.30] transition-transform duration-200 active:animate-ping cursor-pointer rounded-full xbg-red-400
         `}
           >
             <div onClick={handleNavbarClose} className="">
@@ -226,7 +226,7 @@ const Navbar = () => {
         </div>
 
         {/** BOTON ITEMS */}
-        <div className="basis-5/12 py-5 pb-10 h-full flex flex-col gap-2 items-center transform transition-all duration-1000 ">
+        <div className="basis-5/12 py-5 pb-10 h-full flex flex-col gap-3 items-center transform transition-all duration-1000 ">
           <Link
             href={session?.user ? "/" : "#"}
             onClick={() => setMaxim(false)}
@@ -283,7 +283,7 @@ const Navbar = () => {
           <Link
             href={session?.user ? "/form" : "#"}
             onClick={() => setMaxim(false)}
-            className="h-8 w-8 flex flex-row items-center justify-center"
+            className="hidden h-8 w-8 Xflex flex-row items-center justify-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

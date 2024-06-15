@@ -40,7 +40,7 @@ export default function Home() {
       ) : (
         <div className="h-screen flex flex-col text-white">
           {/** BOTON Y FOTO */}
-          <div className="basis-3/12 w-full p-5 border-b">
+          <div className="basis-3/12 w-full p-5 border-b border-gray-500/50">
             <div className="hidden xflex flex-row">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -89,29 +89,9 @@ export default function Home() {
               <div>
                 <h1 className=" ">Hola {session.user.name} </h1>
                 <h1
-                  className={`-mt-1 text-sm Xtext-teal-500 ${titulo.className} `}
-                >
-                  Let{`'`}s complete text-sm 1234567890
-                </h1>
-                <h1
                   className={`-mt-1 text-base Xtext-teal-500 ${titulo.className} `}
                 >
                   Let{`'`}s complete text-base 1234567890
-                </h1>
-                <h1
-                  className={`-mt-1 text-lg Xtext-teal-500 ${titulo.className} `}
-                >
-                  Let{`'`}s complete text-lg 1234567890
-                </h1>
-                <h1
-                  className={`-mt-1 text-xl Xtext-teal-500 ${titulo.className} `}
-                >
-                  Let{`'`}s complete text-lg 1234567890
-                </h1>
-                <h1
-                  className={`-mt-1 text-xl font-light Xtext-teal-500 ${titulo.className} `}
-                >
-                  Let{`'`}s complete text-lg font-light
                 </h1>
               </div>
             </div>
@@ -119,7 +99,7 @@ export default function Home() {
 
           {/** BALANCE RESUMEN */}
           <div
-            className={` basis-4/12 px-5 flex flex-col justify-center text-sm border-b bg-[#111111]/50 ${number.className} `}
+            className={` basis-4/12 px-5 flex flex-col justify-center text-sm border-b border-gray-500/50 bg-black/50 ${number.className} `}
           >
             <h1 className="text-4xl font-extralight">2984.00</h1>
             <h1 className="mb-5 text-gray-300">Balance de Junio del 2024</h1>
@@ -128,9 +108,30 @@ export default function Home() {
                 <div className="text-lg">509.00</div>
                 <div className="-mt-1 text-cyan-600">Ingresos</div>
               </div>
-              <div className="flex flex-col ">
+              <div className="flex flex-col mr-10">
                 <div className="text-lg">239.00</div>
                 <div className="-mt-1 text-pink-600">Gastos</div>
+              </div>
+              <div className="flex items-center justify-center">
+                <Link
+                  href={session?.user ? "/form" : "#"}
+                  className="w-12 h-12 flex items-center justify-center rounded-full bg-black/30"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1"
+                    stroke="currentColor"
+                    className="w-8 h-8 active:animate-ping hover:scale-125 Xhover:-ml-2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                  </svg>
+                </Link>
               </div>
             </div>
           </div>
@@ -253,7 +254,7 @@ export default function Home() {
           </div>
 
           {/** ULTIMAS TRANSACCIONES */}
-          <div className={`basis-5/12 p-5 ${titulo.className}`}>
+          <div className={`basis-5/12 p-5 Xbg-black/80 ${number.className}`}>
             <div className="flex flex-row justify-between mb-5">
               <h1 className="font-semibold">Ultimas Transacciones</h1>
               <Link
@@ -288,7 +289,7 @@ export default function Home() {
                 <h1>Paypal</h1>
                 <h1 className="text-gray-400 text-sm">20 de Abril del 2024</h1>
               </div>
-              <div className="font-bold">$459.00</div>
+              <div className="">$459.00</div>
             </div>
 
             <div
