@@ -89,9 +89,29 @@ export default function Home() {
               <div>
                 <h1 className=" ">Hola {session.user.name} </h1>
                 <h1
+                  className={`-mt-1 text-sm Xtext-teal-500 ${titulo.className} `}
+                >
+                  Let{`'`}s complete text-sm 1234567890
+                </h1>
+                <h1
                   className={`-mt-1 text-base Xtext-teal-500 ${titulo.className} `}
                 >
-                  Let{`'`}s complete your current balance
+                  Let{`'`}s complete text-base 1234567890
+                </h1>
+                <h1
+                  className={`-mt-1 text-lg Xtext-teal-500 ${titulo.className} `}
+                >
+                  Let{`'`}s complete text-lg 1234567890
+                </h1>
+                <h1
+                  className={`-mt-1 text-xl Xtext-teal-500 ${titulo.className} `}
+                >
+                  Let{`'`}s complete text-lg 1234567890
+                </h1>
+                <h1
+                  className={`-mt-1 text-xl font-light Xtext-teal-500 ${titulo.className} `}
+                >
+                  Let{`'`}s complete text-lg font-light
                 </h1>
               </div>
             </div>
@@ -99,7 +119,7 @@ export default function Home() {
 
           {/** BALANCE RESUMEN */}
           <div
-            className={` basis-4/12 px-5 flex flex-col justify-center text-sm border-b bg-[#111111]/50 `}
+            className={` basis-4/12 px-5 flex flex-col justify-center text-sm border-b bg-[#111111]/50 ${number.className} `}
           >
             <h1 className="text-4xl font-extralight">2984.00</h1>
             <h1 className="mb-5 text-gray-300">Balance de Junio del 2024</h1>
@@ -233,7 +253,7 @@ export default function Home() {
           </div>
 
           {/** ULTIMAS TRANSACCIONES */}
-          <div className="basis-5/12 p-5 ">
+          <div className={`basis-5/12 p-5 ${titulo.className}`}>
             <div className="flex flex-row justify-between mb-5">
               <h1 className="font-semibold">Ultimas Transacciones</h1>
               <Link
@@ -259,7 +279,7 @@ export default function Home() {
             </div>
 
             <div
-              className={`bg-gray-800/50 rounded-xl p-2 flex flex-row items-center mb-3 ${number.className} `}
+              className={`bg-gray-800/50 rounded-xl p-2 flex flex-row items-center mb-3 `}
             >
               <div className="">
                 <h1 className="w-10 h-10 bg-purple-700 rounded-lg"></h1>{" "}
@@ -268,11 +288,11 @@ export default function Home() {
                 <h1>Paypal</h1>
                 <h1 className="text-gray-400 text-sm">20 de Abril del 2024</h1>
               </div>
-              <div className="">$459.00</div>
+              <div className="font-bold">$459.00</div>
             </div>
 
             <div
-              className={`bg-gray-800/50 rounded-xl p-2 flex flex-row items-center mb-3 ${number.className} `}
+              className={`bg-gray-800/50 rounded-xl p-2 flex flex-row items-center mb-3 `}
             >
               <div className="">
                 <h1 className="w-10 h-10 bg-purple-700 rounded-lg"></h1>{" "}
@@ -285,7 +305,7 @@ export default function Home() {
             </div>
 
             <div
-              className={`bg-gray-800/50 rounded-xl p-2 flex flex-row items-center ${number.className} `}
+              className={`bg-gray-800/50 rounded-xl p-2 flex flex-row items-center `}
             >
               <div className="">
                 <h1 className="w-10 h-10 bg-purple-700 rounded-lg"></h1>{" "}

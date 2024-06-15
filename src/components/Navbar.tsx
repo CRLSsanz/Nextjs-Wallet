@@ -3,6 +3,8 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { filterByYear } from "@/redux/features/filterSlice";
 
 /*const menuItems = [
   {
@@ -16,6 +18,9 @@ const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
   const [maxim, setMaxim] = useState(false);
 
+  const dispatch = useAppDispatch();
+  const { byYear, byMonth } = useAppSelector((state) => state.filter);
+
   const handleNavbarClose = () => {
     setNavbar(!navbar);
     setMaxim(false);
@@ -28,8 +33,10 @@ const Navbar = () => {
   return (
     <div>
       <nav
-        className={`fixed z-50 w-12 h-12 right-2 bottom-2 Xbackdrop-blur-2xl flex flex-col justify-between items-center text-white 
-      ${navbar ? " bg-pink-500/50 " : " bg-cyan-500/50 "}      
+        className={`fixed z-50 w-20 h-16 p-2 pr-0 right-0 bottom-2 Xbackdrop-blur-2xl flex flex-col justify-center rounded-l-full text-white 
+      ${
+        navbar ? " bg-transparent " : " bg-gradient-to-b from-[#111] to-[#555] "
+      }      
       `}
       >
         {session?.user ? (
@@ -128,44 +135,48 @@ const Navbar = () => {
         ) : (
           <></>
         )}
-
-        {/** BOTOM MENU */}
         <div
-          className={`w-full h-full flex justify-center items-center active:rotate-180 Xhover:scale-[1.30] transition-transform duration-200 active:animate-ping cursor-pointer
-        `}
+          className={`w-full h-12 flex items-center rounded-l-full
+        ${navbar ? "bg-transparent " : "bg-[#222]"} `}
         >
-          <div onClick={handleNavbarClose} className="Xbg-red-400 p-2">
-            {navbar ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-7 h-7"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18 18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-7 h-7"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 9h16.5m-16.5 6.75h16.5"
-                />
-              </svg>
-            )}
+          {/** BOTOM MENU */}
+          <div
+            className={`w-10 h-10 flex items-center justify-center active:rotate-180 Xhover:scale-[1.30] transition-transform duration-200 active:animate-ping cursor-pointer  rounded-full Xbg-red-400
+        `}
+          >
+            <div onClick={handleNavbarClose} className="">
+              {navbar ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18 18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 9h16.5m-16.5 6.75h16.5"
+                  />
+                </svg>
+              )}
+            </div>
           </div>
         </div>
       </nav>
@@ -178,15 +189,43 @@ const Navbar = () => {
             : " -right-20 pointer-events-none opacity-0 "
         }  `}
       >
-        {/** ITEMS */}
-        <div className="basis-3/12 py-5 text-center border-b">
-          <h1 className="mb-5">2024 v</h1>
-          <h1 className="">Septiembre v</h1>
+        {/** BOTON YEAR */}
+        <div className=" basis-3/12 py-5 flex justify-center border-b">
+          <div className="relative py-2">
+            <div className="absolute pointer-events-none top-3 right-0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                />
+              </svg>
+            </div>
+            <select
+              defaultValue={byYear}
+              onChange={(e) => dispatch(filterByYear(e.target.value))}
+              className="focus:outline-none appearance-none bg-transparent pl-2 pr-5"
+            >
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+            </select>
+          </div>
         </div>
 
+        {/** MENU */}
         <div className="basis-4/12 p-5 bg-purple-600/50 border-b">
           <span className="text-center">Menu Wallet</span>
         </div>
+
+        {/** BOTON ITEMS */}
         <div className="basis-5/12 py-5 pb-10 h-full flex flex-col gap-2 items-center transform transition-all duration-1000 ">
           <Link
             href={session?.user ? "/" : "#"}

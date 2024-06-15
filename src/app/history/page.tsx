@@ -105,97 +105,46 @@ const HistoryPage = () => {
   return (
     <>
       <section
-        className={`Xpx-2 py-10 lg:px-0 text-white lg:grid lg:grid-cols-2 lg:gap-5 `}
+        className={`Xpx-2 lg:px-0 text-white lg:grid lg:grid-cols-2 lg:gap-5 `}
       >
-        {/** VOLVER - titulo - blanco */}
-        <div className="Xbg-card w-full pt-5 px-5 lg:px-0 text-gray-100 mb-5 col-span-2 text-end flex flex-col items-end ">
-          <h1 className="uppercase tracking-widest Xtext-xs font-semibold">
-            Transactions
-          </h1>
-          <p className=" text-gray-500 mb-10">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque ad
-            repellen
-          </p>
+        <div className="h-[calc(58.333vh)] flex flex-col justify-between">
+          {/** VOLVER - titulo - blanco */}
+          <div className="Xbg-card w-full pt-5 px-5 lg:px-0 text-gray-100 mb-5 col-span-2 text-end flex flex-col items-end ">
+            <h1 className="uppercase tracking-widest Xtext-xs font-semibold">
+              Transactions
+            </h1>
+            <p className=" text-gray-500 mb-10">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque ad
+              repellen
+            </p>
 
-          <div className="lg:hidden h-12 flex flex-row items-center">
-            <Link href={"/analytics"} className="mr-3">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-5 h-5 active:animate-ping"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-                />
-              </svg>
-            </Link>
-          </div>
-
-          <div className="flex flex-row gap-4">
-            <div className="border border-gray-500 text-gray-400">
-              <select
-                defaultValue={byMonth}
-                onChange={(e) => dispatch(filterByMonth(e.target.value))}
-                className="text-center focus:outline-none appearance-none bg-transparent p-2 pl-4 pr-8"
-              >
-                <option value="01">Enero</option>
-                <option value="02">Febrero</option>
-                <option value="03">Marzo</option>
-                <option value="04">Abril</option>
-                <option value="05">Mayo</option>
-                <option value="06">Junio</option>
-                <option value="07">Julio</option>
-                <option value="08">Agosto</option>
-                <option value="09">Septiembre</option>
-                <option value="10">Octubre</option>
-                <option value="11">Noviembre</option>
-                <option value="12">Diciembre</option>
-              </select>
-            </div>
-
-            <div className="border border-gray-500 text-gray-400">
-              <select
-                defaultValue={byYear}
-                onChange={(e) => dispatch(filterByYear(e.target.value))}
-                className="focus:outline-none appearance-none bg-transparent p-2 pl-4 pr-8"
-              >
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/** SALDO ACTUAL CON INCOME EXPENSES */}
-        <div className="bg-gradient-to-b from-transparent via-[#25282F]/50 to-[#25282F] p-5 ">
-          <div className="w-full py-1 bg-white/30 rounded-full text-center mb-5">
-            <h1>Search</h1>
-          </div>
-
-          <div className="px-10 flex flex-row justify-between">
-            <div className="flex flex-row">
-              <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
-              <div className="ml-3 ">
-                <h1 className="text-sm">Balance</h1>
-                <h1
-                  className={`-mt-1 text-2xl text-gray-100 mb-2 ${
-                    number.className
-                  } ${totalBalance() === 0 ? "text-yellow-500" : " "}  `}
+            <div className="hidden h-12 xflex flex-row items-center">
+              <Link href={"/analytics"} className="mr-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-5 h-5 active:animate-ping"
                 >
-                  {(totalIncome() - totalExpense()).toFixed(2)}
-                </h1>
-              </div>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                  />
+                </svg>
+              </Link>
             </div>
 
-            <div className="flex flex-col items-end">
-              <div className="flex flex-row items-center">
-                <div className={`text-cyan-500 -rotate-45`}>
+            {/** FILTER */}
+            <div className="flex flex-row gap-4">
+              <h1 className="py-2 text-center text-gray-300 whitespace-nowrap">
+                {transformData().length} transacciones
+              </h1>
+
+              <div className="relative text-gray-300 border py-2">
+                <div className="absolute pointer-events-none top-3 right-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -207,45 +156,115 @@ const HistoryPage = () => {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
                     />
                   </svg>
                 </div>
-                <h1 className={` ml-2 ${number.className}`}>
-                  {totalIncome().toFixed(2)}
-                  {" $"}
-                </h1>
+                <select
+                  defaultValue={byMonth}
+                  onChange={(e) => dispatch(filterByMonth(e.target.value))}
+                  className="text-center focus:outline-none appearance-none bg-transparent pl-2 pr-7"
+                >
+                  <option value="01">Enero</option>
+                  <option value="02">Febrero</option>
+                  <option value="03">Marzo</option>
+                  <option value="04">Abril</option>
+                  <option value="05">Mayo</option>
+                  <option value="06">Junio</option>
+                  <option value="07">Julio</option>
+                  <option value="08">Agosto</option>
+                  <option value="09">Septiembre</option>
+                  <option value="10">Octubre</option>
+                  <option value="11">Noviembre</option>
+                  <option value="12">Diciembre</option>
+                </select>
               </div>
 
-              <div className="flex flex-row items-center">
-                <div className={`text-pink-500 rotate-45`}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                    />
-                  </svg>
-                </div>
-                <h1 className={` ml-2 ${number.className}`}>
-                  {totalExpense().toFixed(2)}
-                  {" $"}
-                </h1>
+              <div className="hidden border border-gray-500 text-gray-400">
+                <select
+                  defaultValue={byYear}
+                  onChange={(e) => dispatch(filterByYear(e.target.value))}
+                  className="focus:outline-none appearance-none bg-transparent p-2 pl-4 pr-8"
+                >
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                </select>
               </div>
             </div>
           </div>
-          <h1 className="text-center">
-            {transformData().length} transacciones
-          </h1>
-        </div>
 
+          {/** SEARCH - BALANCE - INCOME EXPENSES */}
+          <div className="bg-gradient-to-b border-b from-transparent via-[#25282F]/80 to-[#25282F] p-5 ">
+            <div className="w-full py-1.5 bg-white/30 rounded-full text-center mb-5">
+              <h1>Search</h1>
+            </div>
+
+            <div className="px-10 flex flex-row justify-between">
+              <div className="flex flex-row mb-5">
+                <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
+                <div className="ml-4 ">
+                  <h1 className="text-sm text-gray-200">Balance:</h1>
+                  <h1
+                    className={`-mt-1 text-2xl font-light text-gray-100 ${
+                      number.className
+                    } ${totalBalance() === 0 ? "text-yellow-500" : " "} `}
+                  >
+                    {(totalIncome() - totalExpense()).toFixed(2)}
+                  </h1>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-end">
+                <div className="flex flex-row items-center">
+                  <div className={`text-cyan-500 -rotate-45`}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                      />
+                    </svg>
+                  </div>
+                  <h1 className={` ml-2 ${number.className}`}>
+                    {totalIncome().toFixed(2)}
+                    {" $"}
+                  </h1>
+                </div>
+
+                <div className="flex flex-row items-center">
+                  <div className={`text-pink-500 rotate-45`}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                      />
+                    </svg>
+                  </div>
+                  <h1 className={` ml-2 ${number.className}`}>
+                    {totalExpense().toFixed(2)}
+                    {" $"}
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         {/** TRANSACCIONES */}
         <div className="hidden relative bg-fondo p-5">
           <h1 className="hidden lg:flex uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">

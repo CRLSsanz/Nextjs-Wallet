@@ -132,6 +132,7 @@ const barsColor = [
 ];
 
 const AnalyticsPage = () => {
+  const [show, setShow] = useState(true);
   const { data, error, isLoading, isFetching } = useGetUsersQuery(null);
   const { data: session } = useSession();
   const wallet = useAppSelector((state) => state.wallet);
@@ -301,7 +302,7 @@ const AnalyticsPage = () => {
 
   return (
     <section className={""}>
-      <div className="px-2 max-w-[600px] min-h-screen py-10 text-white lg:grid lg:grid-cols-2 lg:gap-5 ">
+      <div className="max-w-[600px] min-h-screen text-white lg:grid lg:grid-cols-2 lg:gap-5 ">
         {/** BOTON MENU Y INFO NAME - BOTONES*/}
         <div className=" hidden p-5 text-white bg-card Xflex flex-row justify-between items-center mb-5">
           <div className="flex flex-row items-center">
@@ -371,60 +372,11 @@ const AnalyticsPage = () => {
         </div>
 
         {/** GRAFICA */}
-        <div className="bg-card p-5 mb-5 lg:mb-0 lg:col-span-2">
+        <div className="hidden bg-card p-5 mb-5 lg:mb-0 lg:col-span-2">
           <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
             Statement graph
           </h1>
           <div className="h-60 border border-gray-500/20 rounded-3xl"> </div>
-        </div>
-
-        {/** PRESUPUESTO GENERAL*/}
-        <div className={`bg-card p-5 mb-5 lg:mb-0 ${number.className} `}>
-          <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
-            Presupuesto General
-          </h1>
-          <h1 className="text-start text-white text-4xl mb-5">
-            {BalanceGeneral(wallet)}
-          </h1>
-
-          <div className="w-full flex flex-row-reverse justify-between items-center mb-2">
-            <h1 className="text-gray-300 font-light">Balance 2023</h1>
-            <h1 className="text-white text-lg">
-              $ {transformData("2024").toFixed(2)}
-            </h1>
-          </div>
-          <div className="w-full flex flex-row-reverse justify-between items-center">
-            <h1 className="text-gray-300 font-extralight">Balance 2024</h1>
-            <h1 className="text-white text-lg">
-              $ {transformData("2023").toFixed(2)}
-            </h1>
-          </div>
-        </div>
-
-        {/** SELECT ANO - INCOME EXPENCES */}
-        <div>
-          <div className="hidden bg-card p-5 mb-5">
-            <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
-              Total Balance
-            </h1>
-            <div className="flex flex-row justify-between">
-              <h1 className="text-4xl text-green-500 font-light">
-                {(totalIncome() - totalExpense()).toFixed(2)}
-              </h1>
-
-              <div className="border border-gray-500 text-gray-400">
-                <select
-                  defaultValue={byYear}
-                  onChange={(e) => dispatch(filterByYear(e.target.value))}
-                  className="focus:outline-none appearance-none bg-transparent p-2"
-                >
-                  <option value="2023">2023</option>
-                  <option value="2024">2024</option>
-                  <option value="2025">2025</option>
-                </select>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/** PRUEBA - Barlow, Jost, Outfit, Poiret_One, Rubik*/}
@@ -649,171 +601,56 @@ const AnalyticsPage = () => {
           </div>
         </div>
 
-        {/** RESUMEN POR CATEGORY */}
-        <div className="bg-card p-5 lg:col-span-2 mb-5 lg:-mb-5 Xshadow-lg Xshadow-black/50">
-          <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
-            Resumen por categorias
-          </h1>
-          <div className="flex flex-row items-center justify-end gap-5 mb-5">
-            <div
-              className={` text-white whitespace-nowrap px-5 py-2 
-            ${
-              byType === "Income"
-                ? " bg-indigo-600 "
-                : ` ${
-                    byType === "Expense"
-                      ? " bg-pink-500 "
-                      : " border border-gray-500/30 "
-                  } `
-            }
-            `}
-            >
-              <select
-                //defaultValue={byType}
-                onChange={(e) => dispatch(filterByType(e.target.value))}
-                className="text-center focus:outline-none appearance-none bg-transparent px-2"
-              >
-                <option value="">Ver todo</option>
-                <option value="Income">Ingresos</option>
-                <option value="Expense">Gastos</option>
-              </select>
-            </div>
-
-            <div className="text-gray-300 border border-gray-500/30 px-2 py-2">
-              <select
-                //defaultValue={byMonth}
-                onChange={(e) => dispatch(filterByMonth(e.target.value))}
-                className="text-center focus:outline-none appearance-none bg-transparent px-2"
-              >
-                <option value="">Meses</option>
-                <option value="01">Enero</option>
-                <option value="02">Febrero</option>
-                <option value="03">Marzo</option>
-                <option value="04">Abril</option>
-                <option value="05">Mayo</option>
-                <option value="06">Junio</option>
-                <option value="07">Julio</option>
-                <option value="08">Agosto</option>
-                <option value="09">Septiembre</option>
-                <option value="10">Octubre</option>
-                <option value="11">Noviembre</option>
-                <option value="12">Diciembre</option>
-              </select>
-            </div>
-
-            <div className="text-gray-300 border border-gray-500/30 px-2 py-2">
-              <select
-                defaultValue={byYear}
-                onChange={(e) => dispatch(filterByYear(e.target.value))}
-                className="focus:outline-none appearance-none bg-transparent px-2"
-              >
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/** EXPENSE E INCOME */}
-        <div className="grid grid-cols-2 gap-5">
-          <div className={`bg-card p-5 mb-5 lg:mb-0 ${number.className} `}>
-            <div className="w-8 h-8 flex items-center justify-center bg-[#444] text-cyan-500 -rotate-90 rounded-md mb-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-5 h-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </div>
-
-            <h1 className="flex text-2xl text-white mb-1">
-              {totalIncome().toFixed(2)}
-            </h1>
-            <h1 className="uppercase tracking-widest text-xs font-semibold text-cyan-500/70">
-              Ingresos
-            </h1>
-          </div>
-
-          <div className={`bg-card p-5 mb-5 lg:mb-0 ${number.className} `}>
-            <div className="w-8 h-8 flex items-center justify-center bg-[#444] text-pink-500 rotate-90 rounded-md mb-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-5 h-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </div>
-            <h1 className="flex text-2xl text-white mb-1">
-              {totalExpense().toFixed(2)}
-            </h1>
-            <h1 className="uppercase tracking-widest text-xs font-semibold text-pink-500/70 ">
-              Gastos
-            </h1>
-          </div>
-        </div>
-
         {/** LIST FOR CATEGORY */}
-        <div className="bg-black/80 min-h-screen -mx-2 px-2 lg:col-span-2">
-          <div className="w-full grid grid-cols-1 gap-5 lg:grid-cols-2 ">
+        <div className="bg-[#25282F]/80 min-h-[58.333vh] pt-7 lg:col-span-2 border-b">
+          <div className="w-full grid grid-cols-4 gap-1 lg:grid-cols-3 ">
             {groupById(walletFiltrado()).map((item: any, index: any) => (
               <>
                 <div
                   key={index}
-                  className="hidden bg-card px-5 pt-5 xflex flex-col text-gray-500 rounded-sm Xshadow-lg Xshadow-black/50"
+                  onClick={() => setShow(!show)}
+                  className="xbg-card flex flex-col items-center justify-center text-gray-600 rounded-sm Xshadow-lg Xshadow-black/50"
                 >
-                  <div className="w-full flex flex-row-reverse items-center justify-between">
-                    <div
-                      className={`relative w-6 h-6 flex items-center justify-center rounded-lg
+                  <div
+                    className={`relative w-12 h-12 flex items-center justify-center rounded-full border-2 border-gray-200 mb-2
                   ${barsColor[index]}
                   `}
-                    >
-                      <img
-                        src={`./images/category/${item.category}.png`}
-                        alt="image"
-                        className="w-5 h-5"
-                      />
-                    </div>
-
-                    <h1 className="text-xs truncate">{item.category}</h1>
+                  >
+                    <img
+                      src={`./images/category/${item.category}.png`}
+                      alt="image"
+                      className="w-5 h-5"
+                    />
                   </div>
 
                   <h1
-                    className={`text-xl font-light text-gray-200 mb-2 ${number.className} `}
+                    className={`text-lg font-extralight text-gray-100  ${number.className} `}
                   >
-                    ${item.total.toFixed(2)}
+                    ${item.total.toFixed(0)}
                   </h1>
 
                   <div
-                    className={`text-xs
+                    hidden={show}
+                    className="px-2 w-full text-xs text-center truncate"
+                  >
+                    {item.category}
+                  </div>
+
+                  <h1
+                    hidden={show}
+                    className={`text-xs mb-2
                       ${
                         item.type === "Expense"
-                          ? " Xbg-pink-600"
+                          ? " Xbg-pink -600"
                           : " Xbg-cyan-600"
                       }
                       ${number.className} `}
                   >
-                    <span>Cantidad de items: {item.count}</span>
-                  </div>
+                    <span>{item.count} item</span>
+                  </h1>
 
-                  <div className="w-full flex justify-center ">
-                    <div className="w-20 h-2 pt-1 px-2 bg-fondo rounded-t-lg">
+                  <div className="w-full flex justify-center mb-5">
+                    <div className="w-16 h-2 pb-1 px-2 Xbg-fondo rounded-b-lg">
                       <div className="h-1 bg-card">
                         <h1
                           className={` Xw-[75%] h-1 ${
@@ -835,69 +672,253 @@ const AnalyticsPage = () => {
                 </div>
 
                 <div
-                  key={index}
-                  className="bg-card px-5 pt-5 flex flex-col text-gray-500 rounded-sm Xshadow-lg Xshadow-black/50"
+                  //key={index}
+                  className="hidden bg-card p-5 xflex flex-col text-gray-500 rounded-sm Xshadow-lg Xshadow-black/50"
                 >
-                  <div className="w-full flex flex-row items-center justify-between mb-2">
-                    <div className="flex flex-row items-center">
-                      <div
-                        className={`relative w-7 h-7 flex items-center justify-center rounded-lg
-                  ${barsColor[index]}
-                  `}
-                      >
-                        <img
-                          src={`./images/category/${item.category}.png`}
-                          alt="image"
-                          className="w-5 h-5"
-                        />
-                      </div>
-
-                      <div className="flex flex-col ml-3">
-                        <h1 className="text-sm text-gray-300">
-                          {item.category}
-                        </h1>
-                        <div
-                          className={`text-xs
-${item.type === "Expense" ? " Xbg-pink-600" : " Xbg-cyan-600"}
-${number.className} `}
-                        >
-                          <span>Cantidad de items: {item.count}</span>
-                        </div>
-                      </div>
+                  <div className="flex flex-row items-center">
+                    <div
+                      className={`w-10 text-xs text-center mr-3 ${
+                        item.type === "Expense"
+                          ? " text-pink-600"
+                          : " text-cyan-600"
+                      }
+ `}
+                    >
+                      <h1 className={`text-2xl ${number.className} `}>
+                        {item.count}
+                      </h1>
+                      <h1 className="-mt-2">item</h1>
                     </div>
 
-                    <h1
-                      className={`text-xl font-light text-gray-200 ${number.className} `}
+                    <div
+                      className={` w-10 h-8 flex items-center justify-center rounded-full mr-3                  ${barsColor[index]}
+                  `}
                     >
-                      $ {item.total.toFixed(2)}
-                    </h1>
-                  </div>
+                      <img
+                        src={`./images/category/${item.category}.png`}
+                        alt="image"
+                        className="w-6 h-6"
+                      />
+                    </div>
 
-                  <div className="w-full flex justify-center ">
-                    <div className="w-full h-2 pt-1 px-2 bg-fondo rounded-t-lg">
-                      <div className="h-1 bg-card">
+                    <div className="w-full flex flex-col items-center">
+                      <div className="w-full flex flex-row items-center justify-between">
+                        <h1 className=" text-gray-300">{item.category}</h1>
+
                         <h1
-                          className={` relative Xw-[75%] h-1 ${
-                            barsColor[index]
-                          } Xrounded-full $
+                          className={`text-lg font-light text-gray-200 ${number.className} `}
+                        >
+                          $ {item.total.toFixed(2)}
+                        </h1>
+                      </div>
+                      {/** PROGRESS */}
+                      <div className="w-full flex justify-center pr-14">
+                        <div className="w-full h-2 pt-1 px-2 bg-fondo rounded-t-lg">
+                          <div className="h-1 bg-card">
+                            <h1
+                              className={` relative Xw-[75%] h-1 ${
+                                barsColor[index]
+                              } Xrounded-full $
                       ${
                         item.type === "Expense"
                           ? " Xbg-pink-700/70 Xshadow-md Xshadow-white/50"
                           : " Xbg-cyan-600/70 Xshadow-md Xshadow-white/50"
                       } `}
-                          //style={{ width: progress() }}
-                          style={{ width: `${progress(item.total)}%` }}
-                        >
-                          <span className="hidden absolute -top-1 -right-1 w-3 h-3 rounded-full bg-gray-300 ">
-                            {" "}
-                          </span>
-                        </h1>
+                              //style={{ width: progress() }}
+                              style={{ width: `${progress(item.total)}%` }}
+                            >
+                              <span className="hidden absolute -top-1 -right-1 w-3 h-3 rounded-full bg-gray-300 ">
+                                {" "}
+                              </span>
+                            </h1>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </>
             ))}
+          </div>
+        </div>
+
+        <div className="h-[calc(75vh)]">
+          {/** FILTER */}
+          <div className="bg-[#25282F] p-5 lg:col-span-2 lg:-mb-5 Xshadow-lg Xshadow-black/50">
+            <div className="flex flex-row items-center justify-end gap-5">
+              <div
+                className={`relative text-white whitespace-nowrap px-5 py-2 
+            ${
+              byType === "Income"
+                ? " bg-indigo-600 "
+                : ` ${byType === "Expense" ? " bg-pink-500 " : " border "} `
+            }
+            `}
+              >
+                <div className="absolute pointer-events-none top-3 right-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                    />
+                  </svg>
+                </div>
+                <select
+                  //defaultValue={byType}
+                  onChange={(e) => dispatch(filterByType(e.target.value))}
+                  className="text-center focus:outline-none appearance-none bg-transparent pl-2 pr-5"
+                >
+                  <option value="">Ver todo</option>
+                  <option value="Income">Ingresos</option>
+                  <option value="Expense">Gastos</option>
+                </select>
+              </div>
+
+              <div className="relative text-gray-300 border py-2">
+                <div className="absolute pointer-events-none top-3 right-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                    />
+                  </svg>
+                </div>
+                <select
+                  //defaultValue={byMonth}
+                  onChange={(e) => dispatch(filterByMonth(e.target.value))}
+                  className="text-center focus:outline-none appearance-none bg-transparent pl-2 pr-5"
+                >
+                  <option value="">Meses</option>
+                  <option value="01">Enero</option>
+                  <option value="02">Febrero</option>
+                  <option value="03">Marzo</option>
+                  <option value="04">Abril</option>
+                  <option value="05">Mayo</option>
+                  <option value="06">Junio</option>
+                  <option value="07">Julio</option>
+                  <option value="08">Agosto</option>
+                  <option value="09">Septiembre</option>
+                  <option value="10">Octubre</option>
+                  <option value="11">Noviembre</option>
+                  <option value="12">Diciembre</option>
+                </select>
+              </div>
+
+              <div className=" text-gray-300 border border-gray-500/30 py-2">
+                <select
+                  defaultValue={byYear}
+                  onChange={(e) => dispatch(filterByYear(e.target.value))}
+                  className="focus:outline-none appearance-none bg-transparent pl-2 pr-5"
+                >
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          {/** SEARCH - BALANCE - INCOME EXPENSES */}
+          <div className=" bg-gradient-to-t from-transparent via-[#25282F]/80 to-[#25282F] p-5 ">
+            <div className="px-10 flex flex-row justify-between">
+              <div className="flex flex-row mb-5">
+                <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
+                <div className="ml-4 ">
+                  <h1 className="text-sm text-gray-200">Balance:</h1>
+                  <h1
+                    className={`-mt-1 text-2xl font-light text-gray-100 ${number.className} `}
+                  >
+                    {(totalIncome() - totalExpense()).toFixed(2)}
+                  </h1>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-end">
+                <div className="flex flex-row items-center">
+                  <div className={`text-cyan-500 -rotate-45`}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                      />
+                    </svg>
+                  </div>
+                  <h1 className={` ml-2 ${number.className}`}>
+                    {totalIncome().toFixed(2)}
+                    {" $"}
+                  </h1>
+                </div>
+
+                <div className="flex flex-row items-center">
+                  <div className={`text-pink-500 rotate-45`}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                      />
+                    </svg>
+                  </div>
+                  <h1 className={` ml-2 ${number.className}`}>
+                    {totalExpense().toFixed(2)}
+                    {" $"}
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/** PRESUPUESTO GENERAL*/}
+          <div className={` Xbg-card p-14 mb-5 lg:mb-0 ${number.className} `}>
+            <h1 className="uppercase tracking-widest text-xs text-center font-semibold text-gray-300 mb-2">
+              Presupuesto General
+            </h1>
+            <h1 className="text-center text-white text-4xl mb-5">
+              {BalanceGeneral(wallet)}
+            </h1>
+
+            <div className="w-full flex flex-row justify-between items-center mb-2">
+              <h1 className="text-gray-300 font-light">Balance 2024</h1>
+              <h1 className="text-white text-lg">
+                $ {transformData("2024").toFixed(2)}
+              </h1>
+            </div>
+            <div className="w-full flex flex-row justify-between items-center">
+              <h1 className="text-gray-300 font-extralight">Balance 2023</h1>
+              <h1 className="text-white text-lg">
+                $ {transformData("2023").toFixed(2)}
+              </h1>
+            </div>
           </div>
         </div>
       </div>
