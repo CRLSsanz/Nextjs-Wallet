@@ -107,13 +107,13 @@ const HistoryPage = () => {
       <section
         className={`Xpx-2 lg:px-0 text-white lg:grid lg:grid-cols-2 lg:gap-5 `}
       >
-        <div className="h-[calc(58.333vh)] flex flex-col justify-between">
-          {/** VOLVER - titulo - blanco */}
-          <div className="Xbg-card w-full pt-5 px-5 lg:px-0 text-gray-100 mb-5 col-span-2 text-end flex flex-col items-end ">
-            <h1 className="uppercase tracking-widest Xtext-xs font-semibold">
+        <div className="h-[calc(33.333vh)] flex flex-col justify-between">
+          {/** BOTON MES - VOLVER - titulo - blanco */}
+          <div className="Xbg-card w-full pt-5 px-5 lg:px-0 text-gray-100 col-span-2 text-end flex flex-col items-end ">
+            <h1 className="hidden uppercase tracking-widest Xtext-xs font-semibold">
               Transactions
             </h1>
-            <p className=" text-gray-500 mb-10">
+            <p className=" hidden text-gray-500 mb-10">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque ad
               repellen
             </p>
@@ -137,14 +137,18 @@ const HistoryPage = () => {
               </Link>
             </div>
 
+            <div className="w-full py-1.5 bg-white/30 rounded-full text-center mb-3">
+              <h1>Search</h1>
+            </div>
+
             {/** FILTER */}
-            <div className="flex flex-row gap-4">
-              <h1 className="py-2 text-center text-gray-300 whitespace-nowrap">
-                {transformData().length} transacciones
+            <div className="w-full flex flex-row gap-3">
+              <h1 className="w-full py-1.5 px-3 text-center Xborder bg-white/30 rounded-full text-gray-300 whitespace-nowrap">
+                {transformData().length} items
               </h1>
 
-              <div className="relative text-gray-300 border py-2">
-                <div className="absolute pointer-events-none top-3 right-1">
+              <div className="relative text-gray-300 rounded-full Xborder bg-white/30 p-1.5">
+                <div className="hidden absolute pointer-events-none top-3 right-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -163,7 +167,7 @@ const HistoryPage = () => {
                 <select
                   defaultValue={byMonth}
                   onChange={(e) => dispatch(filterByMonth(e.target.value))}
-                  className="text-center focus:outline-none appearance-none bg-transparent pl-2 pr-7"
+                  className="text-center focus:outline-none appearance-none bg-transparent px-4"
                 >
                   <option value="01">Enero</option>
                   <option value="02">Febrero</option>
@@ -180,11 +184,11 @@ const HistoryPage = () => {
                 </select>
               </div>
 
-              <div className="hidden border border-gray-500 text-gray-400">
+              <div className="rounded-full bg-white/30 text-gray-300">
                 <select
                   defaultValue={byYear}
                   onChange={(e) => dispatch(filterByYear(e.target.value))}
-                  className="focus:outline-none appearance-none bg-transparent p-2 pl-4 pr-8"
+                  className="focus:outline-none appearance-none bg-transparent p-1.5 px-4 "
                 >
                   <option value="2023">2023</option>
                   <option value="2024">2024</option>
@@ -195,13 +199,9 @@ const HistoryPage = () => {
           </div>
 
           {/** SEARCH - BALANCE - INCOME EXPENSES */}
-          <div className="bg-gradient-to-b border-b border-gray-500/50 from-transparent via-[#25282F]/80 to-[#25282F] p-5 ">
-            <div className="w-full py-1.5 bg-white/30 rounded-full text-center mb-5">
-              <h1>Search</h1>
-            </div>
-
+          <div className="bg-gradient-to-b from-transparent via-[#25282F]/80 to-[#25282F] p-5 border-b border-gray-500 ">
             <div className="px-10 flex flex-row justify-between">
-              <div className="flex flex-row mb-5">
+              <div className="flex flex-row">
                 <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
                 <div className="ml-4 ">
                   <h1 className="text-sm text-gray-200">Balance:</h1>
@@ -314,7 +314,7 @@ const HistoryPage = () => {
           </div>
         </div>
 
-        <div className="min-h-[calc(75vh)] bg-fondo flex flex-col justify-between">
+        <div className="min-h-[calc(66.667vh)] bg-fondo flex flex-col justify-between">
           {/** LLAMAR A LAS FILAS*/}
           <div id="list" className="bg-fondo px-2 lg:py-5 lg:-mt-5">
             <h1 className="hidden uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">

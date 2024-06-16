@@ -114,21 +114,23 @@ const bd = [
 ];
 
 const barsColor = [
-  "bg-green-600",
-  "bg-cyan-600",
-  "bg-purple-600",
-  "bg-red-600",
-  "bg-yellow-500",
-  "bg-indigo-600",
-  "bg-pink-600",
+  "bg-green-500/50",
+  "bg-cyan-500/50",
+  "bg-purple-500/50",
+  "bg-white",
+  "bg-red-500/50",
+  "bg-yellow-500/50",
+  "bg-indigo-500/50",
+  "bg-pink-500/50",
+  "bg-black",
 
-  "bg-green-600",
-  "bg-cyan-600",
-  "bg-purple-600",
-  "bg-red-600",
-  "bg-yellow-600",
-  "bg-indigo-600",
-  "bg-pink-600",
+  "bg-green-500",
+  "bg-cyan-500",
+  "bg-purple-500",
+  "bg-red-500",
+  "bg-yellow-500",
+  "bg-indigo-500",
+  "bg-pink-500",
 ];
 
 const AnalyticsPage = () => {
@@ -625,7 +627,7 @@ const AnalyticsPage = () => {
         </div>
 
         {/** LIST FOR CATEGORY */}
-        <div className="bg-card Xbg-[#25282F]/80 min-h-[58.333vh] pt-7 lg:col-span-2 border-b border-white/30">
+        <div className="bg-card Xbg-[#25282F]/90 min-h-[66.667vh] pt-7 lg:col-span-2 border-b border-gray-500">
           <div className="w-full grid grid-cols-4 gap-1 lg:grid-cols-3 ">
             {groupById(walletFiltrado()).map((item: any, index: any) => (
               <div
@@ -676,7 +678,7 @@ const AnalyticsPage = () => {
 
                 <div className="w-full flex justify-center mb-5">
                   <div className="w-16 h-2 pb-1 px-2 Xbg-fondo rounded-b-lg">
-                    <div className="h-1 bg-card">
+                    <div className="h-1 bg-fondo">
                       <h1
                         className={` Xw-[75%] h-1 ${
                           barsColor[index]
@@ -699,24 +701,24 @@ const AnalyticsPage = () => {
           </div>
         </div>
 
-        <div className="h-[calc(33.333vh)] bg-[#25282F]/80 border-b border-gray-500/30">
+        <div className="h-[calc(33.333vh)] bg-[#25282F]/80 border-b border-gray-500">
           {/** FILTER */}
-          <div className="Xbg-[#25282F] p-5 lg:col-span-2 lg:-mb-5 Xshadow-lg Xshadow-black/50">
-            <div className="flex flex-row items-center justify-end gap-5">
+          <div className=" p-5 lg:col-span-2 lg:-mb-5 Xshadow-lg Xshadow-black/50">
+            <div className="flex flex-row items-center justify-end gap-3">
               <div
-                className={`relative whitespace-nowrap px-5 py-2 
+                className={`relative whitespace-nowrap py-1.5 
             ${
               byType === "Income"
                 ? " bg-indigo-600 "
                 : ` ${
                     byType === "Expense"
                       ? " bg-pink-500 "
-                      : " border border-gray-500/30 "
+                      : " Xborder-b Xborder-white/30 "
                   } `
             }
             `}
               >
-                <div className="absolute pointer-events-none top-3 right-1">
+                <div className="absolute pointer-events-none top-3 right-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -734,8 +736,9 @@ const AnalyticsPage = () => {
                 </div>
                 <select
                   //defaultValue={byType}
+                  defaultValue={""}
                   onChange={(e) => dispatch(filterByType(e.target.value))}
-                  className="text-center focus:outline-none appearance-none bg-transparent pl-2 pr-5"
+                  className="text-center focus:outline-none appearance-none bg-transparent px-4 pr-7"
                 >
                   <option value="">Ver todo</option>
                   <option value="Income">Ingresos</option>
@@ -743,8 +746,8 @@ const AnalyticsPage = () => {
                 </select>
               </div>
 
-              <div className="relative text-gray-300 border border-gray-500/30 py-2">
-                <div className="absolute pointer-events-none top-3 right-1">
+              <div className="relative text-gray-300 border-l border-white/30 py-1.5">
+                <div className="absolute pointer-events-none top-3 right-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -761,11 +764,11 @@ const AnalyticsPage = () => {
                   </svg>
                 </div>
                 <select
-                  //defaultValue={byMonth}
+                  defaultValue={""}
                   onChange={(e) => dispatch(filterByMonth(e.target.value))}
-                  className="text-center focus:outline-none appearance-none bg-transparent pl-2 pr-5"
+                  className="text-center focus:outline-none appearance-none bg-transparent pl-2 pr-7"
                 >
-                  <option value="">Meses</option>
+                  <option value="">Todo los meses</option>
                   <option value="01">Enero</option>
                   <option value="02">Febrero</option>
                   <option value="03">Marzo</option>
@@ -781,11 +784,27 @@ const AnalyticsPage = () => {
                 </select>
               </div>
 
-              <div className=" text-gray-300 border border-gray-500/30 py-2">
+              <div className="relative text-gray-300 border-l border-white/30 py-1.5">
+                <div className="absolute pointer-events-none top-3 right-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                    />
+                  </svg>
+                </div>
                 <select
                   defaultValue={byYear}
                   onChange={(e) => dispatch(filterByYear(e.target.value))}
-                  className="focus:outline-none appearance-none bg-transparent pl-2 pr-5"
+                  className="focus:outline-none appearance-none bg-transparent pl-2 pr-7"
                 >
                   <option value="2023">2023</option>
                   <option value="2024">2024</option>
@@ -862,7 +881,7 @@ const AnalyticsPage = () => {
 
         {/** PRESUPUESTO GENERAL*/}
         <div
-          className={`h-[calc(41.667vh)] bg-[#25282F]/80 Xbg-card py-10 lg:mb-0 ${number.className} `}
+          className={`h-[calc(33.333vh)] bg-[#25282F]/80 Xbg-card py-10 lg:mb-0 ${number.className} `}
         >
           <div className="flex flex-row justify-between">
             <div className="px-10">

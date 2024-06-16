@@ -116,7 +116,7 @@ const FormPage = () => {
   };
 
   return (
-    <section className={` max-w-[600px] py-10 ${inter.className}`}>
+    <section className={` max-w-[600px] p-5 ${inter.className}`}>
       <div className="w-full p-5 text-white  flex flex-row justify-between items-center mb-5">
         <div className="flex flex-row items-center">
           <Link href={"/history"} className="mr-3">
@@ -148,7 +148,7 @@ const FormPage = () => {
         <p className="text-gray-400">Todos los campos son obligatorios *</p>
       </div>
 
-      <div className=" bg-[#333333] p-5">
+      <div className=" bg-card p-5">
         <form
           onSubmit={handleSubmit}
           className="w-full text-gray-200 Xborder-2 p-5"

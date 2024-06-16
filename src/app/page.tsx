@@ -40,7 +40,7 @@ export default function Home() {
       ) : (
         <div className="h-screen flex flex-col text-white">
           {/** BOTON Y FOTO */}
-          <div className="basis-3/12 w-full p-5 border-b border-gray-500/50">
+          <div className="basis-1/3 w-full p-5 border-b border-gray-500/50">
             <div className="hidden xflex flex-row">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -89,49 +89,10 @@ export default function Home() {
               <div>
                 <h1 className=" ">Hola {session.user.name} </h1>
                 <h1
-                  className={`-mt-1 text-base Xtext-teal-500 ${titulo.className} `}
+                  className={`hidden -mt-1 text-base Xtext-teal-500 ${titulo.className} `}
                 >
                   Let{`'`}s complete text-base 1234567890
                 </h1>
-              </div>
-            </div>
-          </div>
-
-          {/** BALANCE RESUMEN */}
-          <div
-            className={` basis-4/12 px-5 flex flex-col justify-center text-sm border-b border-gray-500/50 bg-black/50 ${number.className} `}
-          >
-            <h1 className="text-4xl font-extralight">2984.00</h1>
-            <h1 className="mb-5 text-gray-300">Balance de Junio del 2024</h1>
-            <div className="flex flex-row ">
-              <div className="flex flex-col mr-10">
-                <div className="text-lg">509.00</div>
-                <div className="-mt-1 text-cyan-600">Ingresos</div>
-              </div>
-              <div className="flex flex-col mr-10">
-                <div className="text-lg">239.00</div>
-                <div className="-mt-1 text-pink-600">Gastos</div>
-              </div>
-              <div className="flex items-center justify-center">
-                <Link
-                  href={session?.user ? "/form" : "#"}
-                  className="w-12 h-12 flex items-center justify-center rounded-full bg-black/30"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1"
-                    stroke="currentColor"
-                    className="w-8 h-8 active:animate-ping hover:scale-125 Xhover:-ml-2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                  </svg>
-                </Link>
               </div>
             </div>
           </div>
@@ -254,12 +215,14 @@ export default function Home() {
           </div>
 
           {/** ULTIMAS TRANSACCIONES */}
-          <div className={`basis-5/12 p-5 Xbg-black/80 ${number.className}`}>
+          <div
+            className={`basis-1/3 p-5 bg-black/50 border-b border-gray-500/50 ${number.className}`}
+          >
             <div className="flex flex-row justify-between mb-5">
-              <h1 className="font-semibold">Ultimas Transacciones</h1>
+              <h1 className="text-gray-300">Ultimas Transacciones</h1>
               <Link
                 href={"/history"}
-                className="text-gray-300 flex flex-row items-center"
+                className="text-cyan-500 flex flex-row items-center"
               >
                 <h1>Ver mas</h1>
                 <svg
@@ -306,7 +269,7 @@ export default function Home() {
             </div>
 
             <div
-              className={`bg-gray-800/50 rounded-xl p-2 flex flex-row items-center `}
+              className={`hidden bg-gray-800/50 rounded-xl p-2 xflex flex-row items-center `}
             >
               <div className="">
                 <h1 className="w-10 h-10 bg-purple-700 rounded-lg"></h1>{" "}
@@ -316,6 +279,82 @@ export default function Home() {
                 <h1 className="text-gray-400 text-sm">05 de Abril del 2024</h1>
               </div>
               <div className="">$599.00</div>
+            </div>
+          </div>
+
+          {/** BALANCE RESUMEN */}
+          <div
+            className={` hidden basis-1/3 px-5 xflex flex-col justify-center text-sm Xborder-b Xborder-gray-500/50 Xbg-black/50 ${number.className} `}
+          >
+            <h1 className="text-4xl font-extralight">2984.00</h1>
+            <h1 className="mb-5 text-gray-300">Balance de Junio del 2024</h1>
+            <div className="flex flex-row ">
+              <div className="flex flex-col mr-10">
+                <div className="text-lg">509.00</div>
+                <div className="-mt-1 text-cyan-600">Ingresos</div>
+              </div>
+              <div className="flex flex-col mr-10">
+                <div className="text-lg">239.00</div>
+                <div className="-mt-1 text-pink-600">Gastos</div>
+              </div>
+              <div className="flex items-center justify-center">
+                <Link
+                  href={session?.user ? "/form" : "#"}
+                  className="w-12 h-12 flex items-center justify-center rounded-full bg-black/30"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1"
+                    stroke="currentColor"
+                    className="w-8 h-8 active:animate-ping hover:scale-125 Xhover:-ml-2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/** PRESUPUESTO GENERAL*/}
+          <div
+            className={`h-[calc(33.333vh)] bg-[#25282F]/80 Xbg-card py-10 lg:mb-0 ${number.className} `}
+          >
+            <div className="flex flex-row justify-between">
+              <div className="px-10">
+                <h1 className="uppercase tracking-widest text-xs text-center font-semibold text-gray-300 mb-2">
+                  Presupuesto General
+                </h1>
+                <h1 className="text-center text-white text-4xl mb-5">4568</h1>
+              </div>
+              <div className="">
+                <div
+                  //key={index}
+                  className="relative py-2 px-5 w-full flex flex-row justify-between items-center border-l-2 border-gray-500/50 "
+                >
+                  <div className="absolute top-4 left-0 w-2 h-2 border-b-2 border-gray-500/50 ">
+                    {}
+                  </div>
+                  <div className="flex flex-col mr-10">
+                    <span className="">2024 </span>
+                    <span className="text-gray-400 -mt-1 text-xs">
+                      Balance{" "}
+                    </span>
+                  </div>
+                  <h1 className="text-xl whitespace-nowrap">570 $</h1>
+                </div>
+              </div>
+            </div>
+
+            <div className="hidden relative py-2 px-5 w-full Xflex flex-row justify-between items-center border-l">
+              <div className="absolute top-3 -left-3 w-6 h-6 border bg-gray-400 rounded-full"></div>
+              <h1 className="text-gray-200 font-semibol">Balance General</h1>
+              <h1 className="text-green-500 font-semibol">$ 16800</h1>
             </div>
           </div>
         </div>

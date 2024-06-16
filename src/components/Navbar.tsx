@@ -5,6 +5,12 @@ import Image from "next/image";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { filterByYear } from "@/redux/features/filterSlice";
+import { Jost } from "next/font/google";
+
+const number = Jost({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
 
 /*const menuItems = [
   {
@@ -33,9 +39,11 @@ const Navbar = () => {
   return (
     <div>
       <nav
-        className={`fixed z-50 w-16 h-16 p-2 pb-0 right-6 bottom-0 Xbackdrop-blur-2xl flex flex-col justify-center rounded-t-full text-white 
+        className={`fixed z-50 w-16 h-16 p-2 pr-0 right-0 bottom-4 Xbackdrop-blur-2xl flex flex-col justify-center rounded-l-full text-white 
       ${
-        navbar ? " bg-transparent " : " bg-gradient-to-r from-[#111] to-[#555] "
+        navbar
+          ? " bg-gradient-to-b from-[#111] to-[#555] "
+          : " bg-gradient-to-t from-[#111] to-[#555] "
       }      
       `}
       >
@@ -136,12 +144,12 @@ const Navbar = () => {
           <></>
         )}
         <div
-          className={`w-12 h-full flex items-center justify-center rounded-t-full
-        ${navbar ? "bg-transparent " : "bg-[#222]"} `}
+          className={`w-full h-full flex items-center rounded-l-full
+        ${navbar ? "bg-[#222] " : "bg-[#222]"} `}
         >
           {/** BOTOM MENU */}
           <div
-            className={`w-10 h-10 flex items-center justify-center active:rotate-180 Xhover:scale-[1.30] transition-transform duration-200 active:animate-ping cursor-pointer rounded-full xbg-red-400
+            className={`w-12 h-10 flex items-center justify-center active:rotate-180 Xhover:scale-[1.30] transition-transform duration-200 active:animate-ping cursor-pointer rounded-full Xbg-red-400
         `}
           >
             <div onClick={handleNavbarClose} className="">
@@ -182,7 +190,7 @@ const Navbar = () => {
       </nav>
 
       <ul
-        className={`fixed top-0 z-20 text-gray-100 bg-black/5 h-screen w-28 transform transition-all duration-500 backdrop-blur-md border-l flex flex-col
+        className={`fixed top-0 z-20 text-gray-100 bg-black/5 h-screen w-2/5 transform transition-all duration-500 backdrop-blur-md border-l flex flex-col
         ${
           navbar
             ? " right-0 pointer-events-auto opacity-100 "
@@ -190,7 +198,7 @@ const Navbar = () => {
         }  `}
       >
         {/** BOTON YEAR */}
-        <div className=" basis-3/12 py-5 flex justify-center border-b">
+        <div className=" basis-1/3 py-5 flex justify-center border-b border-gray-500">
           <div className="relative py-2">
             <div className="absolute pointer-events-none top-3 right-0">
               <svg
@@ -221,137 +229,195 @@ const Navbar = () => {
         </div>
 
         {/** MENU */}
-        <div className="basis-4/12 p-5 bg-purple-600/50 border-b">
-          <span className="text-center">Menu Wallet</span>
+        <div className="basis-1/3 flex flex-col justify-between py-5 px-2 bg-purple-600/50 border-b border-gray-500">
+          <div className="flex flex-col items-end">
+            <h1 className="text-sm text-gray-400">Junio</h1>
+            <h1
+              className={`text-3xl font-light text-gray-100 ${number.className}  `}
+            >
+              $13500
+            </h1>
+
+            <div className="flex flex-row justify-end mb-5 -mt-1">
+              <div className="flex flex-row items-center justify-between text-cyan-500 mr-2">
+                <div className={`mr-0 -rotate-90`}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-3"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </div>
+                <h1 className={` text-sm ${number.className}`}>$ 12450</h1>
+              </div>
+
+              <div className="flex flex-row items-center justify-between text-pink-500">
+                <div className={`mr-0 rotate-90`}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-3"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </div>
+                <h1 className={` text-sm ${number.className}`}>$ 980</h1>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-end ">
+            <h1 className={` text-xl font-light ${number.className}  `}>
+              $25500
+            </h1>
+            <h1 className="-mt-1 text-sm text-gray-400">Saldo Disponible</h1>
+          </div>
         </div>
 
         {/** BOTON ITEMS */}
-        <div className="basis-5/12 py-5 pb-10 h-full flex flex-col gap-3 items-center transform transition-all duration-1000 ">
-          <Link
-            href={session?.user ? "/" : "#"}
-            onClick={() => setMaxim(false)}
-            className="h-8 w-8 flex flex-row items-center justify-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-5 h-5 active:animate-ping hover:scale-125"
+        <div className="basis-1/3 p-5 py-8">
+          <div className="grid grid-cols-2 items-center gap-x-2 gap-y-8 transform transition-all duration-1000 ">
+            <Link
+              href={session?.user ? "/" : "#"}
+              onClick={() => setMaxim(false)}
+              className="flex justify-center"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-              />
-            </svg>
-            <h1 className="text-sm pl-4" hidden={!maxim}>
-              Home
-            </h1>
-          </Link>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 active:animate-ping hover:scale-125"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                />
+              </svg>
+              <h1 className="text-sm pl-4" hidden={!maxim}>
+                Home
+              </h1>
+            </Link>
 
-          <Link
-            href={session?.user ? "/analytics" : "#"}
-            onClick={() => setMaxim(false)}
-            className="h-8 w-8 flex flex-row items-center justify-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-5 h-5 active:animate-ping hover:scale-125"
+            <Link
+              href={session?.user ? "/analytics" : "#"}
+              onClick={() => setMaxim(false)}
+              className="flex flex-row items-center justify-center"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
-              />
-            </svg>
-            <h1 className="text-sm pl-4" hidden={!maxim}>
-              Analytics
-            </h1>
-          </Link>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 active:animate-ping hover:scale-125"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
+                />
+              </svg>
+              <h1 className="text-sm pl-4" hidden={!maxim}>
+                Analytics
+              </h1>
+            </Link>
 
-          <Link
-            href={session?.user ? "/form" : "#"}
-            onClick={() => setMaxim(false)}
-            className="hidden h-8 w-8 Xflex flex-row items-center justify-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-5 h-5 active:animate-ping hover:scale-125"
+            <Link
+              href={session?.user ? "/form" : "#"}
+              onClick={() => setMaxim(false)}
+              className="flex flex-row items-center justify-center"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 active:animate-ping hover:scale-125"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
 
-            <h1 className="text-sm pl-4" hidden={!maxim}>
-              Add
-            </h1>
-          </Link>
+              <h1 className="text-sm pl-4" hidden={!maxim}>
+                Add
+              </h1>
+            </Link>
 
-          <Link
-            href={session?.user ? "/history" : "#"}
-            onClick={() => setMaxim(false)}
-            className="h-8 w-8 flex flex-row items-center justify-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-5 h-5 active:animate-ping hover:scale-125"
+            <Link
+              href={session?.user ? "/history" : "#"}
+              onClick={() => setMaxim(false)}
+              className="flex flex-row items-center justify-center"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-            <h1 className="text-sm pl-4" hidden={!maxim}>
-              History
-            </h1>
-          </Link>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 active:animate-ping hover:scale-125"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+              <h1 className="text-sm pl-4" hidden={!maxim}>
+                History
+              </h1>
+            </Link>
 
-          <Link
-            href={session?.user ? "/category#list" : "#"}
-            onClick={() => setMaxim(false)}
-            className="h-8 w-8 flex flex-row items-center justify-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-5 h-5 active:animate-ping hover:scale-125"
+            <Link
+              href={session?.user ? "/category#list" : "#"}
+              onClick={() => setMaxim(false)}
+              className="flex flex-row items-center justify-center"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
-              />
-            </svg>
-            <h1 className="text-sm pl-4" hidden={!maxim}>
-              Category
-            </h1>
-          </Link>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 active:animate-ping hover:scale-125"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
+                />
+              </svg>
+              <h1 className="text-sm pl-4" hidden={!maxim}>
+                Category
+              </h1>
+            </Link>
+          </div>
         </div>
       </ul>
 
