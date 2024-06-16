@@ -4,7 +4,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { filterByYear } from "@/redux/features/filterSlice";
 import { Jost } from "next/font/google";
 
 const number = Jost({
@@ -12,6 +11,24 @@ const number = Jost({
   weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
+const hoy = new Date().toISOString();
+const year = hoy.substr(0, 4);
+const month = hoy.substr(5, 2);
+
+const MonthName = [
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
+];
 /*const menuItems = [
   {
     title: "History",
@@ -23,9 +40,7 @@ const number = Jost({
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
   const [maxim, setMaxim] = useState(false);
-
-  const dispatch = useAppDispatch();
-  const { byYear, byMonth } = useAppSelector((state) => state.filter);
+  const wallet = useAppSelector((state) => state.wallet);
 
   const handleNavbarClose = () => {
     setNavbar(!navbar);
@@ -35,6 +50,60 @@ const Navbar = () => {
   const { data: session } = useSession();
   //console.log(session);
   // const size = "righ-0 ";
+
+  // INCOME - EXPENSE del array general WALLET
+  const balanceGeneral = (wallet: any) => {
+    let totalExpense = 0;
+    wallet.forEach(function (value: any) {
+      if (value.type === "Expense") totalExpense += value.total;
+    });
+
+    let totalIncome = 0;
+    wallet.forEach(function (value: any) {
+      if (value.type === "Income") totalIncome += value.total;
+    });
+
+    if (totalIncome <= totalExpense) return 0;
+    const balance = totalIncome - totalExpense;
+    //console.log(totalIncome + " " + totalExpense + " " + balance.toFixed(0));
+    return balance.toFixed(2);
+  };
+
+  const filterData = () => {
+    let data = wallet;
+
+    if (year) {
+      data = data.filter(
+        (item) => item.date >= `${year}-01-01` && item.date <= `${year}-12-32`
+      );
+    }
+
+    if (month) {
+      data = data.filter(
+        (item) =>
+          item.date >= `${year}-${month}-01` &&
+          item.date < `${year}-${month}-32`
+      );
+    }
+
+    return data;
+  };
+
+  const totalExpense = () => {
+    let total = 0;
+    filterData().forEach(function (value: any) {
+      if (value.type === "Expense") total += value.total;
+    });
+    return total;
+  };
+
+  const totalIncome = () => {
+    let total = 0;
+    filterData().forEach(function (value: any) {
+      if (value.type === "Income") total += value.total;
+    });
+    return total;
+  };
 
   return (
     <div>
@@ -199,43 +268,19 @@ const Navbar = () => {
       >
         {/** BOTON YEAR */}
         <div className=" basis-1/3 py-5 flex justify-center border-b border-gray-500">
-          <div className="relative py-2">
-            <div className="absolute pointer-events-none top-3 right-0">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-4"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                />
-              </svg>
-            </div>
-            <select
-              defaultValue={byYear}
-              onChange={(e) => dispatch(filterByYear(e.target.value))}
-              className="focus:outline-none appearance-none bg-transparent pl-2 pr-5"
-            >
-              <option value="2023">2023</option>
-              <option value="2024">2024</option>
-              <option value="2025">2025</option>
-            </select>
-          </div>
+          <div className=" py-2">2024</div>
         </div>
 
         {/** MENU */}
         <div className="basis-1/3 flex flex-col justify-between py-5 px-2 bg-purple-600/50 border-b border-gray-500">
           <div className="flex flex-col items-end">
-            <h1 className="text-sm text-gray-400">Junio</h1>
+            <h1 className="text-sm text-gray-400">
+              {MonthName[Number(month) - 1]}
+            </h1>
             <h1
               className={`text-3xl font-light text-gray-100 ${number.className}  `}
             >
-              $13500
+              {totalIncome() - totalExpense()}
             </h1>
 
             <div className="flex flex-row justify-end mb-5 -mt-1">
@@ -256,7 +301,9 @@ const Navbar = () => {
                     />
                   </svg>
                 </div>
-                <h1 className={` text-sm ${number.className}`}>$ 12450</h1>
+                <h1 className={` text-sm ${number.className}`}>
+                  $ {totalIncome()}{" "}
+                </h1>
               </div>
 
               <div className="flex flex-row items-center justify-between text-pink-500">
@@ -276,14 +323,16 @@ const Navbar = () => {
                     />
                   </svg>
                 </div>
-                <h1 className={` text-sm ${number.className}`}>$ 980</h1>
+                <h1 className={` text-sm ${number.className}`}>
+                  $ {totalExpense()}
+                </h1>
               </div>
             </div>
           </div>
 
           <div className="flex flex-col items-end ">
             <h1 className={` text-xl font-light ${number.className}  `}>
-              $25500
+              {Number(balanceGeneral(wallet)).toFixed(0)}
             </h1>
             <h1 className="-mt-1 text-sm text-gray-400">Saldo Disponible</h1>
           </div>

@@ -30,6 +30,7 @@ const HistoryPage = () => {
   //console.log(byMonth, byYear);
 
   let groupDate = ""; //para agrupar las fechas repetidas
+
   const nameDiaxFecha = (fecha: any) =>
     [
       "Domingo",
@@ -42,7 +43,7 @@ const HistoryPage = () => {
       //"Dom","Lun","Mar","Mié","Jue","Vie","Sáb",
     ][new Date(fecha).getDay()];
 
-  const cmeses = [
+  const MonthName = [
     "Enero",
     "Febrero",
     "Marzo",
@@ -346,7 +347,7 @@ const HistoryPage = () => {
                             {nameDiaxFecha(item.date) + " "}
                           </span>{" "}
                           <span className="">
-                            {cmeses[Number(item.date.substr(5, 2)) - 1] +
+                            {MonthName[Number(item.date.substr(5, 2)) - 1] +
                               " del "}
                             <span className={`${number.className}`}>
                               {item.date.substr(0, 4)}

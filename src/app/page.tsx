@@ -24,7 +24,8 @@ export default function Home() {
   const { data: session } = useSession();
 
   const wallet = useAppSelector((state) => state.wallet);
-  console.log(wallet.slice(0, 5));
+  //console.log(wallet.slice(0, 5)); // MUESTRA LOS 5 PRIMEROS REGISTROS
+
   /* 
   // arreglo inicial (en orden aleatorio)
     var aNumeros=[1, 6, 5, 8, 7, 9, 12, 10];
@@ -227,6 +228,7 @@ export default function Home() {
 
               {wallet.slice(0, 3).map((item, index) => (
                 <div
+                  key={index}
                   className={` bg-gray-800/80 rounded-xl p-2 flex flex-row items-center mb-2 `}
                 >
                   <div className="">
@@ -238,9 +240,9 @@ export default function Home() {
                       />
                     </div>
                   </div>
-                  <div className="w-full ml-3">
+                  <div className="flex flex-col w-full ml-3">
                     <h1>{item.category}</h1>
-                    <span className="text-gray-400 text-sm">
+                    <span className="text-sm text-gray-400 -mt-1">
                       <span className={`${number.className}`}>
                         {item.date.substr(8, 2)}
                       </span>
