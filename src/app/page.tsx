@@ -8,6 +8,7 @@ import Loader from "@/components/Loader";
 import { useSession } from "next-auth/react";
 import { Barlow, Montserrat, Outfit, Poiret_One } from "next/font/google";
 import Link from "next/link";
+import { useAppSelector } from "@/redux/hooks";
 
 const number = Montserrat({
   subsets: ["latin"],
@@ -22,6 +23,31 @@ export default function Home() {
   const { data, error, isLoading, isFetching } = useGetUsersQuery(null);
   const { data: session } = useSession();
 
+  const wallet = useAppSelector((state) => state.wallet);
+  console.log(wallet.slice(0, 5));
+  /* 
+  // arreglo inicial (en orden aleatorio)
+    var aNumeros=[1, 6, 5, 8, 7, 9, 12, 10];
+
+    // impresion de arreglo inicial
+    console.log("aNumeros: " + aNumeros.toString());
+
+    // arreglo ordenado usando function nativas de js
+    var arrOrdenado = aNumeros.sort(function(a, b){return a - b});
+
+    // impresion de arr ordenado
+    console.log("arrOrdenado: " + arrOrdenado.toString());                
+    // uso de la function slice luego del ordenamiento para cortar 
+
+    var aNuevo = arrOrdenado.slice(arrOrdenado.length-5)                
+    // impresion del arr que requieres...
+    console.log("aNuevo: " + aNuevo.toString());                
+    // fin de function ready de jQuery  
+  */
+  //top2 = array.sort(({ 4: a }, { 4: b }) => b - a).slice(0, 2);
+  //var top2 = arr.sort((a, b) => b[4] - a[4]).slice(0, 2);. –
+  //var top2 = arr.sort((a, b) => b[4] - a[4]).slice(0, x);
+
   if (isLoading || isFetching)
     return (
       <div className="w-full h-screen flex items-center justify-center">
@@ -33,67 +59,204 @@ export default function Home() {
     <p className="text-lg">Some Error</p>
   </div>;
 
+  // INCOME - EXPENSE del array general WALLET
+  const balanceGeneral = (wallet: any) => {
+    let totalExpense = 0;
+    wallet.forEach(function (value: any) {
+      if (value.type === "Expense") totalExpense += value.total;
+    });
+
+    let totalIncome = 0;
+    wallet.forEach(function (value: any) {
+      if (value.type === "Income") totalIncome += value.total;
+    });
+
+    if (totalIncome <= totalExpense) return 0;
+    const balance = totalIncome - totalExpense;
+    //console.log(totalIncome + " " + totalExpense + " " + balance.toFixed(0));
+    return balance.toFixed(2);
+  };
+
+  // FILTAR DATOS POR YEAR - retorna un balanceGeneral por year
+  const filterData = (byYear: string) => {
+    let data = wallet;
+
+    if (byYear) {
+      data = data.filter(
+        (item) =>
+          item.date >= `${byYear}-01-01` && item.date <= `${byYear}-12-32`
+      );
+    }
+
+    let total = balanceGeneral(data);
+
+    return Number(total);
+  };
+
+  // AGRUPAR POR YEAR - MONTHS
+  const groupByYear = wallet.reduce((accum: any, value) => {
+    const [year, month] = value["date"].split("-");
+
+    //Buscas el año, si no está en el resultado lo creas
+    let existingYear = accum.find((x: any) => x.year === year);
+    if (!existingYear) {
+      accum.push({ year, months: [] });
+      existingYear = accum.find((x: any) => x.year === year);
+    }
+    /*
+    //ahora, dentro de ese año buscas el mes... si no está, lo creas
+    const existingMonth = existingYear.months.find(
+      (x: any) => x.month === month
+    );
+    if (existingMonth) {
+      existingMonth.data.push(value);
+    } else {
+      existingYear.months.push({ month, data: [value] }); //Ya con el dato insertado
+      //existingYear.months.push({ month }); //Ya con el dato insertado
+    }
+*/
+    return accum;
+  }, []);
+  //console.log(groupByYear);
+
+  // NAME THE MONTHS
+  const MonthName = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+
   return (
     <main className="">
       {!session?.user ? (
         <LoginPage />
       ) : (
-        <div className="h-screen flex flex-col text-white">
-          {/** BOTON Y FOTO */}
-          <div className="basis-1/3 w-full p-5 border-b border-gray-500/50">
-            <div className="hidden xflex flex-row">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-7 h-7"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  //d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
-                  d="M12 6.75h8.25M3.75 12h16.5m-16.5 5.25H12"
-                />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="hidden w-7 h-7"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  //d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"
-                  d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"
-                />
-              </svg>
+        <div className="flex flex-col text-white">
+          <div className="h-[calc(66.667vh)] w-full flex flex-col justify-between p-5 border-b border-gray-500/50">
+            {/** BOTON Y FOTO */}
+            <div>
+              <div className="hidden xflex flex-row">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-7 h-7"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    //d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
+                    d="M12 6.75h8.25M3.75 12h16.5m-16.5 5.25H12"
+                  />
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="hidden w-7 h-7"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    //d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"
+                    d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"
+                  />
+                </svg>
 
-              <div className="hidden">
-                <h1 className="text-gray-300">Hola! Bienvenido</h1>
-                <h1 className="-mt-1 text-lg font-medium">
-                  {session.user.name}
-                </h1>
+                <div className="hidden">
+                  <h1 className="text-gray-300">Hola! Bienvenido</h1>
+                  <h1 className="-mt-1 text-lg font-medium">
+                    {session.user.name}
+                  </h1>
+                </div>
+              </div>
+              <div className="flex flex-row items-center gap-3">
+                <img
+                  src={`${session.user.image}`}
+                  alt="Avatar"
+                  className="rounded-full w-10 h-10 border-2 border-gray-300"
+                />
+                <div>
+                  <h1 className=" ">Hola {session.user.name} </h1>
+                  <h1
+                    className={`hidden -mt-1 text-base Xtext-teal-500 ${titulo.className} `}
+                  >
+                    Let{`'`}s complete text-base 1234567890
+                  </h1>
+                </div>
               </div>
             </div>
-            <div className="flex flex-row items-center gap-3">
-              <img
-                src={`${session.user.image}`}
-                alt="Avatar"
-                className="rounded-full w-10 h-10 border-2 border-gray-300"
-              />
-              <div>
-                <h1 className=" ">Hola {session.user.name} </h1>
-                <h1
-                  className={`hidden -mt-1 text-base Xtext-teal-500 ${titulo.className} `}
+            {/** ULTIMAS TRANSACCIONES */}
+            <div className={`px-5 Xbg-black/50 ${number.className}`}>
+              <div className="flex flex-row justify-between mb-2">
+                <h1 className="Xtext-cyan-400">Mas recientes</h1>
+                <Link
+                  href={"/history"}
+                  className="Xborder-b text-cyan-400 flex flex-row items-center"
                 >
-                  Let{`'`}s complete text-base 1234567890
-                </h1>
+                  <h1>Ver todo</h1>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                    className="w-4 h-4 ml-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                    />
+                  </svg>
+                </Link>
               </div>
+
+              {wallet.slice(0, 3).map((item, index) => (
+                <div
+                  className={` bg-gray-800/80 rounded-xl p-2 flex flex-row items-center mb-2 `}
+                >
+                  <div className="">
+                    <div className="w-10 h-10 flex justify-center items-center bg-purple-700 rounded-lg">
+                      <img
+                        src={`./images/category/${item.category}.png`}
+                        className={`w-6 h-6 rounded-full `}
+                        alt={item.category}
+                      />
+                    </div>
+                  </div>
+                  <div className="w-full ml-3">
+                    <h1>{item.category}</h1>
+                    <span className="text-gray-400 text-sm">
+                      <span className={`${number.className}`}>
+                        {item.date.substr(8, 2)}
+                      </span>
+                      {" de " +
+                        MonthName[Number(item.date.substr(5, 2)) - 1] +
+                        " del "}
+                      <span className={`${number.className}`}>
+                        {item.date.substr(0, 4)}
+                      </span>
+                    </span>
+                  </div>
+                  <div className="whitespace-nowrap">
+                    $ {item.total.toFixed(0)}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -214,147 +377,39 @@ export default function Home() {
             </div>
           </div>
 
-          {/** ULTIMAS TRANSACCIONES */}
-          <div
-            className={`basis-1/3 p-5 bg-black/50 border-b border-gray-500/50 ${number.className}`}
-          >
-            <div className="flex flex-row justify-between mb-5">
-              <h1 className="text-gray-300">Ultimas Transacciones</h1>
-              <Link
-                href={"/history"}
-                className="text-cyan-500 flex flex-row items-center"
-              >
-                <h1>Ver mas</h1>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-4 h-4 ml-1"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m8.25 4.5 7.5 7.5-7.5 7.5"
-                  />
-                </svg>
-              </Link>
-            </div>
-
-            <div
-              className={`bg-gray-800/50 rounded-xl p-2 flex flex-row items-center mb-3 `}
-            >
-              <div className="">
-                <h1 className="w-10 h-10 bg-purple-700 rounded-lg"></h1>{" "}
-              </div>
-              <div className="w-full ml-3">
-                <h1>Paypal</h1>
-                <h1 className="text-gray-400 text-sm">20 de Abril del 2024</h1>
-              </div>
-              <div className="">$459.00</div>
-            </div>
-
-            <div
-              className={`bg-gray-800/50 rounded-xl p-2 flex flex-row items-center mb-3 `}
-            >
-              <div className="">
-                <h1 className="w-10 h-10 bg-purple-700 rounded-lg"></h1>{" "}
-              </div>
-              <div className="w-full ml-3">
-                <h1>Netflix</h1>
-                <h1 className="text-gray-400 text-sm">16 de Abril del 2024</h1>
-              </div>
-              <div className="">$159.00</div>
-            </div>
-
-            <div
-              className={`hidden bg-gray-800/50 rounded-xl p-2 xflex flex-row items-center `}
-            >
-              <div className="">
-                <h1 className="w-10 h-10 bg-purple-700 rounded-lg"></h1>{" "}
-              </div>
-              <div className="w-full ml-3">
-                <h1>Servicios</h1>
-                <h1 className="text-gray-400 text-sm">05 de Abril del 2024</h1>
-              </div>
-              <div className="">$599.00</div>
-            </div>
-          </div>
-
-          {/** BALANCE RESUMEN */}
-          <div
-            className={` hidden basis-1/3 px-5 xflex flex-col justify-center text-sm Xborder-b Xborder-gray-500/50 Xbg-black/50 ${number.className} `}
-          >
-            <h1 className="text-4xl font-extralight">2984.00</h1>
-            <h1 className="mb-5 text-gray-300">Balance de Junio del 2024</h1>
-            <div className="flex flex-row ">
-              <div className="flex flex-col mr-10">
-                <div className="text-lg">509.00</div>
-                <div className="-mt-1 text-cyan-600">Ingresos</div>
-              </div>
-              <div className="flex flex-col mr-10">
-                <div className="text-lg">239.00</div>
-                <div className="-mt-1 text-pink-600">Gastos</div>
-              </div>
-              <div className="flex items-center justify-center">
-                <Link
-                  href={session?.user ? "/form" : "#"}
-                  className="w-12 h-12 flex items-center justify-center rounded-full bg-black/30"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1"
-                    stroke="currentColor"
-                    className="w-8 h-8 active:animate-ping hover:scale-125 Xhover:-ml-2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-          </div>
-
           {/** PRESUPUESTO GENERAL*/}
           <div
-            className={`h-[calc(33.333vh)] bg-[#25282F]/80 Xbg-card py-10 lg:mb-0 ${number.className} `}
+            className={`min-h-[calc(33.333vh)] bg-[#25282F]/80 flex flex-row justify-between ${number.className} `}
           >
-            <div className="flex flex-row justify-between">
-              <div className="px-10">
-                <h1 className="uppercase tracking-widest text-xs text-center font-semibold text-gray-300 mb-2">
-                  Presupuesto General
-                </h1>
-                <h1 className="text-center text-white text-4xl mb-5">4568</h1>
-              </div>
-              <div className="">
+            <div className="px-5 pt-5">
+              <h1 className="uppercase tracking-widest text-xs text-center font-semibold text-gray-300 mb-2">
+                Presupuesto General
+              </h1>
+              <h1 className="text-center text-white text-4xl mb-5">
+                {Number(balanceGeneral(wallet)).toFixed(0)}
+              </h1>
+            </div>
+
+            <div className="pt-5 border-l-2 border-gray-500/50">
+              {groupByYear.map((item: any, index: any) => (
                 <div
-                  //key={index}
-                  className="relative py-2 px-5 w-full flex flex-row justify-between items-center border-l-2 border-gray-500/50 "
+                  key={index}
+                  className="relative py-2 px-5 w-full flex flex-row justify-between items-center  "
                 >
                   <div className="absolute top-4 left-0 w-2 h-2 border-b-2 border-gray-500/50 ">
                     {}
                   </div>
                   <div className="flex flex-col mr-10">
-                    <span className="">2024 </span>
+                    <span className="">{item.year} </span>
                     <span className="text-gray-400 -mt-1 text-xs">
                       Balance{" "}
                     </span>
                   </div>
-                  <h1 className="text-xl whitespace-nowrap">570 $</h1>
+                  <h1 className="text-xl whitespace-nowrap">
+                    {filterData(item.year).toFixed(0)} $
+                  </h1>
                 </div>
-              </div>
-            </div>
-
-            <div className="hidden relative py-2 px-5 w-full Xflex flex-row justify-between items-center border-l">
-              <div className="absolute top-3 -left-3 w-6 h-6 border bg-gray-400 rounded-full"></div>
-              <h1 className="text-gray-200 font-semibol">Balance General</h1>
-              <h1 className="text-green-500 font-semibol">$ 16800</h1>
+              ))}
             </div>
           </div>
         </div>
