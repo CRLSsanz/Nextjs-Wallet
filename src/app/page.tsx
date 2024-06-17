@@ -6,11 +6,11 @@ import { useGetUsersQuery } from "@/redux/services/userApi";
 import LoginPage from "./login/page";
 import Loader from "@/components/Loader";
 import { useSession } from "next-auth/react";
-import { Barlow, Montserrat, Outfit, Poiret_One } from "next/font/google";
+import { Barlow, Jost, Montserrat, Outfit, Poiret_One } from "next/font/google";
 import Link from "next/link";
 import { useAppSelector } from "@/redux/hooks";
 
-const number = Montserrat({
+const number = Jost({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
@@ -201,7 +201,7 @@ export default function Home() {
               </div>
             </div>
             {/** ULTIMAS TRANSACCIONES */}
-            <div className={`px-5 Xbg-black/50 ${number.className}`}>
+            <div className={`px-5 Xbg-black/50`}>
               <div className="flex flex-row justify-between mb-2">
                 <h1 className="Xtext-cyan-400">Mas recientes</h1>
                 <Link
@@ -254,7 +254,7 @@ export default function Home() {
                       </span>
                     </span>
                   </div>
-                  <div className="whitespace-nowrap">
+                  <div className={`whitespace-nowrap ${number.className}`}>
                     $ {item.total.toFixed(0)}
                   </div>
                 </div>
@@ -383,8 +383,8 @@ export default function Home() {
           <div
             className={`min-h-[calc(33.333vh)] bg-[#25282F]/80 flex flex-row justify-between ${number.className} `}
           >
-            <div className="px-5 pt-5">
-              <h1 className="uppercase tracking-widest text-xs text-center font-semibold text-gray-300 mb-2">
+            <div className="pt-5">
+              <h1 className="px-10 uppercase tracking-widest text-xs text-center font-semibold text-gray-300 mb-2">
                 Presupuesto General
               </h1>
               <h1 className="text-center text-white text-4xl mb-5">
@@ -392,7 +392,7 @@ export default function Home() {
               </h1>
             </div>
 
-            <div className="pt-5 border-l-2 border-gray-500/50">
+            <div className="pt-5 Xborder-l-2 Xborder-gray-500/50">
               {groupByYear.map((item: any, index: any) => (
                 <div
                   key={index}
@@ -402,7 +402,7 @@ export default function Home() {
                     {}
                   </div>
                   <div className="flex flex-col mr-10">
-                    <span className="">{item.year} </span>
+                    <span className="text-gray-200">{item.year} </span>
                     <span className="text-gray-400 -mt-1 text-xs">
                       Balance{" "}
                     </span>

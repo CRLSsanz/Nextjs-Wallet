@@ -51,15 +51,24 @@ const Navbar = () => {
   //console.log(session);
   // const size = "righ-0 ";
 
-  // INCOME - EXPENSE del array general WALLET
-  const balanceGeneral = (wallet: any) => {
+  // INCOME menos EXPENSE del array general WALLET
+  const balanceAnual = (wallet: any) => {
+    let data = wallet;
+
+    if (year) {
+      data = data.filter(
+        (item: any) =>
+          item.date >= `${year}-01-01` && item.date <= `${year}-12-32`
+      );
+    }
+
     let totalExpense = 0;
-    wallet.forEach(function (value: any) {
+    data.forEach(function (value: any) {
       if (value.type === "Expense") totalExpense += value.total;
     });
 
     let totalIncome = 0;
-    wallet.forEach(function (value: any) {
+    data.forEach(function (value: any) {
       if (value.type === "Income") totalIncome += value.total;
     });
 
@@ -69,14 +78,8 @@ const Navbar = () => {
     return balance.toFixed(2);
   };
 
-  const filterData = () => {
+  const filterByYearMonth = () => {
     let data = wallet;
-
-    if (year) {
-      data = data.filter(
-        (item) => item.date >= `${year}-01-01` && item.date <= `${year}-12-32`
-      );
-    }
 
     if (month) {
       data = data.filter(
@@ -91,7 +94,7 @@ const Navbar = () => {
 
   const totalExpense = () => {
     let total = 0;
-    filterData().forEach(function (value: any) {
+    filterByYearMonth().forEach(function (value: any) {
       if (value.type === "Expense") total += value.total;
     });
     return total;
@@ -99,7 +102,7 @@ const Navbar = () => {
 
   const totalIncome = () => {
     let total = 0;
-    filterData().forEach(function (value: any) {
+    filterByYearMonth().forEach(function (value: any) {
       if (value.type === "Income") total += value.total;
     });
     return total;
@@ -259,7 +262,7 @@ const Navbar = () => {
       </nav>
 
       <ul
-        className={`fixed top-0 z-20 text-gray-100 bg-black/5 h-screen w-2/5 transform transition-all duration-500 backdrop-blur-md border-l flex flex-col
+        className={`fixed top-0 z-20 text-gray-100 bg-indigo-600/10 h-screen w-2/5 transform transition-all duration-500 backdrop-blur-md border-l flex flex-col
         ${
           navbar
             ? " right-0 pointer-events-auto opacity-100 "
@@ -268,19 +271,20 @@ const Navbar = () => {
       >
         {/** BOTON YEAR */}
         <div className=" basis-1/3 py-5 flex justify-center border-b border-gray-500">
-          <div className=" py-2">2024</div>
+          <div className=" py-2">Carloncho Sanz</div>
         </div>
 
         {/** MENU */}
-        <div className="basis-1/3 flex flex-col justify-between py-5 px-2 bg-purple-600/50 border-b border-gray-500">
+        <div className="basis-1/3 flex flex-col justify-between py-5 px-3 bg-indigo-600/60 border-b border-gray-500">
           <div className="flex flex-col items-end">
-            <h1 className="text-sm text-gray-400">
+            <h1 className="uppercase text-sm text-gray-300 tracking-wider">
               {MonthName[Number(month) - 1]}
             </h1>
             <h1
-              className={`text-3xl font-light text-gray-100 ${number.className}  `}
+              className={`text-3xl font-light text-gray-100 flex items-start ${number.className}  `}
             >
               {totalIncome() - totalExpense()}
+              <span className="text-lg">$</span>
             </h1>
 
             <div className="flex flex-row justify-end mb-5 -mt-1">
@@ -330,11 +334,14 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="flex flex-col items-end ">
-            <h1 className={` text-xl font-light ${number.className}  `}>
-              {Number(balanceGeneral(wallet)).toFixed(0)}
+          <div className={`flex flex-col Xitems-end ${number.className}`}>
+            <h1 className={` text-2xl font-light flex items-start`}>
+              <span className="text-lg text-gray-100">$ </span>
+              {Number(balanceAnual(wallet)).toFixed(0)}
             </h1>
-            <h1 className="-mt-1 text-sm text-gray-400">Saldo Disponible</h1>
+            <h1 className="-mt-1 text-xs uppercase text-gray-300">
+              Saldo Actual {year}
+            </h1>
           </div>
         </div>
 

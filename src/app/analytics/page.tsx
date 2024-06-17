@@ -30,7 +30,6 @@ const number = Jost({
   weight: ["100", "200", "300", "400", "500", "600", "700"],
   //weight: ["400"], // Poiret_One
 });
-
 const albert_Sans = Albert_Sans({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
@@ -80,49 +79,14 @@ const urbanist = Urbanist({
   weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
-const bd = [
-  {
-    category: "Celular",
-    total: 310,
-    items: 2,
-  },
-  {
-    category: "Restaurante",
-    total: 150,
-    items: 13,
-  },
-  {
-    category: "Propina",
-    total: 50.9,
-    items: 4,
-  },
-  {
-    category: "Alimentos y bebidas",
-    total: 89,
-    items: 4,
-  },
-  {
-    category: "Cine",
-    total: 2,
-    items: 8,
-  },
-  {
-    category: "Mascota",
-    total: 2,
-    items: 1,
-  },
-];
-
 const barsColor = [
-  "bg-green-500/50",
-  "bg-cyan-500/50",
-  "bg-purple-500/50",
-  "bg-white",
-  "bg-red-500/50",
-  "bg-yellow-500/50",
-  "bg-indigo-500/50",
-  "bg-pink-500/50",
-  "bg-black",
+  "bg-green-500",
+  "bg-cyan-500",
+  "bg-purple-500",
+  "bg-red-500",
+  "bg-yellow-500",
+  "bg-indigo-500",
+  "bg-pink-500",
 
   "bg-green-500",
   "bg-cyan-500",
@@ -132,6 +96,23 @@ const barsColor = [
   "bg-indigo-500",
   "bg-pink-500",
 ];
+const circleColor = [
+  "to-green-500/50",
+  "to-cyan-500/50",
+  "to-purple-500/50",
+  "to-red-500/50",
+  "to-yellow-500/50",
+  "to-indigo-500/50",
+  "to-pink-500/50",
+
+  "to-green-500",
+  "to-cyan-500",
+  "to-purple-500",
+  "to-red-500",
+  "to-yellow-500",
+  "to-indigo-500",
+  "to-pink-500",
+];
 
 const AnalyticsPage = () => {
   const [show, setShow] = useState(true);
@@ -139,9 +120,7 @@ const AnalyticsPage = () => {
   const { data: session } = useSession();
   const wallet = useAppSelector((state) => state.wallet);
   const dispatch = useAppDispatch();
-  const { byYear, byMonth, byType } = useAppSelector(
-    (state) => state.filterAnalytics
-  );
+  const { byYear, byMonth } = useAppSelector((state) => state.filterAnalytics);
 
   if (isLoading || isFetching)
     return (
@@ -204,7 +183,7 @@ const AnalyticsPage = () => {
 
   const totalExpense = () => {
     let total = 0;
-    transformData2(byYear).forEach(function (value: any) {
+    filterByYearMonth("Expense").forEach(function (value: any) {
       if (value.type === "Expense") total += value.total;
     });
     return total;
@@ -212,14 +191,14 @@ const AnalyticsPage = () => {
 
   const totalIncome = () => {
     let total = 0;
-    transformData2(byYear).forEach(function (value: any) {
+    filterByYearMonth("Income").forEach(function (value: any) {
       if (value.type === "Income") total += value.total;
     });
     return total;
   };
 
   // WALLET FILTRADO
-  const walletFiltrado = () => {
+  const filterByYearMonth = (byType: string) => {
     let data = wallet;
 
     if (byYear) {
@@ -245,50 +224,27 @@ const AnalyticsPage = () => {
   };
 
   // DATOS POR CATEGORIAS
-  const dataCategoryX = walletFiltrado().reduce(
+  const dataCategoryX = filterByYearMonth("Expense").reduce(
     (prev: any, cur) => (
       (prev[cur.category] = prev[cur.category] + cur.total || cur.total), prev
     ),
     {}
   );
-  const dataCategory = walletFiltrado().reduce((acum: any, item) => {
-    return !acum[item.category]
-      ? { ...acum, [item.category]: item.total, ["count"]: 1 }
-      : {
-          ...acum,
-          [item.category]: acum[item.category] + item.total,
-        };
-  }, []);
+  const dataCategory = filterByYearMonth("Expense").reduce(
+    (acum: any, item) => {
+      return !acum[item.category]
+        ? { ...acum, [item.category]: item.total, ["count"]: 1 }
+        : {
+            ...acum,
+            [item.category]: acum[item.category] + item.total,
+          };
+    },
+    []
+  );
   //console.log(dataCategory);
 
-  // AGRUPAR POR YEAR - MONTHS
-  const groupByYear = wallet.reduce((accum: any, value) => {
-    const [year, month] = value["date"].split("-");
-
-    //Buscas el año, si no está en el resultado lo creas
-    let existingYear = accum.find((x: any) => x.year === year);
-    if (!existingYear) {
-      accum.push({ year, months: [] });
-      existingYear = accum.find((x: any) => x.year === year);
-    }
-    /*
-    //ahora, dentro de ese año buscas el mes... si no está, lo creas
-    const existingMonth = existingYear.months.find(
-      (x: any) => x.month === month
-    );
-    if (existingMonth) {
-      existingMonth.data.push(value);
-    } else {
-      existingYear.months.push({ month, data: [value] }); //Ya con el dato insertado
-      //existingYear.months.push({ month }); //Ya con el dato insertado
-    }
-*/
-    return accum;
-  }, []);
-  //console.log(groupByYear);
-  // AGRUPAR POR YEAR - MONTHS
-
-  function groupById(array: any) {
+  // CREAR NUEVO ARRAY - PIDE UNS LISTA: WALLET
+  function groupByCategory(array: any) {
     return array.reduce((acc: any, current: any) => {
       const foundItem = acc.find((it: any) => it.category === current.category);
 
@@ -308,18 +264,19 @@ const AnalyticsPage = () => {
       return acc;
     }, []);
   }
-  //console.log(groupById(walletFiltrado()));
+  //console.log(groupByCategory(filterByYearMonth()));
 
   // MAYOR VALOR TOTAL - ARRAY ORDENADOS POR TOTAL
-  const resultadosOrdenados = groupById(walletFiltrado()).sort(
-    (a: any, b: any) => {
-      return Number.parseInt(b.total) - Number.parseInt(a.total);
-    }
-  );
-  //console.log("Array Ordenado: ", resultadosOrdenados);
-  //console.log("Mayor Valor: ", resultadosOrdenados[0]);
+  const progress = (num: number, type: string) => {
+    // MAYOR VALOR TOTAL - ARRAY ORDENADOS POR TOTAL
+    const resultadosOrdenados = groupByCategory(filterByYearMonth(type)).sort(
+      (a: any, b: any) => {
+        return Number.parseInt(b.total) - Number.parseInt(a.total);
+      }
+    );
+    //console.log("Array Ordenado: ", resultadosOrdenados);
+    //console.log("Mayor Valor: ", resultadosOrdenados[0]);
 
-  const progress = (num: number) => {
     const valor = (num * 100) / resultadosOrdenados[0].total;
     //console.log(num, valor);
     return valor;
@@ -397,11 +354,82 @@ const AnalyticsPage = () => {
         </div>
 
         {/** GRAFICA */}
-        <div className="hidden bg-card p-5 mb-5 lg:mb-0 lg:col-span-2">
-          <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
+        <div className="bg-[#1B1C21]/80 h-[33.333vh] p-5 border-b border-gray-800">
+          <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7 ">
             Statement graph
           </h1>
-          <div className="h-60 border border-gray-500/20 rounded-3xl"> </div>
+          <div className="h-32 border border-gray-500/20 rounded-xl"> </div>
+        </div>
+
+        {/** FILTER */}
+        <div className="bg-gradient-to-b from-[#1B1C21]/80 to-[#1B1C21] p-5 lg:col-span-2 lg:-mb-5 Xshadow-lg Xshadow-black/50">
+          <div className="flex flex-row items-center justify-end gap-3">
+            <div className="relative text-gray-300 Xborder-l Sborder-white/30 py-1.5">
+              <div className="absolute pointer-events-none top-3 right-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                  />
+                </svg>
+              </div>
+              <select
+                defaultValue={byMonth}
+                onChange={(e) => dispatch(filterByMonth(e.target.value))}
+                className="text-center focus:outline-none appearance-none bg-transparent pl-2 pr-7"
+              >
+                <option value="">Todo los meses</option>
+                <option value="01">Enero</option>
+                <option value="02">Febrero</option>
+                <option value="03">Marzo</option>
+                <option value="04">Abril</option>
+                <option value="05">Mayo</option>
+                <option value="06">Junio</option>
+                <option value="07">Julio</option>
+                <option value="08">Agosto</option>
+                <option value="09">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+              </select>
+            </div>
+
+            <div className="relative text-gray-300 Cborder-l Cborder-white/30 py-1.5">
+              <div className="absolute pointer-events-none top-3 right-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                  />
+                </svg>
+              </div>
+              <select
+                defaultValue={byYear}
+                onChange={(e) => dispatch(filterByYear(e.target.value))}
+                className={`focus:outline-none appearance-none bg-transparent pl-2 pr-7 ${number.className} `}
+              >
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         {/** PRUEBA - Barlow, Jost, Outfit, Poiret_One, Rubik*/}
@@ -627,77 +655,179 @@ const AnalyticsPage = () => {
         </div>
 
         {/** LIST FOR CATEGORY */}
-        <div className="bg-card Xbg-[#25282F]/90 min-h-[66.667vh] pt-7 lg:col-span-2 border-b border-gray-500">
+        <div className="bg-card Xbg-[#25282F]/90 min-h-[66.667vh] lg:col-span-2 border-b border-gray-500">
+          <div
+            className={`mx-5 h-8 flex flex-row items-center justify-between border-b border-gray-700 mb-5 ${number.className}`}
+          >
+            <h1 className="uppercase text-xs tracking-wider">Ingresos</h1>
+            <h1 className="whitespace-nowrap text-cyan-500">
+              $ {totalIncome()} /{" "}
+              <span className="text-gray-300">
+                {" "}
+                $ {totalIncome() - totalExpense()}{" "}
+              </span>{" "}
+            </h1>
+          </div>
           <div className="w-full grid grid-cols-4 gap-1 lg:grid-cols-3 ">
-            {groupById(walletFiltrado()).map((item: any, index: any) => (
-              <div
-                key={index}
-                onClick={() => setShow(!show)}
-                className="xbg-card flex flex-col items-center justify-center text-gray-500 rounded-sm Xshadow-lg Xshadow-black/50"
-              >
+            {groupByCategory(filterByYearMonth("Income")).map(
+              (item: any, index: any) => (
                 <div
-                  className={`relative w-14 h-14 flex items-center justify-center rounded-full border-2 border-gray-200 mb-2
-                  ${barsColor[index]}
+                  key={index}
+                  onClick={() => setShow(!show)}
+                  className="xbg-card flex flex-col items-center justify-center text-gray-500 rounded-sm Xshadow-lg Xshadow-black/50"
+                >
+                  <div
+                    className={`relative w-14 h-14 p-0.5 rounded-full mb-2 bg-gradient-to-br from-indigo-500/50
+                  ${circleColor[index]}
                   `}
-                >
-                  <img
-                    src={`./images/category/${item.category}.png`}
-                    alt="image"
-                    className="w-8 h-8"
-                  />
-                </div>
+                  >
+                    <div className="w-full h-full rounded-full bg-fondo flex items-center justify-center">
+                      <img
+                        src={`./images/category/${item.category}.png`}
+                        alt="image"
+                        className="w-8 h-8"
+                      />
+                    </div>
+                  </div>
 
-                <div
-                  className={` text-white flex flex-row items-center ${number.className} `}
-                >
-                  <span className="text-lg font-light ">
-                    {item.total.toFixed(0)}
-                  </span>
-                  <span className="text-sm ml-0.5"> $</span>
-                </div>
+                  <div
+                    className={` text-white flex flex-row items-center ${number.className} `}
+                  >
+                    <span className="text-lg font-light ">
+                      {item.total.toFixed(0)}
+                    </span>
+                    <span className="text-sm ml-0.5"> $</span>
+                  </div>
 
-                <div
-                  hidden={show}
-                  className="px-2 w-full text-xs text-center truncate"
-                >
-                  {item.category}
-                </div>
+                  <div
+                    hidden={show}
+                    className="px-2 w-full text-xs text-center truncate"
+                  >
+                    {item.category}
+                  </div>
 
-                <h1
-                  hidden={show}
-                  className={`text-xs mb-2
+                  <h1
+                    hidden={show}
+                    className={`text-xs mb-2
                       ${
                         item.type === "Expense"
                           ? " Xbg-pink -600"
                           : " Xbg-cyan-600"
                       }
                       ${number.className} `}
-                >
-                  <span>{item.count} item</span>
-                </h1>
+                  >
+                    <span>{item.count} item</span>
+                  </h1>
 
-                <div className="w-full flex justify-center mb-5">
-                  <div className="w-16 h-2 pb-1 px-2 Xbg-fondo rounded-b-lg">
-                    <div className="h-1 bg-fondo">
-                      <h1
-                        className={` Xw-[75%] h-1 ${
-                          barsColor[index]
-                        } Xrounded-full $
+                  <div className="w-full flex justify-center mb-5">
+                    <div className="w-16 h-2 pb-1 px-2 Xbg-fondo rounded-b-lg">
+                      <div className="h-1 bg-fondo">
+                        <h1
+                          className={` Xw-[75%] h-1 ${
+                            barsColor[index]
+                          } Xrounded-full $
                       ${
                         item.type === "Expense"
                           ? " Xbg-pink-700/70 Xshadow-md Xshadow-white/50"
                           : " Xbg-cyan-600/70 Xshadow-md Xshadow-white/50"
                       } `}
-                        //style={{ width: progress() }}
-                        style={{ width: `${progress(item.total)}%` }}
-                      >
-                        {" "}
-                      </h1>
+                          //style={{ width: progress() }}
+                          style={{
+                            width: `${progress(item.total, "Income")}%`,
+                          }}
+                        >
+                          {" "}
+                        </h1>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
+          </div>
+
+          <div
+            className={`mx-5 h-10 flex flex-row items-center justify-between border-b border-gray-700 mb-5 ${number.className}`}
+          >
+            <h1 className="uppercase text-xs tracking-wider">Gastos</h1>
+            <h1 className="text-pink-500">$ {totalExpense()}</h1>
+          </div>
+          <div className="w-full grid grid-cols-4 gap-1 lg:grid-cols-3 ">
+            {groupByCategory(filterByYearMonth("Expense")).map(
+              (item: any, index: any) => (
+                <div
+                  key={index}
+                  onClick={() => setShow(!show)}
+                  className="xbg-card flex flex-col items-center justify-center text-gray-500 rounded-sm Xshadow-lg Xshadow-black/50"
+                >
+                  <div
+                    className={`relative w-14 h-14 p-0.5 rounded-full mb-2 bg-gradient-to-br from-red-500/50
+                  ${circleColor[index]}
+                  `}
+                  >
+                    <div className="w-full h-full rounded-full bg-fondo flex items-center justify-center">
+                      <img
+                        src={`./images/category/${item.category}.png`}
+                        alt="image"
+                        className="w-8 h-8"
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    className={` text-white flex flex-row items-center ${number.className} `}
+                  >
+                    <span className="text-lg font-light ">
+                      {item.total.toFixed(0)}
+                    </span>
+                    <span className="text-sm ml-0.5"> $</span>
+                  </div>
+
+                  <div
+                    hidden={show}
+                    className="px-2 w-full text-xs text-center truncate"
+                  >
+                    {item.category}
+                  </div>
+
+                  <h1
+                    hidden={show}
+                    className={`text-xs mb-2
+                      ${
+                        item.type === "Expense"
+                          ? " Xbg-pink -600"
+                          : " Xbg-cyan-600"
+                      }
+                      ${number.className} `}
+                  >
+                    <span>{item.count} item</span>
+                  </h1>
+
+                  <div className="w-full flex justify-center mb-5">
+                    <div className="w-16 h-2 pb-1 px-2 Xbg-fondo rounded-b-lg">
+                      <div className="h-1 bg-fondo">
+                        <h1
+                          className={` Xw-[75%] h-1 ${
+                            barsColor[index]
+                          } Xrounded-full $
+                      ${
+                        item.type === "Expense"
+                          ? " Xbg-pink-700/70 Xshadow-md Xshadow-white/50"
+                          : " Xbg-cyan-600/70 Xshadow-md Xshadow-white/50"
+                      } `}
+                          //style={{ width: progress() }}
+                          style={{
+                            width: `${progress(item.total, "Expense")}%`,
+                          }}
+                        >
+                          {" "}
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            )}
           </div>
         </div>
 
@@ -705,47 +835,6 @@ const AnalyticsPage = () => {
           {/** FILTER */}
           <div className=" p-5 lg:col-span-2 lg:-mb-5 Xshadow-lg Xshadow-black/50">
             <div className="flex flex-row items-center justify-end gap-3">
-              <div
-                className={`relative whitespace-nowrap py-1.5 
-            ${
-              byType === "Income"
-                ? " bg-indigo-600 "
-                : ` ${
-                    byType === "Expense"
-                      ? " bg-pink-500 "
-                      : " Xborder-b Xborder-white/30 "
-                  } `
-            }
-            `}
-              >
-                <div className="absolute pointer-events-none top-3 right-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                    />
-                  </svg>
-                </div>
-                <select
-                  //defaultValue={byType}
-                  defaultValue={""}
-                  onChange={(e) => dispatch(filterByType(e.target.value))}
-                  className="text-center focus:outline-none appearance-none bg-transparent px-4 pr-7"
-                >
-                  <option value="">Ver todo</option>
-                  <option value="Income">Ingresos</option>
-                  <option value="Expense">Gastos</option>
-                </select>
-              </div>
-
               <div className="relative text-gray-300 border-l border-white/30 py-1.5">
                 <div className="absolute pointer-events-none top-3 right-2">
                   <svg
@@ -764,7 +853,7 @@ const AnalyticsPage = () => {
                   </svg>
                 </div>
                 <select
-                  defaultValue={""}
+                  defaultValue={byMonth}
                   onChange={(e) => dispatch(filterByMonth(e.target.value))}
                   className="text-center focus:outline-none appearance-none bg-transparent pl-2 pr-7"
                 >
@@ -813,7 +902,7 @@ const AnalyticsPage = () => {
               </div>
             </div>
           </div>
-          {/** SEARCH - BALANCE - INCOME EXPENSES */}
+          {/** BALANCE - INCOME EXPENSES */}
           <div className=" Xbg-gradient-to-t Xfrom-transparent Xvia-[#25282F]/80 Xto-[#25282F] p-5 ">
             <div className="px-10 flex flex-row justify-between">
               <div className="flex flex-row mb-5">
@@ -823,7 +912,7 @@ const AnalyticsPage = () => {
                   <h1
                     className={`-mt-1 text-2xl font-light text-gray-100 ${number.className} `}
                   >
-                    {(totalIncome() - totalExpense()).toFixed(2)}
+                    1200
                   </h1>
                 </div>
               </div>
@@ -846,10 +935,7 @@ const AnalyticsPage = () => {
                       />
                     </svg>
                   </div>
-                  <h1 className={` ml-2 ${number.className}`}>
-                    {totalIncome().toFixed(2)}
-                    {" $"}
-                  </h1>
+                  <h1 className={` ml-2 ${number.className}`}>2100 $</h1>
                 </div>
 
                 <div className="flex flex-row items-center">
@@ -869,59 +955,10 @@ const AnalyticsPage = () => {
                       />
                     </svg>
                   </div>
-                  <h1 className={` ml-2 ${number.className}`}>
-                    {totalExpense().toFixed(2)}
-                    {" $"}
-                  </h1>
+                  <h1 className={` ml-2 ${number.className}`}>600 $</h1>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/** PRESUPUESTO GENERAL*/}
-        <div
-          className={`h-[calc(33.333vh)] bg-[#25282F]/80 Xbg-card py-10 lg:mb-0 ${number.className} `}
-        >
-          <div className="flex flex-row justify-between">
-            <div className="px-10">
-              <h1 className="uppercase tracking-widest text-xs text-center font-semibold text-gray-300 mb-2">
-                Presupuesto General
-              </h1>
-              <h1 className="text-center text-white text-4xl mb-5">
-                {Number(BalanceGeneral(wallet)).toFixed(0)}
-              </h1>
-            </div>
-            <div className="">
-              {groupByYear.map((item: any, index: any) => (
-                <div
-                  key={index}
-                  className="relative py-2 px-5 w-full flex flex-row justify-between items-center border-l-2 border-gray-500/50 "
-                >
-                  <div className="absolute top-4 left-0 w-2 h-2 border-b-2 border-gray-500/50 ">
-                    {}
-                  </div>
-                  <div className="flex flex-col mr-10">
-                    <span className="">{item.year} </span>
-                    <span className="text-gray-400 -mt-1 text-xs">
-                      Balance{" "}
-                    </span>
-                  </div>
-                  <h1 className="text-xl whitespace-nowrap">
-                    {transformData(item.year).toFixed(0)} $
-                  </h1>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="hidden relative py-2 px-5 w-full Xflex flex-row justify-between items-center border-l">
-            <div className="absolute top-3 -left-3 w-6 h-6 border bg-gray-400 rounded-full">
-              {}
-            </div>
-            <h1 className="text-gray-200 font-semibol">Balance General</h1>
-            <h1 className="text-green-500 font-semibol">
-              $ {BalanceGeneral(wallet)}
-            </h1>
           </div>
         </div>
       </div>
