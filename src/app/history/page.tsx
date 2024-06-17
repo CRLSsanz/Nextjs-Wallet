@@ -109,7 +109,7 @@ const HistoryPage = () => {
         className={`Xpx-2 lg:px-0 text-white lg:grid lg:grid-cols-2 lg:gap-5 `}
       >
         <div className="h-[calc(33.333vh)] flex flex-col justify-between">
-          {/** BOTON MES - VOLVER - titulo - blanco */}
+          {/** FILTER */}
           <div className="Xbg-card w-full pt-5 px-5 lg:px-0 text-gray-100 col-span-2 text-end flex flex-col items-end ">
             <h1 className="hidden uppercase tracking-widest Xtext-xs font-semibold">
               Transactions
@@ -138,18 +138,18 @@ const HistoryPage = () => {
               </Link>
             </div>
 
-            <div className="w-full py-1.5 bg-white/30 rounded-full text-center mb-3">
+            <div className="hidden w-full py-1.5 bg-white/30 rounded-full text-center mb-3">
               <h1>Search</h1>
             </div>
 
             {/** FILTER */}
-            <div className="w-full flex flex-row gap-3">
-              <h1 className="w-full py-1.5 px-3 text-center Xborder bg-white/30 rounded-full text-gray-300 whitespace-nowrap">
+            <div className="w-full flex flex-row justify-end gap-3">
+              <h1 className="hidden w-full py-1.5 px-3 text-center Xborder bg-white/30 rounded-full text-gray-300 whitespace-nowrap">
                 {transformData().length} items
               </h1>
 
-              <div className="relative text-gray-300 rounded-full Xborder bg-white/30 p-1.5">
-                <div className="hidden absolute pointer-events-none top-3 right-2">
+              <div className="relative text-gray-300 rounded-full border border-white/30 p-1.5">
+                <div className="absolute pointer-events-none top-3 right-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -185,11 +185,28 @@ const HistoryPage = () => {
                 </select>
               </div>
 
-              <div className="rounded-full bg-white/30 text-gray-300">
+              <div className="relative text-gray-300 rounded-full border border-white/30 p-1.5">
+                <div className="absolute pointer-events-none top-3 right-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                    />
+                  </svg>
+                </div>
+
                 <select
                   defaultValue={byYear}
                   onChange={(e) => dispatch(filterByYear(e.target.value))}
-                  className="focus:outline-none appearance-none bg-transparent p-1.5 px-4 "
+                  className="focus:outline-none appearance-none bg-transparent px-4"
                 >
                   <option value="2023">2023</option>
                   <option value="2024">2024</option>
@@ -199,11 +216,17 @@ const HistoryPage = () => {
             </div>
           </div>
 
-          {/** SEARCH - BALANCE - INCOME EXPENSES */}
+          {/** BALANCE - INCOME EXPENSES */}
           <div className="bg-gradient-to-b from-transparent via-[#25282F]/80 to-[#25282F] p-5 border-b border-gray-500 ">
             <div className="px-10 flex flex-row justify-between">
               <div className="flex flex-row">
-                <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
+                <div className="w-12 h-12 bg-gray-200 rounded-full flex justify-center items-center ">
+                  <img
+                    src={`./images/dollar.png`}
+                    className={`w-8 h-8 `}
+                    alt="dollar"
+                  />
+                </div>
                 <div className="ml-4 ">
                   <h1 className="text-sm text-gray-200">Balance:</h1>
                   <h1
