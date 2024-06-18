@@ -72,7 +72,7 @@ export default function Home() {
       if (value.type === "Income") totalIncome += value.total;
     });
 
-    if (totalIncome <= totalExpense) return 0;
+    //if (totalIncome <= totalExpense) return 0;
     const balance = totalIncome - totalExpense;
     //console.log(totalIncome + " " + totalExpense + " " + balance.toFixed(0));
     return balance.toFixed(2);
@@ -229,10 +229,10 @@ export default function Home() {
               {wallet.slice(0, 3).map((item, index) => (
                 <div
                   key={index}
-                  className={` bg-gray-800/80 rounded-xl p-2 flex flex-row items-center mb-2 `}
+                  className={` bg-gray-800/80 rounded-sm py-2 px-4 flex flex-row items-center mb-2 `}
                 >
                   <div className="">
-                    <div className="w-10 h-10 flex justify-center items-center bg-purple-700 rounded-lg">
+                    <div className="w-8 h-8 flex justify-center items-center bg-gradient-to-br from-purple-700 to-pink-500 rounded-lg">
                       <img
                         src={`./images/category/${item.category}.png`}
                         className={`w-6 h-6 rounded-full `}
@@ -242,13 +242,13 @@ export default function Home() {
                   </div>
                   <div className="flex flex-col w-full ml-3">
                     <h1>{item.category}</h1>
-                    <span className="text-sm text-gray-400 -mt-1">
+                    <span className="text-xs text-gray-400 -mt-1">
                       <span className={`${number.className}`}>
                         {item.date.substr(8, 2)}
                       </span>
                       {" de " +
                         MonthName[Number(item.date.substr(5, 2)) - 1] +
-                        " del "}
+                        " de "}
                       <span className={`${number.className}`}>
                         {item.date.substr(0, 4)}
                       </span>
@@ -381,7 +381,7 @@ export default function Home() {
 
           {/** PRESUPUESTO GENERAL*/}
           <div
-            className={`min-h-[calc(33.333vh)] bg-[#25282F]/80 flex flex-row justify-between ${number.className} `}
+            className={`min-h-[calc(33.333vh)] bg-[#25282F]/50 flex flex-row justify-between ${number.className} `}
           >
             <div className="pt-5">
               <h1 className="px-10 uppercase tracking-widest text-xs text-center font-semibold text-gray-300 mb-2">
@@ -407,7 +407,13 @@ export default function Home() {
                       Balance{" "}
                     </span>
                   </div>
-                  <h1 className="text-xl whitespace-nowrap">
+                  <h1
+                    className={`text-xl whitespace-nowrap ${
+                      filterData(item.year) < 0
+                        ? "text-yellow-500"
+                        : "text-gray-200"
+                    } `}
+                  >
                     {filterData(item.year).toFixed(0)} $
                   </h1>
                 </div>

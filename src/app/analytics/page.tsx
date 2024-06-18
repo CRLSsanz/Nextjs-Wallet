@@ -364,7 +364,7 @@ const AnalyticsPage = () => {
         {/** FILTER */}
         <div className="bg-gradient-to-b from-[#1B1C21]/80 to-[#25282F] p-5 lg:col-span-2 border-b border-gray-500">
           <div className="flex flex-row items-center justify-end gap-3">
-            <div className="relative text-gray-300 border-l border-white/30 py-1.5">
+            <div className="relative text-gray-300 Xborder-l border-white/30 py-1.5">
               <div className="absolute pointer-events-none top-3 right-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -384,7 +384,7 @@ const AnalyticsPage = () => {
               <select
                 defaultValue={byMonth}
                 onChange={(e) => dispatch(filterByMonth(e.target.value))}
-                className="text-center focus:outline-none appearance-none bg-transparent pl-2 pr-7"
+                className="Xtext-center text-end focus:outline-none appearance-none bg-transparent pl-3 pr-7"
               >
                 <option value="">Todo los meses</option>
                 <option value="01">Enero</option>
@@ -422,7 +422,7 @@ const AnalyticsPage = () => {
               <select
                 defaultValue={byYear}
                 onChange={(e) => dispatch(filterByYear(e.target.value))}
-                className={`focus:outline-none appearance-none bg-transparent pl-2 pr-7 ${number.className} `}
+                className={`focus:outline-none appearance-none bg-transparent pl-3 pr-7 ${number.className} `}
               >
                 <option value="2023">2023</option>
                 <option value="2024">2024</option>
@@ -660,9 +660,16 @@ const AnalyticsPage = () => {
             className={`px-5 h-12 flex flex-row items-center justify-between ${number.className}`}
           >
             <h1 className="uppercase text-xs tracking-wider">Ingresos</h1>
-            <h1 className="whitespace-nowrap text-cyan-500">
-              $ {totalIncome()} /{" "}
-              <span className="text-gray-300">
+            <h1 className="whitespace-nowrap ">
+              <span className="text-cyan-500">$ {totalIncome()}</span>
+              {" / "}
+              <span
+                className={` ${
+                  totalIncome() - totalExpense() < 0
+                    ? " text-yellow-500 "
+                    : " text-gray-300 "
+                } `}
+              >
                 {" "}
                 $ {totalIncome() - totalExpense()}{" "}
               </span>{" "}
@@ -761,7 +768,7 @@ const AnalyticsPage = () => {
                   className="xbg-card flex flex-col items-center justify-center text-gray-400 rounded-sm Xshadow-lg Xshadow-black/50 py-3"
                 >
                   <div
-                    className={`relative w-14 h-14 p-0.5 rounded-full bg-gradient-to-br from-red-500/50
+                    className={`relative w-14 h-14 p-0.5 rounded-full bg-gradient-to-bl from-purple-500/50 
                   ${circleColor[index]}
                   `}
                   >
@@ -804,7 +811,7 @@ const AnalyticsPage = () => {
                       } `}
                           //style={{ width: progress() }}
                           style={{
-                            width: `${progress(item.total, "Income")}%`,
+                            width: `${progress(item.total, "Expense")}%`,
                           }}
                         >
                           {" "}
