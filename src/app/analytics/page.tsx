@@ -1,5 +1,6 @@
 "use client";
 import { useGetUsersQuery } from "@/redux/services/userApi";
+import { useGetWalletQuery } from "@/redux/services/walletApi";
 import {
   Albert_Sans,
   Barlow,
@@ -116,7 +117,8 @@ const circleColor = [
 
 const AnalyticsPage = () => {
   const [show, setShow] = useState(true);
-  const { data, error, isLoading, isFetching } = useGetUsersQuery(null);
+  //const { data, error, isLoading, isFetching } = useGetUsersQuery(null);
+  const { data, error, isLoading, isFetching } = useGetWalletQuery(null);
   const { data: session } = useSession();
   const wallet = useAppSelector((state) => state.wallet);
   const dispatch = useAppDispatch();
@@ -852,12 +854,12 @@ const AnalyticsPage = () => {
         />
       </div>
 
-      <div className="hidden w-full p-5 py-10 xgrid grid-cols-2 lg:grid-cols-4 gap-5">
-        {data?.map((user) => (
-          <div key={user.id} className="p-3 py-6 bg-gray-200">
-            <p>{user.name}</p>
-            <p>{user.username}</p>
-            <p className="text-xs">{user.email}</p>
+      <div className="w-full p-5 py-10 grid grid-cols-2 lg:grid-cols-4 gap-5">
+        {data?.slice(0, 10).map((item, index) => (
+          <div key={index} className="p-3 py-6 bg-gray-200">
+            <p>{item.type}</p>
+            <p>{item.category}</p>
+            <p className="text-xs">{item.total}</p>
           </div>
         ))}
       </div>

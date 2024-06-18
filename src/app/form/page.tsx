@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Barlow, Montserrat } from "next/font/google";
+import { Barlow, Jost, Montserrat } from "next/font/google";
 import Link from "next/link";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { addWallet } from "@/redux/features/walletSlice";
@@ -8,9 +8,9 @@ import { useRouter } from "next/navigation";
 //import { v4 as uuid } from "uuid";
 const { v4: uuid } = require("uuid");
 
-const inter = Montserrat({
+const number = Jost({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "600", "700"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
 const accounts = [
@@ -21,7 +21,17 @@ const accounts = [
   "Otros", //		ALP - ahorro a largo plazo, compras de aqui a 10 anos
   "Otros", //		DAR - caja del dar, regalar
 ];
-
+const incomeCategory = [
+  "Alquiler", //
+  "Cliente", //
+  "Intereses", //
+  "Negocios", //
+  "Prestamo", //
+  "Regalo", //
+  "Salario",
+  "Servicios",
+  "Otros ingresos",
+];
 const expensesCategory = [
   "Alimentos y bebidas", // compras en el supermercado
   "Automovil", // gasolina, reparaciones, labado, otros
@@ -31,6 +41,7 @@ const expensesCategory = [
   "Celular", // accesorios o pago de linea,
   "Cine", // cine, transporte y comida,
   "Computadora", // computadora laptop o accesorios,
+  //"Deudas", // deudas prestamos,
   "Dulces", // Dulces helados chocolate etc,
   "Entretenimiento", // divercion salidas juegos mecanicos,
   "Equipos electronicos", //artefactos, pc,
@@ -110,14 +121,17 @@ const FormPage = () => {
         total: Number(e.target.elements.total.value),
       })
     );
+    console.log(form);
     setForm(initailForm);
     alert("DATA SEND: " + JSON.stringify(form.category));
     router.push("/history#list");
   };
 
   return (
-    <section className={` max-w-[600px] p-5 ${inter.className}`}>
-      <div className="w-full p-5 text-white  flex flex-row justify-between items-center mb-5">
+    <section
+      className={` max-w-[600px] min-h-screen bg-black/50 backdrop-blur-sm Xp-2 ${number.className}`}
+    >
+      <div className=" w-full p-5 text-white flex flex-row justify-between items-center">
         <div className="flex flex-row items-center">
           <Link href={"/history"} className="mr-3">
             <svg
@@ -136,11 +150,10 @@ const FormPage = () => {
             </svg>
           </Link>
         </div>
-        <h1 className="text-gray-300">Nuevo registro</h1>
-        <h1 className="h-12"> </h1>
+        <h1 className="hidden text-gray-300">Volver</h1>
       </div>
 
-      <div className="p-5 text-gray-100 Xmb-5">
+      <div className="hidden p-5 text-gray-100 Xmb-5">
         <h1 className="hidden text-5xl font-thin -tracking-wider mb-5">
           Nuevo registro
         </h1>
@@ -148,40 +161,61 @@ const FormPage = () => {
         <p className="text-gray-400">Todos los campos son obligatorios *</p>
       </div>
 
-      <div className=" bg-card p-5">
+      <div className=" Xbg-black/50 px-5 pb-10">
         <form
           onSubmit={handleSubmit}
-          className="w-full text-gray-200 Xborder-2 p-5"
+          className="w-full text-gray-200 Xborder-2"
         >
           {/** TYPE */}
-          <div className="flex flex-row mb-10">
-            <div className="hidden bg-gray-800/50 py-3 w-14 Xflex justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
+          <div className="w-full flex justify-between mb-5">
+            <div className="w-full pb-1 Sshadow Xshadow-gray-200 Xrounded-l-md bg-gradient-to-br from-pink-600 to-orange-400 hover:font-bold hover:text-white -mr-0.5">
+              <input
+                id="bordered-radio-1"
+                type="radio"
+                onChange={handleChange}
+                onClick={() => (form.category = "")}
+                value="Expense"
+                name="type"
+                className="hidden"
+              />
+              <label
+                htmlFor="bordered-radio-1"
+                className={`w-full flex justify-center p-4 uppercase text-xs tracking-wider ${
+                  form.type === "Income"
+                    ? "text-gray-200 bg-gradient-to-br from-gray-800 to-gray-600"
+                    : "text-white bg-gray-50/10 font-semibold"
+                }`}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3"
-                />
-              </svg>
+                Gasto
+              </label>
             </div>
-            <div className="w-full flex flex-row text-center">
-              <span className="w-1/2 p-3 bg-pink-600/90 focus:outline-none">
-                Gastos
-              </span>
-              <span className="w-1/2 p-3 bg-indigo-600/90 cyan-600 /70 focus:outline-none">
+
+            <div className="w-full pb-1 Xshadow Xshadow-gray-200 Xrounded-r-md bg-gradient-to-br from-purple-500 to-cyan-400 hover:font-bold hover:text-white ">
+              <input
+                checked={form.type === "Income" ? true : false}
+                onChange={handleChange}
+                onClick={() => (form.category = "")}
+                id="bordered-radio-2"
+                type="radio"
+                value="Income"
+                name="type"
+                className="hidden"
+              />
+              <label
+                htmlFor="bordered-radio-2"
+                className={`w-full flex justify-center p-4 uppercase text-xs tracking-wider ${
+                  form.type === "Income"
+                    ? "text-white bg-gray-50/10 font-semibold"
+                    : "text-gray-200 bg-gradient-to-br from-gray-800 to-gray-600"
+                }`}
+              >
                 Ingreso
-              </span>
+              </label>
             </div>
           </div>
+
           {/** ACCOUNT */}
-          <div className="hidden Xflex flex-row mb-5">
+          <div className="flex flex-row mb-5">
             <div className="bg-gray-800/50 py-3 w-14 flex justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -189,7 +223,7 @@ const FormPage = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-5 h-5"
               >
                 <path
                   strokeLinecap="round"
@@ -224,7 +258,8 @@ const FormPage = () => {
               </div>
             </div>
           </div>
-          {/** CATEGORY */}
+
+          {/** CATEGORY*/}
           <div className="flex flex-row mb-5">
             <div className="bg-gray-800/50 py-3 w-14 flex justify-center">
               <svg
@@ -233,7 +268,7 @@ const FormPage = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-5 h-5"
               >
                 <path
                   strokeLinecap="round"
@@ -243,19 +278,43 @@ const FormPage = () => {
               </svg>
             </div>
             <div className="w-full relative">
-              <select
-                name="category"
-                onChange={handleChange}
-                className="w-full p-3 bg-gray-600/50 appearance-none focus:outline-none"
-                //value={form.account}
-              >
-                <option className="text-gray-600">Categoria</option>
-                {expensesCategory.map((item, index) => (
-                  <option key={index} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
+              {form.type === "Expense" ? (
+                <select
+                  name="category"
+                  onChange={handleChange}
+                  className="w-full p-3 bg-gray-600/50 appearance-none focus:outline-none"
+                  value={form.category}
+                >
+                  <option>{"Categoria"}</option>
+                  {expensesCategory.map((item, index) => (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  ))}
+
+                  {/*expensesTypes.forEach((ele) => {
+                    <option value={ele}>{ele}</option>;
+                  })*/}
+                </select>
+              ) : (
+                <select
+                  name="category"
+                  onChange={handleChange}
+                  className="w-full p-3 bg-gray-600/50 appearance-none focus:outline-none"
+                  value={form.category}
+                >
+                  <option></option>
+                  {incomeCategory.map((item, index) => (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  ))}
+
+                  {/*expensesTypes.forEach((ele) => {
+                    <option value={ele}>{ele}</option>;
+                  })*/}
+                </select>
+              )}
 
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
                 <svg
@@ -268,6 +327,7 @@ const FormPage = () => {
               </div>
             </div>
           </div>
+
           {/** TOTAL */}
           <div className="flex flex-row mb-5">
             <div className="bg-gray-800/50 py-3 w-14 flex justify-center">
@@ -277,7 +337,7 @@ const FormPage = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-5 h-5"
               >
                 <path
                   strokeLinecap="round"
@@ -294,6 +354,7 @@ const FormPage = () => {
               placeholder="Precio, monto, saldo"
             />
           </div>
+
           {/** DATE */}
           <div className="flex flex-row mb-5">
             <div className="bg-gray-800/50 py-3 w-14 flex justify-center">
@@ -303,7 +364,7 @@ const FormPage = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-5 h-5"
               >
                 <path
                   strokeLinecap="round"
@@ -332,6 +393,7 @@ const FormPage = () => {
               </div>
             </div>
           </div>
+
           {/** DESCRIPTION */}
           <div className="flex flex-row items-start mb-10">
             <div className="bg-gray-800/50 py-3 w-14 flex justify-center">
@@ -341,7 +403,7 @@ const FormPage = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-5 h-5"
               >
                 <path
                   strokeLinecap="round"
@@ -358,6 +420,7 @@ const FormPage = () => {
               placeholder="Descripcion, detalle, nota"
             />
           </div>
+
           {/** BUTTON SAVE */}
           <div className="flex flex-row mb-5">
             <Link

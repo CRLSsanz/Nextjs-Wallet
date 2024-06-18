@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import { Barlow, Jost, Montserrat, Outfit, Poiret_One } from "next/font/google";
 import Link from "next/link";
 import { useAppSelector } from "@/redux/hooks";
+import { useGetWalletQuery } from "@/redux/services/walletApi";
 
 const number = Jost({
   subsets: ["latin"],
@@ -20,7 +21,7 @@ const titulo = Poiret_One({
 });
 
 export default function Home() {
-  const { data, error, isLoading, isFetching } = useGetUsersQuery(null);
+  const { data, error, isLoading, isFetching } = useGetWalletQuery(null);
   const { data: session } = useSession();
 
   const wallet = useAppSelector((state) => state.wallet);
@@ -57,7 +58,7 @@ export default function Home() {
     );
   if (error) return;
   <div className="w-full h-screen flex items-center justify-center">
-    <p className="text-lg">Some Error</p>
+    <p className="text-lg">Some Error Cargango API</p>
   </div>;
 
   // INCOME - EXPENSE del array general WALLET
