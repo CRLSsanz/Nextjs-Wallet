@@ -21,10 +21,15 @@ const titulo = Poiret_One({
 });
 
 export default function Home() {
-  const { data, error, isLoading, isFetching } = useGetWalletQuery(null);
+  const {
+    data: wallet,
+    error,
+    isLoading,
+    isFetching,
+  } = useGetWalletQuery(null);
   const { data: session } = useSession();
 
-  const wallet = useAppSelector((state) => state.wallet);
+  //const wallet = useAppSelector((state) => state.wallet);
   //console.log(wallet.slice(0, 5)); // MUESTRA LOS 5 PRIMEROS REGISTROS
 
   /* 
@@ -56,11 +61,19 @@ export default function Home() {
         <Loader />
       </div>
     );
-  if (error) return;
-  <div className="w-full h-screen flex items-center justify-center">
-    <p className="text-lg">Some Error Cargango API</p>
-  </div>;
-
+  if (error)
+    if ("status" in error) {
+      const errMsg =
+        "error" in error ? error.error : JSON.stringify(error.data);
+      return (
+        <div className="max-w-[600px] h-screen flex items-center justify-center">
+          <p className="text-white text-lg text-center">
+            An error has occurred: {JSON.stringify(error.data)}
+          </p>
+          <p className="text-white text-lg text-center">Some Error: {errMsg}</p>
+        </div>
+      );
+    }
   // INCOME - EXPENSE del array general WALLET
   const balanceGeneral = (wallet: any) => {
     let totalExpense = 0;
@@ -85,7 +98,7 @@ export default function Home() {
 
     if (byYear) {
       data = data.filter(
-        (item) =>
+        (item: any) =>
           item.date >= `${byYear}-01-01` && item.date <= `${byYear}-12-32`
       );
     }
@@ -96,7 +109,7 @@ export default function Home() {
   };
 
   // AGRUPAR POR YEAR - MONTHS
-  const groupByYear = wallet.reduce((accum: any, value) => {
+  const groupByYear = wallet.reduce((accum: any, value: any) => {
     const [year, month] = value["date"].split("-");
 
     //Buscas el año, si no está en el resultado lo creas
@@ -227,7 +240,7 @@ export default function Home() {
                 </Link>
               </div>
 
-              {wallet.slice(0, 3).map((item, index) => (
+              {wallet.slice(0, 3).map((item: any, index: any) => (
                 <div
                   key={index}
                   className={` bg-gray-800/80 rounded-sm py-2 px-4 flex flex-row items-center mb-2 `}

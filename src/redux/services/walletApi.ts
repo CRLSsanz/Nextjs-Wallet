@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 type Transaction = {
   id: String;
+  email: String;
   date: String;
   account: String;
   total: number;
@@ -9,6 +10,8 @@ type Transaction = {
   comment: String;
   type: String;
 };
+
+const sessioEmail = "demo-wallet@gmail.com";
 
 export const walletApi: any = createApi({
   reducerPath: "walletAPI",
@@ -19,13 +22,15 @@ export const walletApi: any = createApi({
   endpoints: (builder) => ({
     //getUsers: builder.mutation({}) usar para enviar datos
     getWallet: builder.query<Transaction[], null>({
-      query: () => "/transaction", //https://jsonplaceholder.typicode.com/users
+      query: () => `/transaction/${sessioEmail}`, //https://jsonplaceholder.typicode.com/users
       providesTags: ["ListWallet"],
       //transformResponse:(response:any)=>response.sort((a:any,b:any)=>b.id - a.id)
     }),
-    getWalletById: builder.query<Transaction, { id: string }>({
-      query: ({ id }) => `/transaction/${id}`, //https://jsonplaceholder.typicode.com/user/id:5
-    }),
+
+    //getWalletByEmail: builder.query<Transaction[], string>({
+    //  query: (email) => `/transaction/${email}`, //https://jsonplaceholder.typicode.com/user/id:5
+    //}),
+
     createWallet: builder.mutation({
       query: (newWallet) => ({
         url: "/transaction/",
@@ -34,6 +39,7 @@ export const walletApi: any = createApi({
       }),
       invalidatesTags: ["ListWallet"],
     }),
+
     deleteWallet: builder.mutation({
       query: (id) => ({
         url: `/transaction/${id}`,
@@ -46,7 +52,7 @@ export const walletApi: any = createApi({
 
 export const {
   useGetWalletQuery,
-  useGetWalletByIdQuery,
+  //useGetWalletByEmailQuery,
   useCreateWalletMutation,
   useDeleteWalletMutation,
 } = walletApi;

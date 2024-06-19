@@ -83,7 +83,7 @@ const HistoryPage = () => {
 
   const totalExpense = () => {
     let total = 0;
-    transformData().forEach(function (value: any) {
+    transformData()?.forEach(function (value: any) {
       if (value.type === "Expense") total += value.total;
     });
     return total;
@@ -91,7 +91,7 @@ const HistoryPage = () => {
 
   const totalIncome = () => {
     let total = 0;
-    transformData().forEach(function (value: any) {
+    transformData()?.forEach(function (value: any) {
       if (value.type === "Income") total += value.total;
     });
     return total;
@@ -146,8 +146,8 @@ const HistoryPage = () => {
 
             {/** FILTER */}
             <div className="w-full flex flex-row justify-end gap-3">
-              <h1 className="hidden w-full py-1.5 px-3 text-center Xborder bg-white/30 rounded-full text-gray-300 whitespace-nowrap">
-                {transformData().length} items
+              <h1 className="w-full py-1.5 px-3 text-center Xborder bg-white/30 rounded-full text-gray-300 whitespace-nowrap">
+                {transformData()?.length} <span>items</span>
               </h1>
 
               <div className="relative text-gray-300 rounded-full border border-white/30 p-1.5">
@@ -224,7 +224,7 @@ const HistoryPage = () => {
               <div className="flex flex-row">
                 <div className="w-12 h-12 bg-gray-200 rounded-full flex justify-center items-center ">
                   <img
-                    src={`./images/dollar.png`}
+                    src={`./images/Wallet-card.png`}
                     className={`w-8 h-8 `}
                     alt="dollar"
                   />
@@ -291,54 +291,6 @@ const HistoryPage = () => {
             </div>
           </div>
         </div>
-        {/** TRANSACCIONES */}
-        <div className="hidden relative bg-fondo p-5">
-          <h1 className="hidden lg:flex uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
-            Transacciones
-          </h1>
-          <h1
-            className={`font-numero text-4xl text-gray-100 mb-2 ${
-              number.className
-            } ${transformData().length === 0 ? "text-yellow-500" : " "}  `}
-          >
-            {transformData().length}
-            <span className="lg:hidden uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7">
-              {" "}
-              Transacciones
-            </span>
-          </h1>
-
-          <p className="hidden lg:flex text-sm text-gray-500 mb-10">
-            Cantidad total de transacciones realizadas en este mes.
-          </p>
-          <div className="hidden lg:flex lg:flex-col">
-            <h1 className={` text-purple-500 text-lg ${number.className}`}>
-              2
-            </h1>
-            <h1 className="text-gray-500">Agregados recientemente</h1>
-          </div>
-          <div className=" absolute bottom-6 lg:bottom-8 right-5 text-gray-400 flex items-center justify-center">
-            <Link
-              href={session?.user ? "/form" : "#"}
-              className=" bg-gray-700/30 p-2"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6 active:animate-ping hover:scale-125 Xhover:-ml-2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 4.5v15m7.5-7.5h-15"
-                />
-              </svg>
-            </Link>
-          </div>
-        </div>
 
         <div className="min-h-[calc(66.667vh)] bg-fondo flex flex-col justify-between">
           {/** LLAMAR A LAS FILAS*/}
@@ -348,7 +300,7 @@ const HistoryPage = () => {
             </h1>
 
             <div className="w-full pb-10">
-              {transformData().map((item: any, index: any) => (
+              {transformData()?.map((item: any, index: any) => (
                 <div key={index}>
                   {item.date.substr(5, 5) === groupDate ? (
                     <p className="hidden">no mostrar</p>

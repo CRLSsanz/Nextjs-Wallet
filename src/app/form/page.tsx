@@ -42,7 +42,7 @@ const expensesCategory = [
   "Celular", // accesorios o pago de linea,
   "Cine", // cine, transporte y comida,
   "Computadora", // computadora laptop o accesorios,
-  //"Deudas", // deudas prestamos,
+  "Deuda", // deudas prestamos,
   "Dulces", // Dulces helados chocolate etc,
   "Entretenimiento", // divercion salidas juegos mecanicos,
   "Equipos electronicos", //artefactos, pc,
@@ -77,14 +77,14 @@ interface Registro {
 
 const initailForm = {
   //_id: null,
-  //date: new Date(),
+  email: "demo-wallet@gmail.com",
   date: hoy.substr(0, 10),
   account: "Efectivo" || "Ahorro",
   total: 123,
   category: "",
   comment: "",
   type: "Expense" || "Income",
-  //status: "",
+  isActive: true,
 };
 
 const FormPage = () => {
@@ -130,7 +130,7 @@ const FormPage = () => {
       total: Number(e.target.elements.total.value),
     });
 
-    console.log(form);
+    //console.log(form);
     setForm(initailForm);
     alert("DATA SEND: " + JSON.stringify(form.category));
     router.push("/history#list");

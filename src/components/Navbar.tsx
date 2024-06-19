@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Jost } from "next/font/google";
+import { useGetWalletQuery } from "@/redux/services/walletApi";
 
 const number = Jost({
   subsets: ["latin"],
@@ -40,7 +41,8 @@ const MonthName = [
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
   const [maxim, setMaxim] = useState(false);
-  const wallet = useAppSelector((state) => state.wallet);
+  const { data: wallet, error, isLoading } = useGetWalletQuery(null);
+  //const wallet = useAppSelector((state) => state.wallet);
 
   const handleNavbarClose = () => {
     setNavbar(!navbar);
@@ -56,19 +58,19 @@ const Navbar = () => {
     let data = wallet;
 
     if (year) {
-      data = data.filter(
+      data = data?.filter(
         (item: any) =>
           item.date >= `${year}-01-01` && item.date <= `${year}-12-32`
       );
     }
 
     let totalExpense = 0;
-    data.forEach(function (value: any) {
+    data?.forEach(function (value: any) {
       if (value.type === "Expense") totalExpense += value.total;
     });
 
     let totalIncome = 0;
-    data.forEach(function (value: any) {
+    data?.forEach(function (value: any) {
       if (value.type === "Income") totalIncome += value.total;
     });
 
@@ -82,8 +84,8 @@ const Navbar = () => {
     let data = wallet;
 
     if (month) {
-      data = data.filter(
-        (item) =>
+      data = data?.filter(
+        (item: any) =>
           item.date >= `${year}-${month}-01` &&
           item.date < `${year}-${month}-32`
       );
@@ -94,7 +96,7 @@ const Navbar = () => {
 
   const totalExpense = () => {
     let total = 0;
-    filterByYearMonth().forEach(function (value: any) {
+    filterByYearMonth()?.forEach(function (value: any) {
       if (value.type === "Expense") total += value.total;
     });
     return total;
@@ -102,7 +104,7 @@ const Navbar = () => {
 
   const totalIncome = () => {
     let total = 0;
-    filterByYearMonth().forEach(function (value: any) {
+    filterByYearMonth()?.forEach(function (value: any) {
       if (value.type === "Income") total += value.total;
     });
     return total;
@@ -350,7 +352,7 @@ const Navbar = () => {
           <div className="grid grid-cols-2 items-center gap-x-2 gap-y-8 transform transition-all duration-1000 ">
             <Link
               href={session?.user ? "/" : "#"}
-              onClick={() => setMaxim(false)}
+              onClick={() => setNavbar(false)}
               className="flex justify-center"
             >
               <svg
@@ -374,7 +376,7 @@ const Navbar = () => {
 
             <Link
               href={session?.user ? "/analytics" : "#"}
-              onClick={() => setMaxim(false)}
+              onClick={() => setNavbar(false)}
               className="flex flex-row items-center justify-center"
             >
               <svg
@@ -398,7 +400,7 @@ const Navbar = () => {
 
             <Link
               href={session?.user ? "/form" : "#"}
-              onClick={() => setMaxim(false)}
+              onClick={() => setNavbar(false)}
               className="flex flex-row items-center justify-center"
             >
               <svg
@@ -423,7 +425,7 @@ const Navbar = () => {
 
             <Link
               href={session?.user ? "/history" : "#"}
-              onClick={() => setMaxim(false)}
+              onClick={() => setNavbar(false)}
               className="flex flex-row items-center justify-center"
             >
               <svg
@@ -447,7 +449,7 @@ const Navbar = () => {
 
             <Link
               href={session?.user ? "/category#list" : "#"}
-              onClick={() => setMaxim(false)}
+              onClick={() => setNavbar(false)}
               className="flex flex-row items-center justify-center"
             >
               <svg
