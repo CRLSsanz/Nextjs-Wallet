@@ -4,6 +4,7 @@ import { Barlow, Jost, Montserrat } from "next/font/google";
 import Link from "next/link";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { addWallet } from "@/redux/features/walletSlice";
+import { useCreateWalletMutation } from "@/redux/services/walletApi";
 import { useRouter } from "next/navigation";
 //import { v4 as uuid } from "uuid";
 const { v4: uuid } = require("uuid");
@@ -90,6 +91,7 @@ const FormPage = () => {
   const [form, setForm] = useState(initailForm);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [createWallet] = useCreateWalletMutation();
 
   const handleChange = (e: any) => {
     setForm({
@@ -114,13 +116,20 @@ const FormPage = () => {
     //refTotal.current.value = "";
     //refNewFecha.current.value = hoy.substr(0, 10);
 
-    dispatch(
+    /*dispatch(
       addWallet({
         ...form,
         _id: uuid(),
         total: Number(e.target.elements.total.value),
       })
-    );
+    ); */
+
+    createWallet({
+      ...form,
+      //_id: uuid(),
+      total: Number(e.target.elements.total.value),
+    });
+
     console.log(form);
     setForm(initailForm);
     alert("DATA SEND: " + JSON.stringify(form.category));

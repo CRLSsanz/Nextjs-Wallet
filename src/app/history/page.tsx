@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { filterByYear, filterByMonth } from "@/redux/features/filterSlice";
+import { useGetWalletQuery } from "@/redux/services/walletApi";
 
 const inter = Outfit({
   subsets: ["latin"],
@@ -23,8 +24,9 @@ const number = Jost({
 
 const HistoryPage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: wallet, error, isLoading, is } = useGetWalletQuery(null);
   const { data: session } = useSession();
-  const wallet = useAppSelector((state) => state.wallet);
+  //const wallet = useAppSelector((state) => state.wallet);
   const dispatch = useAppDispatch();
   const { byYear, byMonth } = useAppSelector((state) => state.filter);
   //console.log(byMonth, byYear);
@@ -59,18 +61,18 @@ const HistoryPage = () => {
   ];
 
   const transformData = () => {
-    let data = wallet;
+    let data: any = wallet;
 
     if (byYear) {
-      data = data.filter(
-        (item) =>
+      data = data?.filter(
+        (item: any) =>
           item.date >= `${byYear}-01-01` && item.date <= `${byYear}-12-32`
       );
     }
 
     if (byMonth) {
-      data = data.filter(
-        (item) =>
+      data = data?.filter(
+        (item: any) =>
           item.date >= `${byYear}-${byMonth}-01` &&
           item.date < `${byYear}-${byMonth}-32`
       );
@@ -346,7 +348,7 @@ const HistoryPage = () => {
             </h1>
 
             <div className="w-full pb-10">
-              {transformData().map((item, index) => (
+              {transformData().map((item: any, index: any) => (
                 <div key={index}>
                   {item.date.substr(5, 5) === groupDate ? (
                     <p className="hidden">no mostrar</p>

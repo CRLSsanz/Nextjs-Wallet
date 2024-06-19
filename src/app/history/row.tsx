@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { deleteWallet } from "@/redux/features/walletSlice";
 import ModalEdit from "./edit";
 import Link from "next/link";
+import { useDeleteWalletMutation } from "@/redux/services/walletApi";
 
 const number = Jost({
   subsets: ["latin"],
@@ -14,6 +15,7 @@ const number = Jost({
 const HistoryRow = ({ item }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [deleteWallet] = useDeleteWalletMutation();
   const dispatch = useAppDispatch();
 
   const nameDiaxFecha = (fecha: any) =>
@@ -37,7 +39,8 @@ const HistoryRow = ({ item }: any) => {
       `UNA VEZ ELIMINADO, No podra recuperar el registro!`
     );
     if (isDelete) {
-      dispatch(deleteWallet(id));
+      //dispatch(deleteWallet(id));
+      deleteWallet(id);
       alert("ELEMENTO CON EL ID: " + id + " ELIMINADO");
     }
   };

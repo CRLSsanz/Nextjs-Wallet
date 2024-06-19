@@ -118,9 +118,15 @@ const circleColor = [
 const AnalyticsPage = () => {
   const [show, setShow] = useState(true);
   //const { data, error, isLoading, isFetching } = useGetUsersQuery(null);
-  const { data, error, isLoading, isFetching } = useGetWalletQuery(null);
+  const {
+    data: wallet,
+    error,
+    isError,
+    isLoading,
+    isFetching,
+  } = useGetWalletQuery(null);
   const { data: session } = useSession();
-  const wallet = useAppSelector((state) => state.wallet);
+  //const wallet = useAppSelector((state) => state.wallet);
   const dispatch = useAppDispatch();
   const { byYear, byMonth } = useAppSelector((state) => state.filterAnalytics);
 
@@ -131,12 +137,20 @@ const AnalyticsPage = () => {
       </div>
     );
 
-  if (error)
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <p className="text-white text-lg">Some Error</p>
-      </div>
-    );
+  //console.log(error);
+  if (isError)
+    if ("status" in error) {
+      const errMsg =
+        "error" in error ? error.error : JSON.stringify(error.data);
+      return (
+        <div className="max-w-[600px] h-screen flex items-center justify-center">
+          <p className="text-white text-lg text-center">
+            An error has occurred: {JSON.stringify(error.data)}
+          </p>
+          <p className="text-white text-lg text-center">Some Error: {errMsg}</p>
+        </div>
+      );
+    }
 
   /** BALANCE GENERAL */
   const BalanceGeneral = (wallet: any) => {
@@ -156,11 +170,11 @@ const AnalyticsPage = () => {
     return balance.toFixed(2);
   };
   const transformData = (byYear: string) => {
-    let data = wallet;
+    let data: any = wallet;
 
     if (byYear) {
       data = data.filter(
-        (item) =>
+        (item: any) =>
           item.date >= `${byYear}-01-01` && item.date <= `${byYear}-12-32`
       );
     }
@@ -172,11 +186,11 @@ const AnalyticsPage = () => {
 
   // BALANCE ANUAL
   const transformData2 = (byYear: string) => {
-    let data = wallet;
+    let data: any = wallet;
 
     if (byYear) {
       data = data.filter(
-        (item) =>
+        (item: any) =>
           item.date >= `${byYear}-01-01` && item.date <= `${byYear}-12-32`
       );
     }
@@ -201,25 +215,25 @@ const AnalyticsPage = () => {
 
   // WALLET FILTRADO
   const filterByYearMonth = (byType: string) => {
-    let data = wallet;
+    let data: any = wallet;
 
     if (byYear) {
       data = data.filter(
-        (item) =>
+        (item: any) =>
           item.date >= `${byYear}-01-01` && item.date <= `${byYear}-12-32`
       );
     }
 
     if (byMonth) {
       data = data.filter(
-        (item) =>
+        (item: any) =>
           item.date >= `${byYear}-${byMonth}-01` &&
           item.date < `${byYear}-${byMonth}-32`
       );
     }
 
     if (byType) {
-      data = data.filter((item) => item.type === byType);
+      data = data.filter((item: any) => item.type === byType);
     }
 
     return data;
@@ -227,13 +241,13 @@ const AnalyticsPage = () => {
 
   // DATOS POR CATEGORIAS
   const dataCategoryX = filterByYearMonth("Expense").reduce(
-    (prev: any, cur) => (
+    (prev: any, cur: any) => (
       (prev[cur.category] = prev[cur.category] + cur.total || cur.total), prev
     ),
     {}
   );
   const dataCategory = filterByYearMonth("Expense").reduce(
-    (acum: any, item) => {
+    (acum: any, item: any) => {
       return !acum[item.category]
         ? { ...acum, [item.category]: item.total, ["count"]: 1 }
         : {
@@ -247,7 +261,22 @@ const AnalyticsPage = () => {
 
   // CREAR NUEVO ARRAY - PIDE UNS LISTA: WALLET
   function groupByCategory(array: any) {
-    return array.reduce((acc: any, current: any) => {
+    const arr = array.sort(function (a: any, b: any) {
+      return a.category.localeCompare(b.category);
+    });
+
+    /*  const arr = array.sort(function (a: any, b: any) {
+      if (a.category > b.category) {
+        return 1;
+      }
+      if (a.category < b.category) {
+        return -1;
+      }
+      // a must be equal to b
+      return 0;
+    }); */
+
+    return arr.reduce((acc: any, current: any) => {
       const foundItem = acc.find((it: any) => it.category === current.category);
 
       if (foundItem) {
@@ -255,8 +284,8 @@ const AnalyticsPage = () => {
         foundItem.total = foundItem.total + current.total;
       } else {
         acc.push({
-          type: current.type,
           category: current.category,
+          type: current.type,
           total: current.total,
           count: 1,
           //'nombre': current.nombre,
@@ -854,9 +883,10 @@ const AnalyticsPage = () => {
         />
       </div>
 
-      <div className="w-full p-5 py-10 grid grid-cols-2 lg:grid-cols-4 gap-5">
-        {data?.slice(0, 10).map((item, index) => (
+      <div className="w-full p-5 text-indigo-500 grid grid-cols-2 lg:grid-cols-4 gap-5">
+        {wallet?.slice(0, 10).map((item: any, index: any) => (
           <div key={index} className="p-3 py-6 bg-gray-200">
+            <p>{item.id}</p>
             <p>{item.type}</p>
             <p>{item.category}</p>
             <p className="text-xs">{item.total}</p>
