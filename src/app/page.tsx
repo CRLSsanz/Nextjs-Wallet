@@ -159,59 +159,27 @@ export default function Home() {
           <div className="h-[calc(66.667vh)] w-full flex flex-col justify-between p-5 border-b border-gray-500/50">
             {/** BOTON Y FOTO */}
             <div>
-              <div className="hidden xflex flex-row">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-7 h-7"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    //d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
-                    d="M12 6.75h8.25M3.75 12h16.5m-16.5 5.25H12"
-                  />
-                </svg>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="hidden w-7 h-7"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    //d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"
-                    d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"
-                  />
-                </svg>
-
-                <div className="hidden">
-                  <h1 className="text-gray-300">Hola! Bienvenido</h1>
-                  <h1 className="-mt-1 text-lg font-medium">
-                    {session.user.name}
+              <div>
+                <h1 className="hidden text-4xl text-gray-300 mb-3">
+                  Manage your <span className="text-cyan-600">Expenses</span>{" "}
+                  more easily
+                </h1>
+                <div className="text-4xl text-gray-300 mb-3">
+                  <h1>
+                    Gestiona <span className="text-3xl"> tus </span>{" "}
+                    <span className="text-cyan-600">Gastos </span>
                   </h1>
+                  <h1 className="text-3xl -mt-2"> más fácilmente</h1>
                 </div>
-              </div>
-              <div className="flex flex-row items-center gap-3">
-                <img
-                  src={`${session.user.image}`}
-                  alt="Avatar"
-                  className="rounded-full w-10 h-10 border-2 border-gray-300"
-                />
-                <div>
-                  <h1 className=" ">Hola {session.user.name} </h1>
-                  <h1
-                    className={`hidden -mt-1 text-base Xtext-teal-500 ${titulo.className} `}
-                  >
-                    Let{`'`}s complete text-base 1234567890
-                  </h1>
-                </div>
+                <p className="hidden text-gray-500 text-sm ">
+                  Get complete control over your expenses and save as mush as
+                  you want.
+                </p>
+                <p className="w-[250px] text-gray-50 text-sm">
+                  <span className="">Hola {session.user.name}, </span>
+                  obtén control total sobre tus gastos y ahorra todo lo que
+                  quieras.
+                </p>
               </div>
             </div>
             {/** ULTIMAS TRANSACCIONES */}

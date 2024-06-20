@@ -40,6 +40,15 @@ export const walletApi: any = createApi({
       invalidatesTags: ["ListWallet"],
     }),
 
+    updateWallet: builder.mutation({
+      query: (updateWallet) => ({
+        url: `/transaction/${updateWallet.id}`,
+        method: "PATCH",
+        body: updateWallet,
+      }),
+      invalidatesTags: ["ListWallet"],
+    }),
+
     deleteWallet: builder.mutation({
       query: (id) => ({
         url: `/transaction/${id}`,
@@ -54,5 +63,6 @@ export const {
   useGetWalletQuery,
   //useGetWalletByEmailQuery,
   useCreateWalletMutation,
+  useUpdateWalletMutation,
   useDeleteWalletMutation,
 } = walletApi;

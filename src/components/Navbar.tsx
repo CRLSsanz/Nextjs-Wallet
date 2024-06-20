@@ -110,6 +110,14 @@ const Navbar = () => {
     return total;
   };
 
+  const handleDelete = async () => {
+    let isDelete = window.confirm(`CERRAR SESION`);
+    if (isDelete) {
+      //dispatch(deleteWallet(id));
+      await signOut({ callbackUrl: "/" });
+    }
+  };
+
   return (
     <div>
       <nav
@@ -271,9 +279,53 @@ const Navbar = () => {
             : " -right-20 pointer-events-none opacity-0 "
         }  `}
       >
-        {/** BOTON YEAR */}
-        <div className=" basis-1/3 py-5 flex justify-center border-b border-gray-500">
-          <div className=" py-2">Carloncho Sanz</div>
+        {/** LOGOUT Y IMAGEN USER */}
+        <div className=" basis-1/3 py-5 px-3 flex flex-col justify-between border-b border-gray-500">
+          <div className="flex flex-row items-center justify-end">
+            <h1 className="text-end leading-none mr-2">
+              {session?.user?.name}{" "}
+            </h1>
+            <img
+              src={`${session?.user?.image}`}
+              alt="Avatar"
+              className="rounded-lg w-10 h-10 border-2 border-gray-300"
+            />
+          </div>
+
+          {session?.user ? (
+            <div className="text-gray-300 flex flex-row items-center space-x-1">
+              <div
+                onClick={() => handleDelete()}
+                //onClick={async () => await signOut({ callbackUrl: "/" })}
+                className=""
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
+                  />
+                </svg>
+              </div>
+              <h4 className="text-sm">Cerrar sesion</h4>
+            </div>
+          ) : (
+            <div className="">
+              <button
+                onClick={() => signIn()}
+                className="bg-sky-400 px-5 py-2 rounded"
+              >
+                Sign In
+              </button>
+            </div>
+          )}
         </div>
 
         {/** MENU */}

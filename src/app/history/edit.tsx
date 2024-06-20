@@ -1,9 +1,17 @@
 import React from "react";
 import { useAppDispatch } from "@/redux/hooks";
 import { updateWallet } from "@/redux/features/walletSlice";
+import { useUpdateWalletMutation } from "@/redux/services/walletApi";
+import { Jost } from "next/font/google";
+
+const number = Jost({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
 
 const ModalEdit = ({ item, visible, onClose }: any) => {
   const dispatch = useAppDispatch();
+  const [updateWallet] = useUpdateWalletMutation();
 
   if (!visible) return null;
 
@@ -14,13 +22,20 @@ const ModalEdit = ({ item, visible, onClose }: any) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(
+    /*dispatch(
       updateWallet({
         _id: item._id,
         total: Number(e.target.elements.total.value),
         comment: e.target.elements.comment.value,
+        date: e.target.elements.date.value,
       })
-    );
+    );*/
+    updateWallet({
+      id: item._id,
+      total: Number(e.target.elements.total.value),
+      comment: e.target.elements.comment.value,
+      date: e.target.elements.date.value,
+    });
     alert("DATA SEND: " + JSON.stringify(item.category));
     onClose();
   };
@@ -30,40 +45,19 @@ const ModalEdit = ({ item, visible, onClose }: any) => {
       id="container"
       tabIndex={-1}
       onClick={handelOnClose}
-      className="fixed z-50 inset-0 bg-black bg-opacity-70 backdrop-blur-sm h-screen w-full px-5 text-gray-300 flex items-center justify-center"
+      className="fixed z-50 inset-0 bg-black bg-opacity-70 backdrop-blur-sm h-screen w-full px-5 text-gray-300 Xflex Xitems-center Xjustify-center"
     >
-      <form onSubmit={handleSubmit} className=" w-full bg-card   ">
-        <div className=" p-5 flex flex-row items-center justify-between bg-purple-700">
-          <h1 className="uppercase text-sm ">Actualizar {item.type}</h1>
-          <h1 className="py-1 px-3 border text-sm ">+ Nuevo </h1>
-        </div>
+      <form
+        onSubmit={handleSubmit}
+        className={`w-full pt-10 ${number.className}`}
+      >
         <div className="p-5 flex flex-col Xborder Xborder-gray-500/50 ">
-          <div
-            onClick={onClose}
-            className="text-cyan-600/90 mb-7 flex flex-row items-center "
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-4"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-              />
-            </svg>
-            <span className="ml-2">Regresar</span>
-          </div>
           {/** CATEGORY */}
           <div className="flex flex-row mb-5">
             <div className="bg-gray-800/50 w-14 flex items-center justify-center">
               <img
                 src={`./images/category/${item.category}.png`}
-                className={`w-8 h-8`}
+                className={`w-7 h-7`}
                 alt={item.category}
               />
             </div>
@@ -113,7 +107,42 @@ const ModalEdit = ({ item, visible, onClose }: any) => {
             />
           </div>
           {/** DATE */}
-
+          <div className="flex flex-row mb-5">
+            <div className="bg-gray-800/50 py-3 w-14 flex justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
+                />
+              </svg>
+            </div>
+            <div className="w-full relative">
+              <input
+                type="date"
+                name="date"
+                className="w-full p-3 bg-gray-600/50 appearance-none focus:outline-none"
+                placeholder="Fecha"
+                defaultValue={item.date.substr(0, 10)}
+              />
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+                <svg
+                  className="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+          </div>
           {/** DESCRIPTION */}
           <div className="flex flex-row items-start mb-5">
             <div className="bg-gray-800/50 py-3 w-14 flex justify-center">
@@ -144,9 +173,22 @@ const ModalEdit = ({ item, visible, onClose }: any) => {
           <div className="flex flex-row py-5">
             <h1
               onClick={onClose}
-              className="hidden bg-red-600/90 py-3 w-14 xflex justify-center"
+              className="bg-red-600/80 py-3 w-14 flex justify-center items-center"
             >
-              {"<-"}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                />
+              </svg>
             </h1>
             <button className="w-full p-3 bg-gray-400/60 focus:outline-none">
               Actualizar

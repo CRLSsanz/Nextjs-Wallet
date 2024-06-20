@@ -79,7 +79,7 @@ const initailForm = {
   //_id: null,
   email: "demo-wallet@gmail.com",
   date: hoy.substr(0, 10),
-  account: "Efectivo" || "Ahorro",
+  account: "Efectivo",
   total: 123,
   category: "",
   comment: "",
