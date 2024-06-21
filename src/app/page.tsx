@@ -61,16 +61,19 @@ export default function Home() {
         <Loader />
       </div>
     );
+
   if (error)
     if ("status" in error) {
       const errMsg =
         "error" in error ? error.error : JSON.stringify(error.data);
       return (
-        <div className="max-w-[600px] h-screen flex items-center justify-center">
-          <p className="text-white text-lg text-center">
+        <div className="max-w-[600px] h-screen flex flex-col items-center justify-center">
+          <h1 className="text-white text-lg text-center mb-5">
             An error has occurred: {JSON.stringify(error.data)}
-          </p>
-          <p className="text-white text-lg text-center">Some Error: {errMsg}</p>
+          </h1>
+          <h1 className="text-white text-lg text-center">
+            Some Error: {errMsg}
+          </h1>
         </div>
       );
     }

@@ -16,7 +16,8 @@ const sessioEmail = "demo-wallet@gmail.com";
 export const walletApi: any = createApi({
   reducerPath: "walletAPI",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000/api",
+    //baseUrl: "http://localhost:4000/api",
+    baseUrl: "https://node-api-wallet.onrender.com/api",
   }),
   tagTypes: ["ListWallet", "OtherName"],
   endpoints: (builder) => ({
