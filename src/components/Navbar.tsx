@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Jost } from "next/font/google";
 import { useGetWalletQuery } from "@/redux/services/walletApi";
+import { Span } from "next/dist/trace";
 
 const number = Jost({
   subsets: ["latin"],
@@ -283,13 +284,32 @@ const Navbar = () => {
         <div className=" basis-1/3 py-5 px-3 flex flex-col justify-between border-b border-gray-500">
           <div className="flex flex-row items-center justify-end">
             <h1 className="text-end leading-none mr-2">
-              {session?.user?.name}{" "}
+              {session?.user?.name}
             </h1>
-            <img
-              src={`${session?.user?.image}`}
-              alt="Avatar"
-              className="rounded-lg w-10 h-10 border-2 border-gray-300"
-            />
+            {session?.user ? (
+              <img
+                src={`${session?.user?.image}`}
+                alt="Avatar"
+                className="rounded-full w-10 h-10 border-2 border-gray-300"
+              />
+            ) : (
+              <div className="rounded-full border-2 border-gray-300 p-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                  />
+                </svg>
+              </div>
+            )}
           </div>
 
           {session?.user ? (
@@ -320,7 +340,7 @@ const Navbar = () => {
             <div className="">
               <button
                 onClick={() => signIn()}
-                className="bg-sky-400 px-5 py-2 rounded"
+                className="bg-gradient-to-br from-sky-500 to-sky-700 px-5 py-2 text-sm"
               >
                 Sign In
               </button>
@@ -329,74 +349,78 @@ const Navbar = () => {
         </div>
 
         {/** MENU */}
-        <div className="basis-1/3 flex flex-col justify-between py-5 px-3 bg-indigo-600/60 border-b border-gray-500">
-          <div className="flex flex-col items-end">
-            <h1 className="uppercase text-sm text-gray-300 tracking-wider">
-              {MonthName[Number(month) - 1]}
-            </h1>
-            <h1
-              className={`text-3xl font-light text-gray-100 flex items-start ${number.className}  `}
-            >
-              {totalIncome() - totalExpense()}
-              <span className="text-lg">$</span>
-            </h1>
-
-            <div className="flex flex-row justify-end mb-5 -mt-1">
-              <div className="flex flex-row items-center justify-between text-cyan-500 mr-2">
-                <div className={`mr-0 -rotate-90`}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-3"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                    />
-                  </svg>
-                </div>
-                <h1 className={` text-sm ${number.className}`}>
-                  $ {totalIncome()}{" "}
+        <div className="basis-1/3 py-5 px-3 bg-indigo-600/60 border-b border-gray-500">
+          {session?.user && (
+            <div className="h-full flex flex-col justify-between">
+              <div className="flex flex-col items-end">
+                <h1 className="uppercase text-sm text-gray-300 tracking-wider">
+                  {MonthName[Number(month) - 1]}
                 </h1>
+                <h1
+                  className={`text-3xl font-light text-gray-100 flex items-start ${number.className}  `}
+                >
+                  {totalIncome() - totalExpense()}
+                  <span className="text-lg">$</span>
+                </h1>
+
+                <div className="flex flex-row justify-end mb-5 -mt-1">
+                  <div className="flex flex-row items-center justify-between text-cyan-500 mr-2">
+                    <div className={`mr-0 -rotate-90`}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-3"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                        />
+                      </svg>
+                    </div>
+                    <h1 className={` text-sm ${number.className}`}>
+                      $ {totalIncome()}{" "}
+                    </h1>
+                  </div>
+
+                  <div className="flex flex-row items-center justify-between text-pink-500">
+                    <div className={`mr-0 rotate-90`}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-3"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                        />
+                      </svg>
+                    </div>
+                    <h1 className={` text-sm ${number.className}`}>
+                      $ {totalExpense()}
+                    </h1>
+                  </div>
+                </div>
               </div>
 
-              <div className="flex flex-row items-center justify-between text-pink-500">
-                <div className={`mr-0 rotate-90`}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-3"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                    />
-                  </svg>
-                </div>
-                <h1 className={` text-sm ${number.className}`}>
-                  $ {totalExpense()}
+              <div className={`flex flex-col Xitems-end ${number.className}`}>
+                <h1 className={` text-2xl font-light flex items-start`}>
+                  <span className="text-lg text-gray-100">$ </span>
+                  {Number(balanceAnual(wallet)).toFixed(0)}
+                </h1>
+                <h1 className="-mt-1 text-xs uppercase text-gray-300">
+                  Saldo Actual {year}
                 </h1>
               </div>
             </div>
-          </div>
-
-          <div className={`flex flex-col Xitems-end ${number.className}`}>
-            <h1 className={` text-2xl font-light flex items-start`}>
-              <span className="text-lg text-gray-100">$ </span>
-              {Number(balanceAnual(wallet)).toFixed(0)}
-            </h1>
-            <h1 className="-mt-1 text-xs uppercase text-gray-300">
-              Saldo Actual {year}
-            </h1>
-          </div>
+          )}
         </div>
 
         {/** BOTON ITEMS */}

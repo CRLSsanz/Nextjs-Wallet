@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Raleway } from "next/font/google";
+import { Abel, Inter, Raleway } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/redux/providers";
 import Navbar from "@/components/Navbar";
 import { ProvidersAuth } from "./Providers";
 
-const inter = Raleway({
+const inter = Abel({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700"], //Josefin_Sans
-  //weight: ["400"], // Poiret_One
+  //weight: ["100", "200", "300", "400", "500", "600", "700"], //Josefin_Sans
+  weight: ["400"], // Poiret_One  Abel
 });
 
 export const metadata: Metadata = {

@@ -145,12 +145,13 @@ const HistoryPage = () => {
             </div>
 
             {/** FILTER */}
-            <div className="w-full flex flex-row justify-end gap-3">
-              <h1 className="w-full py-1.5 px-3 text-center Xborder bg-white/30 rounded-full text-gray-300 whitespace-nowrap">
-                {transformData()?.length} <span>items</span>
+            <div className="w-full flex flex-row justify-end items-center gap-3">
+              <h1 className="w-full text-start py-1.5 text-gray-300 whitespace-nowrap">
+                <span>TRANSACCIONES </span>
+                {transformData()?.length}
               </h1>
 
-              <div className="relative text-gray-300 rounded-full border border-white/30 p-1.5">
+              <div className="relative text-gray-300 py-1.5">
                 <div className="absolute pointer-events-none top-3 right-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +171,7 @@ const HistoryPage = () => {
                 <select
                   defaultValue={byMonth}
                   onChange={(e) => dispatch(filterByMonth(e.target.value))}
-                  className="text-center focus:outline-none appearance-none bg-transparent px-4"
+                  className="Xtext-center text-end focus:outline-none appearance-none bg-transparent pl-3 pr-7"
                 >
                   <option value="01">Enero</option>
                   <option value="02">Febrero</option>
@@ -187,7 +188,7 @@ const HistoryPage = () => {
                 </select>
               </div>
 
-              <div className="relative text-gray-300 rounded-full border border-white/30 p-1.5">
+              <div className="relative text-gray-300 border border-white/30 py-1.5">
                 <div className="absolute pointer-events-none top-3 right-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -208,7 +209,7 @@ const HistoryPage = () => {
                 <select
                   defaultValue={byYear}
                   onChange={(e) => dispatch(filterByYear(e.target.value))}
-                  className="focus:outline-none appearance-none bg-transparent px-4"
+                  className={`focus:outline-none appearance-none bg-transparent pl-3 pr-7 ${number.className} `}
                 >
                   <option value="2023">2023</option>
                   <option value="2024">2024</option>

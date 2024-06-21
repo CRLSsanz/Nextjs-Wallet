@@ -385,15 +385,15 @@ const AnalyticsPage = () => {
         </div>
 
         {/** GRAFICA */}
-        <div className="bg-[#1B1C21]/80 h-[33.333vh] p-5 border-b border-gray-800">
+        <div className="Xbg-[#1B1C21]/80 h-[33.333vh] p-5">
           <h1 className="uppercase tracking-widest text-xs font-semibold text-gray-400 mb-7 ">
             Statement graph
           </h1>
-          <div className="h-32 border border-gray-500/20 rounded-xl"> </div>
+          <div className="h-32 border border-gray-500/50 rounded-xl"> </div>
         </div>
 
         {/** FILTER */}
-        <div className="bg-gradient-to-b from-[#1B1C21]/80 to-[#25282F] p-5 lg:col-span-2 border-b border-gray-500">
+        <div className="bg-gradient-to-b from-transparent via-[#25282F]/80 to-[#25282F] p-5 lg:col-span-2 border-b border-gray-500">
           <div className="flex flex-row items-center justify-end gap-3">
             <div className="relative text-gray-300 Xborder-l border-white/30 py-1.5">
               <div className="absolute pointer-events-none top-3 right-2">
@@ -881,17 +881,6 @@ const AnalyticsPage = () => {
           alt="Dino"
           className="w-5 h-5 ml-2 hover:-rotate-12"
         />
-      </div>
-
-      <div className="w-full p-5 text-indigo-500 grid grid-cols-2 lg:grid-cols-4 gap-5">
-        {wallet?.slice(0, 10).map((item: any, index: any) => (
-          <div key={index} className="p-3 py-6 bg-gray-200">
-            <p>{item.id}</p>
-            <p>{item.type}</p>
-            <p>{item.category}</p>
-            <p className="text-xs">{item.total}</p>
-          </div>
-        ))}
       </div>
     </section>
   );
