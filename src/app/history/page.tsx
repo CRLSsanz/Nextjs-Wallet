@@ -24,8 +24,13 @@ const number = Jost({
 
 const HistoryPage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: wallet, error, isLoading, is } = useGetWalletQuery(null);
   const { data: session } = useSession();
+  const {
+    data: wallet,
+    error,
+    isLoading,
+    is,
+  } = useGetWalletQuery(session?.user?.email);
   //const wallet = useAppSelector((state) => state.wallet);
   const dispatch = useAppDispatch();
   const { byYear, byMonth } = useAppSelector((state) => state.filter);

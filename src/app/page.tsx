@@ -21,13 +21,13 @@ const titulo = Poiret_One({
 });
 
 export default function Home() {
+  const { data: session } = useSession();
   const {
     data: wallet,
     error,
     isLoading,
     isFetching,
-  } = useGetWalletQuery(null);
-  const { data: session } = useSession();
+  } = useGetWalletQuery(session?.user?.email);
 
   //const wallet = useAppSelector((state) => state.wallet);
   //console.log(wallet.slice(0, 5)); // MUESTRA LOS 5 PRIMEROS REGISTROS

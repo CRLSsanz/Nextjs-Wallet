@@ -40,9 +40,14 @@ const MonthName = [
 ];
 */
 const Navbar = () => {
+  const { data: session } = useSession();
   const [navbar, setNavbar] = useState(false);
   const [maxim, setMaxim] = useState(false);
-  const { data: wallet, error, isLoading } = useGetWalletQuery(null);
+  const {
+    data: wallet,
+    error,
+    isLoading,
+  } = useGetWalletQuery(session?.user?.email);
   //const wallet = useAppSelector((state) => state.wallet);
 
   const handleNavbarClose = () => {
@@ -50,7 +55,6 @@ const Navbar = () => {
     setMaxim(false);
   };
 
-  const { data: session } = useSession();
   //console.log(session);
   // const size = "righ-0 ";
 

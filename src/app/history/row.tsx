@@ -41,7 +41,7 @@ const HistoryRow = ({ item }: any) => {
     if (isDelete) {
       //dispatch(deleteWallet(id));
       deleteWallet(id);
-      alert("ELEMENTO CON EL ID: " + id + " ELIMINADO");
+      //alert("ELEMENTO CON EL ID: " + id + " ELIMINADO");
     }
   };
 
@@ -316,16 +316,13 @@ const HistoryRow = ({ item }: any) => {
                 </span>
 
                 {/**BOTONES  */}
-                <div
-                  className={` ${isOpen && " text-gray-200 "} `}
-                  hidden={!isOpen}
-                >
+                <div className={` pt-4 ${isOpen && "  "} `} hidden={!isOpen}>
                   {/** ADD EDIT DELET CLOSE */}
-                  <div className="w-full flex text-gray-400 pt-4 justify-between">
+                  <div className="w-full flex text-gray-200 border border-gray-300 rounded-full items-center">
                     <Link
                       href={"/form"}
                       //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
-                      className="py-1 px-3 bg-gray-700/50 rounded-sm"
+                      className=" basis-1/4 flex justify-center py-1"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -333,12 +330,12 @@ const HistoryRow = ({ item }: any) => {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-4 h-4"
+                        className="size-5"
                       >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                          d="M12 4.5v15m7.5-7.5h-15"
                         />
                       </svg>
                     </Link>
@@ -346,7 +343,7 @@ const HistoryRow = ({ item }: any) => {
                     <span
                       onClick={() => setIsEdit(true)}
                       //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
-                      className="py-1 px-3 bg-gray-700/50 rounded-sm"
+                      className=" basis-1/4 flex justify-center py-1 border-r border-l border-gray-300 "
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -367,7 +364,7 @@ const HistoryRow = ({ item }: any) => {
                     <span
                       onClick={() => handleDelete(item._id)}
                       //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
-                      className="py-1 px-3 bg-gray-700/50 rounded-sm"
+                      className=" basis-1/4 flex justify-center py-1 border-r border-gray-300 "
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -388,7 +385,7 @@ const HistoryRow = ({ item }: any) => {
                     <span
                       onClick={() => setIsOpen((prev) => !prev)}
                       //className="bg-red-700 rounded-md px-1 pb-0.5 text-xs"
-                      className="py-1 px-3 bg-gray-700/50 rounded-sm"
+                      className=" basis-1/4 flex justify-center py-1"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -396,12 +393,12 @@ const HistoryRow = ({ item }: any) => {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-4 h-4"
+                        className="size-5"
                       >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+                          d="m4.5 15.75 7.5-7.5 7.5 7.5"
                         />
                       </svg>
                     </span>

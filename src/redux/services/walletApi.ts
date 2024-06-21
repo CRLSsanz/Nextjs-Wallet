@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { useSession } from "next-auth/react";
 
 type Transaction = {
   id: String;
@@ -11,7 +12,7 @@ type Transaction = {
   type: String;
 };
 
-const sessioEmail = "demo-wallet@gmail.com";
+//const sessioEmail = "demo-wallet@gmail.com";
 
 export const walletApi: any = createApi({
   reducerPath: "walletAPI",
@@ -22,8 +23,9 @@ export const walletApi: any = createApi({
   tagTypes: ["ListWallet", "OtherName"],
   endpoints: (builder) => ({
     //getUsers: builder.mutation({}) usar para enviar datos
-    getWallet: builder.query<Transaction[], null>({
-      query: () => `/transaction/${sessioEmail}`, //https://jsonplaceholder.typicode.com/users
+    getWallet: builder.query<Transaction[], string>({
+      //query: () => `/transaction/${sessioEmail}`, //https://jsonplaceholder.typicode.com/users
+      query: (email) => `/transaction/${email}`,
       providesTags: ["ListWallet"],
       //transformResponse:(response:any)=>response.sort((a:any,b:any)=>b.id - a.id)
     }),

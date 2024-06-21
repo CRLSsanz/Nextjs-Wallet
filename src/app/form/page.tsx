@@ -6,6 +6,7 @@ import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { addWallet } from "@/redux/features/walletSlice";
 import { useCreateWalletMutation } from "@/redux/services/walletApi";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 //import { v4 as uuid } from "uuid";
 const { v4: uuid } = require("uuid");
 
@@ -92,6 +93,7 @@ const FormPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [createWallet] = useCreateWalletMutation();
+  const { data: session } = useSession();
 
   const handleChange = (e: any) => {
     setForm({
@@ -123,10 +125,10 @@ const FormPage = () => {
         total: Number(e.target.elements.total.value),
       })
     ); */
-
     createWallet({
       ...form,
       //_id: uuid(),
+      email: session?.user?.email,
       total: Number(e.target.elements.total.value),
     });
 

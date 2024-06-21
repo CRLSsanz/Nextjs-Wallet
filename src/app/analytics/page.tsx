@@ -82,20 +82,15 @@ const urbanist = Urbanist({
 
 const barsColor = [
   "bg-green-500",
+  "bg-indigo-500",
   "bg-cyan-500",
   "bg-purple-500",
-  "bg-red-500",
   "bg-yellow-500",
-  "bg-indigo-500",
-  "bg-pink-500",
-
   "bg-green-500",
+  "bg-indigo-500",
   "bg-cyan-500",
   "bg-purple-500",
-  "bg-red-500",
   "bg-yellow-500",
-  "bg-indigo-500",
-  "bg-pink-500",
 ];
 const circleColor = [
   "to-green-500/50",
@@ -115,7 +110,39 @@ const circleColor = [
   "to-pink-500",
 ];
 
+const barsColor2 = [
+  "bg-red-500",
+  "bg-purple-500",
+  "bg-pink-500",
+  "bg-yellow-500",
+  "bg-indigo-500",
+  "bg-orange-500",
+
+  "bg-red-500",
+  "bg-purple-500",
+  "bg-pink-500",
+  "bg-yellow-500",
+  "bg-indigo-500",
+  "bg-orange-500",
+];
+const circleColor2 = [
+  "to-red-500",
+  "to-purple-500",
+  "to-pink-500",
+  "to-yellow-500",
+  "to-indigo-500",
+  "to-orange-500",
+
+  "to-red-500/50",
+  "to-purple-500/50",
+  "to-pink-500/50",
+  "to-yellow-500/50",
+  "to-indigo-500/50",
+  "to-orange-500/50",
+];
+
 const AnalyticsPage = () => {
+  const { data: session } = useSession();
   const [show, setShow] = useState(true);
   //const { data, error, isLoading, isFetching } = useGetUsersQuery(null);
   const {
@@ -124,8 +151,7 @@ const AnalyticsPage = () => {
     isError,
     isLoading,
     isFetching,
-  } = useGetWalletQuery(null);
-  const { data: session } = useSession();
+  } = useGetWalletQuery(session?.user?.email);
   //const wallet = useAppSelector((state) => state.wallet);
   const dispatch = useAppDispatch();
   const { byYear, byMonth } = useAppSelector((state) => state.filterAnalytics);
@@ -800,7 +826,7 @@ const AnalyticsPage = () => {
                 >
                   <div
                     className={`relative w-14 h-14 p-0.5 rounded-full bg-gradient-to-bl from-purple-500/50 
-                  ${circleColor[index]}
+                  ${circleColor2[index]}
                   `}
                   >
                     <div className="w-full h-full rounded-full bg-fondo flex items-center justify-center">
@@ -833,7 +859,7 @@ const AnalyticsPage = () => {
                       <div className="h-1 bg-fondo">
                         <h1
                           className={` Xw-[75%] h-1 ${
-                            barsColor[index]
+                            barsColor2[index]
                           } Xrounded-full $
                       ${
                         item.type === "Expense"
