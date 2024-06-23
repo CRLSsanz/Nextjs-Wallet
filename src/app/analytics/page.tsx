@@ -81,64 +81,65 @@ const urbanist = Urbanist({
 });
 
 const barsColor = [
-  "bg-green-500",
-  "bg-indigo-500",
+  "bg-emerald-500",
+  "bg-teal-500",
   "bg-cyan-500",
-  "bg-purple-500",
-  "bg-yellow-500",
-  "bg-green-500",
+  "bg-sky-500",
+  "bg-blue-500",
   "bg-indigo-500",
-  "bg-cyan-500",
-  "bg-purple-500",
-  "bg-yellow-500",
+  "bg-violet-500",
 ];
 const circleColor = [
-  "to-green-500/50",
-  "to-cyan-500/50",
-  "to-purple-500/50",
-  "to-red-500/50",
-  "to-yellow-500/50",
-  "to-indigo-500/50",
-  "to-pink-500/50",
-
-  "to-green-500",
+  "to-emerald-500",
+  "to-teal-500",
   "to-cyan-500",
-  "to-purple-500",
-  "to-red-500",
-  "to-yellow-500",
+  "to-sky-500",
+  "to-blue-500",
   "to-indigo-500",
-  "to-pink-500",
+  "to-violet-500",
 ];
 
 const barsColor2 = [
-  "bg-red-500",
-  "bg-purple-500",
+  "bg-violet-500",
   "bg-pink-500",
-  "bg-yellow-500",
-  "bg-indigo-500",
+  "bg-fuchsia-500",
   "bg-orange-500",
 
-  "bg-red-500",
-  "bg-purple-500",
+  "bg-violet-500",
   "bg-pink-500",
-  "bg-yellow-500",
-  "bg-indigo-500",
+  "bg-fuchsia-500",
+  "bg-orange-500",
+
+  "bg-violet-500",
+  "bg-pink-500",
+  "bg-fuchsia-500",
+  "bg-orange-500",
+
+  "bg-violet-500",
+  "bg-pink-500",
+  "bg-fuchsia-500",
   "bg-orange-500",
 ];
 const circleColor2 = [
-  "to-red-500",
-  "to-purple-500",
+  "to-violet-500",
   "to-pink-500",
-  "to-yellow-500",
-  "to-indigo-500",
+  "to-fuchsia-500",
   "to-orange-500",
 
-  "to-red-500/50",
-  "to-purple-500/50",
-  "to-pink-500/50",
-  "to-yellow-500/50",
-  "to-indigo-500/50",
-  "to-orange-500/50",
+  "to-violet-500",
+  "to-pink-500",
+  "to-fuchsia-500",
+  "to-orange-500",
+
+  "to-violet-500",
+  "to-pink-500",
+  "to-fuchsia-500",
+  "to-orange-500",
+
+  "to-violet-500",
+  "to-pink-500",
+  "to-fuchsia-500",
+  "to-orange-500",
 ];
 
 const AnalyticsPage = () => {
@@ -158,8 +159,8 @@ const AnalyticsPage = () => {
 
   if (isLoading || isFetching)
     return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <p className="text-white text-lg">Cargando...</p>
+      <div className="w-full h-screen backdrop-blur-sm flex items-center justify-center">
+        <p className="text-white text-lg">Cargando datos de {byYear}...</p>
       </div>
     );
 
@@ -816,7 +817,7 @@ const AnalyticsPage = () => {
             <h1 className="uppercase text-xs tracking-wider">Gastos</h1>
             <h1 className="text-pink-500">$ {totalExpense()}</h1>
           </div>
-          <div className="bg-card w-full min-h-[236px] items-start grid grid-cols-4 gap-1 lg:grid-cols-3 ">
+          <div className="bg-card w-full min-h-[116px] items-start grid grid-cols-4 gap-1 lg:grid-cols-3 ">
             {groupByCategory(filterByYearMonth("Expense")).map(
               (item: any, index: any) => (
                 <div
@@ -825,7 +826,7 @@ const AnalyticsPage = () => {
                   className="xbg-card flex flex-col items-center justify-center text-gray-400 rounded-sm Xshadow-lg Xshadow-black/50 py-3"
                 >
                   <div
-                    className={`relative w-14 h-14 p-0.5 rounded-full bg-gradient-to-bl from-purple-500/50 
+                    className={`relative w-14 h-14 p-0.5 rounded-full bg-gradient-to-bl from-rose-500 
                   ${circleColor2[index]}
                   `}
                   >
@@ -897,7 +898,7 @@ const AnalyticsPage = () => {
       </div>
 
       {/** FOOTER */}
-      <div className="bg-card py-10 text-sm text-center text-gray-400 flex flex-row justify-center items-center ">
+      <div className="bg-fondo py-10 text-sm text-center text-gray-400 flex flex-row justify-center items-center ">
         <h1>
           <span className={number.className}>@ 2024 </span> Wall
           <span className={number.className}>3</span>t. All rights reserved.{" "}

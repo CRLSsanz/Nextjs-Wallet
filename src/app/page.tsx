@@ -55,9 +55,11 @@ export default function Home() {
   //var top2 = arr.sort((a, b) => b[4] - a[4]).slice(0, 2);. –
   //var top2 = arr.sort((a, b) => b[4] - a[4]).slice(0, x);
 
+  if (!session?.user) return <LoginPage />;
+
   if (isLoading || isFetching)
     return (
-      <div className="w-full h-screen flex items-center justify-center">
+      <div className="w-full h-screen flex backdrop-blur-sm items-center justify-center">
         <Loader />
       </div>
     );
@@ -77,6 +79,7 @@ export default function Home() {
         </div>
       );
     }
+
   // INCOME - EXPENSE del array general WALLET
   const balanceGeneral = (wallet: any) => {
     let totalExpense = 0;
@@ -155,258 +158,252 @@ export default function Home() {
 
   return (
     <main className="">
-      {!session?.user ? (
-        <LoginPage />
-      ) : (
-        <div className="flex flex-col text-white">
-          <div className="h-[calc(66.667vh)] w-full flex flex-col justify-between p-5 border-b border-gray-500/50">
-            {/** BOTON Y FOTO */}
+      <div className="flex flex-col text-white">
+        <div className="h-[calc(66.667vh)] w-full flex flex-col justify-between p-5 border-b border-gray-500/50">
+          {/** BOTON Y FOTO */}
+          <div>
             <div>
-              <div>
-                <h1 className="hidden text-4xl text-gray-300 mb-3">
-                  Manage your <span className="text-cyan-600">Expenses</span>{" "}
-                  more easily
+              <h1 className="hidden text-4xl text-gray-300 mb-3">
+                Manage your <span className="text-cyan-600">Expenses</span> more
+                easily
+              </h1>
+              <div className="text-4xl text-gray-300 mb-3">
+                <h1>
+                  Gestiona <span className="text-3xl"> tus </span>{" "}
+                  <span className="text-cyan-600">Gastos </span>
                 </h1>
-                <div className="text-4xl text-gray-300 mb-3">
-                  <h1>
-                    Gestiona <span className="text-3xl"> tus </span>{" "}
-                    <span className="text-cyan-600">Gastos </span>
-                  </h1>
-                  <h1 className="text-3xl -mt-2"> más fácilmente</h1>
-                </div>
-                <p className="hidden text-gray-500 text-sm ">
-                  Get complete control over your expenses and save as mush as
-                  you want.
-                </p>
-                <p className="w-[250px] text-gray-50 text-sm">
-                  <span className="">Hola {session.user.name}, </span>
-                  obtén control total sobre tus gastos y ahorra todo lo que
-                  quieras.
-                </p>
+                <h1 className="text-3xl -mt-2"> más fácilmente</h1>
               </div>
+              <p className="hidden text-gray-500 text-sm ">
+                Get complete control over your expenses and save as mush as you
+                want.
+              </p>
+              <p className="w-[250px] text-gray-50 text-sm">
+                <span className="">Hola {session.user.name}, </span>
+                obtén control total sobre tus gastos y ahorra todo lo que
+                quieras.
+              </p>
             </div>
-            {/** ULTIMAS TRANSACCIONES */}
-            <div className={`px-5 Xbg-black/50`}>
-              <div className="flex flex-row justify-between mb-2">
-                <h1 className="Xtext-cyan-400">Mas recientes</h1>
-                <Link
-                  href={"/history"}
-                  className="Xborder-b text-cyan-400 flex flex-row items-center"
+          </div>
+          {/** ULTIMAS TRANSACCIONES */}
+          <div className={`px-5 Xbg-black/50`}>
+            <div className="flex flex-row justify-between mb-2">
+              <h1 className="Xtext-cyan-400">Mas recientes</h1>
+              <Link
+                href={"/history"}
+                className="Xborder-b text-cyan-400 flex flex-row items-center"
+              >
+                <h1>Ver todo</h1>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                  className="w-4 h-4 ml-1"
                 >
-                  <h1>Ver todo</h1>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                    stroke="currentColor"
-                    className="w-4 h-4 ml-1"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </Link>
+            </div>
+
+            {wallet.slice(0, 3).map((item: any, index: any) => (
+              <div
+                key={index}
+                className={` bg-gray-800/80 rounded-sm py-2 px-4 flex flex-row items-center mb-2 `}
+              >
+                <div className="">
+                  <div className="w-8 h-8 flex justify-center items-center bg-gradient-to-br from-purple-700 to-pink-500 rounded-lg">
+                    <img
+                      src={`./images/category/${item.category}.png`}
+                      className={`w-6 h-6 rounded-full `}
+                      alt={item.category}
                     />
-                  </svg>
-                </Link>
-              </div>
-
-              {wallet.slice(0, 3).map((item: any, index: any) => (
-                <div
-                  key={index}
-                  className={` bg-gray-800/80 rounded-sm py-2 px-4 flex flex-row items-center mb-2 `}
-                >
-                  <div className="">
-                    <div className="w-8 h-8 flex justify-center items-center bg-gradient-to-br from-purple-700 to-pink-500 rounded-lg">
-                      <img
-                        src={`./images/category/${item.category}.png`}
-                        className={`w-6 h-6 rounded-full `}
-                        alt={item.category}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col w-full ml-3">
-                    <h1>{item.category}</h1>
-                    <span className="text-xs text-gray-400 -mt-1">
-                      <span className={`${number.className}`}>
-                        {item.date.substr(8, 2)}
-                      </span>
-                      {" de " +
-                        MonthName[Number(item.date.substr(5, 2)) - 1] +
-                        " de "}
-                      <span className={`${number.className}`}>
-                        {item.date.substr(0, 4)}
-                      </span>
-                    </span>
-                  </div>
-                  <div className={`whitespace-nowrap ${number.className}`}>
-                    $ {item.total.toFixed(0)}
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/** BUTTON = ITEM ADD - ANALYTICS - HISTORY - CATEGORY */}
-          <div className="hidden p-5 text-gray-200 xflex flex-row justify-between items-center mb-5">
-            <div className="flex flex-col items-center">
-              <Link
-                href={session?.user ? "/form" : "#"}
-                className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-7 h-7 active:animate-ping hover:scale-125 Xhover:-ml-2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                  />
-                </svg>
-              </Link>
-              <div className=""> Add </div>
-            </div>
-            <div className="flex flex-col items-center">
-              <Link
-                href={session?.user ? "/analytics" : "#"}
-                className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-7 h-7 active:animate-ping hover:scale-125 Xhover:-ml-2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
-                  />
-                </svg>
-              </Link>
-              <div className=""> Analisis </div>
-            </div>
-            <div className="flex flex-col items-center">
-              <Link
-                href={session?.user ? "/history" : "#"}
-                className="w-16 h-16 flex items-center justify-center  rounded-full bg-black/20 mb-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-7 h-7 active:animate-ping hover:scale-125 Xhover:-ml-2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
-                  />
-                </svg>
-              </Link>
-              <div className=""> Balance </div>
-            </div>
-            <div className="flex flex-col items-center">
-              <Link
-                href={session?.user ? "/category#list" : "#"}
-                className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-7 h-7 active:animate-ping hover:scale-125 Xhover:-ml-2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"
-                  />
-                </svg>
-              </Link>
-              <div className=""> Category </div>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                  />
-                </svg>
-              </div>
-              <div className=""> Mas </div>
-            </div>
-          </div>
-
-          {/** PRESUPUESTO GENERAL*/}
-          <div
-            className={`min-h-[calc(33.333vh)] bg-[#25282F]/50 flex flex-row justify-between ${number.className} `}
-          >
-            <div className="pt-5">
-              <h1 className="px-10 uppercase tracking-widest text-xs text-center font-semibold text-gray-300 mb-2">
-                Presupuesto General
-              </h1>
-              <h1 className="text-center text-white text-4xl mb-5">
-                {Number(balanceGeneral(wallet)).toFixed(0)}
-              </h1>
-            </div>
-
-            <div className="pt-5 Xborder-l-2 Xborder-gray-500/50">
-              {groupByYear.map((item: any, index: any) => (
-                <div
-                  key={index}
-                  className="relative py-2 px-5 w-full flex flex-row justify-between items-center  "
-                >
-                  <div className="absolute top-4 left-0 w-2 h-2 border-b-2 border-gray-500/50 ">
-                    {}
-                  </div>
-                  <div className="flex flex-col mr-10">
-                    <span className="text-gray-200">{item.year} </span>
-                    <span className="text-gray-400 -mt-1 text-xs">
-                      Balance{" "}
+                <div className="flex flex-col w-full ml-3">
+                  <h1>{item.category}</h1>
+                  <span className="text-xs text-gray-400 -mt-1">
+                    <span className={`${number.className}`}>
+                      {item.date.substr(8, 2)}
                     </span>
-                  </div>
-                  <h1
-                    className={`text-xl whitespace-nowrap ${
-                      filterData(item.year) < 0
-                        ? "text-yellow-500"
-                        : "text-gray-200"
-                    } `}
-                  >
-                    {filterData(item.year).toFixed(0)} $
-                  </h1>
+                    {" de " +
+                      MonthName[Number(item.date.substr(5, 2)) - 1] +
+                      " de "}
+                    <span className={`${number.className}`}>
+                      {item.date.substr(0, 4)}
+                    </span>
+                  </span>
                 </div>
-              ))}
-            </div>
+                <div className={`whitespace-nowrap ${number.className}`}>
+                  $ {item.total.toFixed(0)}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      )}
+
+        {/** BUTTON = ITEM ADD - ANALYTICS - HISTORY - CATEGORY */}
+        <div className="hidden p-5 text-gray-200 xflex flex-row justify-between items-center mb-5">
+          <div className="flex flex-col items-center">
+            <Link
+              href={session?.user ? "/form" : "#"}
+              className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7 active:animate-ping hover:scale-125 Xhover:-ml-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+            </Link>
+            <div className=""> Add </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <Link
+              href={session?.user ? "/analytics" : "#"}
+              className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7 active:animate-ping hover:scale-125 Xhover:-ml-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
+                />
+              </svg>
+            </Link>
+            <div className=""> Analisis </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <Link
+              href={session?.user ? "/history" : "#"}
+              className="w-16 h-16 flex items-center justify-center  rounded-full bg-black/20 mb-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7 active:animate-ping hover:scale-125 Xhover:-ml-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"
+                />
+              </svg>
+            </Link>
+            <div className=""> Balance </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <Link
+              href={session?.user ? "/category#list" : "#"}
+              className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-7 h-7 active:animate-ping hover:scale-125 Xhover:-ml-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"
+                />
+              </svg>
+            </Link>
+            <div className=""> Category </div>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <div className="w-16 h-16 flex items-center justify-center rounded-full bg-black/20 mb-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                />
+              </svg>
+            </div>
+            <div className=""> Mas </div>
+          </div>
+        </div>
+
+        {/** PRESUPUESTO GENERAL*/}
+        <div
+          className={`min-h-[calc(33.333vh)] bg-[#25282F]/50 flex flex-row justify-between ${number.className} `}
+        >
+          <div className="pt-5">
+            <h1 className="px-10 uppercase tracking-widest text-xs text-center font-semibold text-gray-300 mb-2">
+              Presupuesto General
+            </h1>
+            <h1 className="text-center text-white text-4xl mb-5">
+              {Number(balanceGeneral(wallet)).toFixed(0)}
+            </h1>
+          </div>
+
+          <div className="pt-5 Xborder-l-2 Xborder-gray-500/50">
+            {groupByYear.map((item: any, index: any) => (
+              <div
+                key={index}
+                className="relative py-2 px-5 w-full flex flex-row justify-between items-center  "
+              >
+                <div className="absolute top-4 left-0 w-2 h-2 border-b-2 border-gray-500/50 ">
+                  {}
+                </div>
+                <div className="flex flex-col mr-10">
+                  <span className="text-gray-200">{item.year} </span>
+                  <span className="text-gray-400 -mt-1 text-xs">Balance </span>
+                </div>
+                <h1
+                  className={`text-xl whitespace-nowrap ${
+                    filterData(item.year) < 0
+                      ? "text-yellow-500"
+                      : "text-gray-200"
+                  } `}
+                >
+                  {filterData(item.year).toFixed(0)} $
+                </h1>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <div className="hidden h-screen pt-20 px-5">
         <Count />

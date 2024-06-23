@@ -110,6 +110,13 @@ const HistoryPage = () => {
     return balance.toFixed(0);
   };
 
+  if (isLoading)
+    return (
+      <div className="w-full h-screen flex items-center backdrop-blur-sm justify-center">
+        <p className="text-white text-lg">Cargando Transacciones...</p>
+      </div>
+    );
+
   return (
     <>
       <section
