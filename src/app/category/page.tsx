@@ -34,10 +34,10 @@ const expensesCategory = [
 ];
 const incomeCategory = [
   { name: "Alquiler", active: true }, //
-  { name: "Cliente", active: true }, //
+  { name: "Cliente", active: false }, //
   { name: "Intereses", active: true }, //
   { name: "Negocios", active: true },
-  { name: "Prestamo", active: true }, //
+  { name: "Prestamo", active: false }, //
   { name: "Regalo", active: true }, //
   { name: "Salario", active: true }, //
   { name: "Servicios", active: true }, //
@@ -46,19 +46,19 @@ const incomeCategory = [
 
 const CategoryPage = () => {
   return (
-    <div className={"inter.className"}>
+    <div className={"bg-black/50 inter.className"}>
       <div className="p-5 text-gray-100 mb-5">
         <h1 className="text-5xl font-thin -tracking-wider mb-5">
           Lista de Categorias
         </h1>
-        <p className="text-lg">
-          Cantidad de Items {"("}
-          {expensesCategory.length}
-          {")"}
+        <p className="text-gray-400 mb-5">
+          Para activar o desactivar alguna categoria puedes hacer click o pulsar
+          sobre el item.
         </p>
-        <p className="text-gray-400">
-          Para activar o desactivar alguna categoria puedes hacer click en los
-          items.
+        <p className="text-lg">
+          Income: {"("}
+          {incomeCategory.length}
+          {") items"}
         </p>
       </div>
 
@@ -69,8 +69,8 @@ const CategoryPage = () => {
             className={` relative px-2 py-5 Xrounded-2xl Xrounded-tr-[50px] flex flex-col items-center Xjustify-between 
                 ${
                   item.active === true
-                    ? " bg-gradient-to-br from-emerald-600 to-emerald-700 "
-                    : " bg-gradient-to-br from-gray-600/20 to-gray-50/10  "
+                    ? " bg-gradient-to-br from-teal-600 to-teal-700 "
+                    : " bg-gradient-to-br from-gray-700/95 to-gray-700/80 "
                 }
                 `}
           >
@@ -129,6 +129,12 @@ const CategoryPage = () => {
           </div>
         ))}
       </div>
+
+      <p className="p-5 text-lg text-gray-100">
+        Expenses: {"("}
+        {expensesCategory.length}
+        {") items"}
+      </p>
 
       <div id="" className="grid grid-cols-4 Xgap-3">
         {expensesCategory.map((item, index) => (
@@ -197,6 +203,8 @@ const CategoryPage = () => {
           </div>
         ))}
       </div>
+      {/** FOOTER */}
+      <div className="h-20"> </div>
     </div>
   );
 };

@@ -159,7 +159,7 @@ export default function Home() {
   return (
     <main className="">
       <div className="flex flex-col text-white">
-        <div className="h-[calc(66.667vh)] w-full flex flex-col justify-between p-5 border-b border-gray-500/50">
+        <div className="h-[calc(66.667vh)] bg-black/50 w-full flex flex-col justify-between p-5 border-b border-gray-500/50">
           {/** BOTON Y FOTO */}
           <div>
             <div>
@@ -366,7 +366,7 @@ export default function Home() {
 
         {/** PRESUPUESTO GENERAL*/}
         <div
-          className={`min-h-[calc(33.333vh)] bg-[#25282F]/50 flex flex-row justify-between ${number.className} `}
+          className={`min-h-[calc(33.333vh)] bg-card Xbg-[#25282F]/50 flex flex-row justify-between ${number.className} `}
         >
           <div className="pt-5">
             <h1 className="px-10 uppercase tracking-widest text-xs text-center font-semibold text-gray-300 mb-2">
@@ -377,7 +377,7 @@ export default function Home() {
             </h1>
           </div>
 
-          <div className="pt-5 Xborder-l-2 Xborder-gray-500/50">
+          <div className="pt-5 border-l-2 border-gray-500/50">
             {groupByYear.map((item: any, index: any) => (
               <div
                 key={index}

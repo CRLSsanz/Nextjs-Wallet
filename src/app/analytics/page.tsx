@@ -756,7 +756,7 @@ const AnalyticsPage = () => {
                   </div>
 
                   <div
-                    hidden={show}
+                    //hidden={show}
                     className="px-2 w-full text-xs text-center truncate"
                   >
                     {item.category}
@@ -795,7 +795,7 @@ const AnalyticsPage = () => {
                   </div>
 
                   <h1
-                    hidden={show}
+                    //hidden={show}
                     className={`text-xs
                       ${
                         item.type === "Expense"
@@ -814,7 +814,28 @@ const AnalyticsPage = () => {
           <div
             className={`px-5 h-12 flex flex-row items-center justify-between ${number.className}`}
           >
-            <h1 className="uppercase text-xs tracking-wider">Gastos</h1>
+            <div className="flex flex-row items-center">
+              <h1 className="uppercase text-xs tracking-wider">Gastos</h1>
+              <div
+                onClick={() => setShow(!show)}
+                className={`ml-5 ${show ? "rotate-90" : "-rotate-90"} `}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </div>
+            </div>
             <h1 className="text-pink-500">$ {totalExpense()}</h1>
           </div>
           <div className="bg-card w-full min-h-[116px] items-start grid grid-cols-4 gap-1 lg:grid-cols-3 ">
@@ -822,7 +843,6 @@ const AnalyticsPage = () => {
               (item: any, index: any) => (
                 <div
                   key={index}
-                  onClick={() => setShow(!show)}
                   className="xbg-card flex flex-col items-center justify-center text-gray-400 rounded-sm Xshadow-lg Xshadow-black/50 py-3"
                 >
                   <div

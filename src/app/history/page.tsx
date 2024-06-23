@@ -357,7 +357,7 @@ const HistoryPage = () => {
             </div>
           </div>
           {/** FOOTER */}
-          <div className="bg-card py-10 text-sm text-center text-gray-400 flex flex-row justify-center items-center ">
+          <div className="bg-fondo py-10 text-sm text-center text-gray-400 flex flex-row justify-center items-center ">
             <h1>
               <span className={inter.className}>@ 2024 </span> Wall
               <span className={inter.className}>3</span>t. All rights reserved.{" "}
